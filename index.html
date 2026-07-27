@@ -1,0 +1,1428 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="نموذج أولي لواجهات منظومة ERP للتوزيع — Cash Van. بيانات توضيحية.">
+<style>*{margin:0;padding:0}img{max-width:100%}</style>
+</head>
+<body>
+<title>منظومة ERP للتوزيع — نموذج أولي</title>
+
+<style>
+  :root{
+    --brand:#0E6E5C; --brand-soft:#E3EFEB; --brand-ink:#0A4C40;
+    --wheat:#C8892B; --wheat-soft:#F7EEDC;
+    --ink:#16211F; --ink-2:#4A5A56; --ink-3:#7C8A86;
+    --paper:#F7F5F0; --card:#FFFFFF; --line:#E2DDD3; --line-2:#EFEBE3;
+    --ok:#1F8A4C; --ok-bg:#E6F4EA;
+    --warn:#B4761A; --warn-bg:#FBF0DC;
+    --bad:#AE3229; --bad-bg:#FAE9E7;
+    --info:#1D6A8C; --info-bg:#E4F0F5;
+    --radius:10px;
+    --shadow:0 1px 2px rgba(22,33,31,.06), 0 6px 18px -10px rgba(22,33,31,.18);
+    --ar:"Segoe UI","Noto Sans Arabic","Tahoma","Geeza Pro",Arial,sans-serif;
+    --num:ui-monospace,"Cascadia Mono","Consolas","DejaVu Sans Mono",monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --brand:#2FA48C; --brand-soft:#12332C; --brand-ink:#7FD3C0;
+      --wheat:#DBA34C; --wheat-soft:#332714;
+      --ink:#E8EDEB; --ink-2:#A6B4B0; --ink-3:#788783;
+      --paper:#0F1614; --card:#18211F; --line:#2A3532; --line-2:#212B29;
+      --ok:#4CC57C; --ok-bg:#12301F;
+      --warn:#D9A44E; --warn-bg:#33270F;
+      --bad:#E0685C; --bad-bg:#3A1B18;
+      --info:#5FB6D8; --info-bg:#122A34;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --brand:#2FA48C; --brand-soft:#12332C; --brand-ink:#7FD3C0;
+    --wheat:#DBA34C; --wheat-soft:#332714;
+    --ink:#E8EDEB; --ink-2:#A6B4B0; --ink-3:#788783;
+    --paper:#0F1614; --card:#18211F; --line:#2A3532; --line-2:#212B29;
+    --ok:#4CC57C; --ok-bg:#12301F;
+    --warn:#D9A44E; --warn-bg:#33270F;
+    --bad:#E0685C; --bad-bg:#3A1B18;
+    --info:#5FB6D8; --info-bg:#122A34;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+  :root[data-theme="light"]{
+    --brand:#0E6E5C; --brand-soft:#E3EFEB; --brand-ink:#0A4C40;
+    --wheat:#C8892B; --wheat-soft:#F7EEDC;
+    --ink:#16211F; --ink-2:#4A5A56; --ink-3:#7C8A86;
+    --paper:#F7F5F0; --card:#FFFFFF; --line:#E2DDD3; --line-2:#EFEBE3;
+    --ok:#1F8A4C; --ok-bg:#E6F4EA;
+    --warn:#B4761A; --warn-bg:#FBF0DC;
+    --bad:#AE3229; --bad-bg:#FAE9E7;
+    --info:#1D6A8C; --info-bg:#E4F0F5;
+    --shadow:0 1px 2px rgba(22,33,31,.06), 0 6px 18px -10px rgba(22,33,31,.18);
+  }
+
+  *{box-sizing:border-box}
+  .app{direction:rtl;font-family:var(--ar);background:var(--paper);color:var(--ink);
+       min-height:100vh;line-height:1.6;font-size:15px}
+  .num{font-family:var(--num);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+  /* ---------- prototype banner ---------- */
+  .proto{background:var(--wheat-soft);border-bottom:1px solid var(--line);
+         color:var(--ink);padding:9px 20px;display:flex;gap:10px;align-items:center;
+         font-size:13px;flex-wrap:wrap}
+  .proto b{color:var(--wheat)}
+  .proto .dot{width:7px;height:7px;border-radius:50%;background:var(--wheat);flex:none}
+
+  /* ---------- shell ---------- */
+  .shell{display:flex;min-height:calc(100vh - 40px)}
+  .side{width:248px;flex:none;background:var(--card);border-inline-start:1px solid var(--line);
+        display:flex;flex-direction:column;gap:2px;padding:18px 12px}
+  .brandmark{display:flex;align-items:center;gap:10px;padding:6px 10px 18px}
+  .brandmark .glyph{width:34px;height:34px;border-radius:9px;background:var(--brand);
+        display:grid;place-items:center;color:#fff;font-weight:700;font-size:15px;flex:none}
+  .brandmark .t1{font-weight:700;font-size:14.5px;letter-spacing:-.01em}
+  .brandmark .t2{font-size:11.5px;color:var(--ink-3)}
+  .navlbl{font-size:10.5px;letter-spacing:.09em;color:var(--ink-3);padding:14px 12px 6px;font-weight:600}
+  .nav{display:flex;flex-direction:column;gap:1px}
+  .nav button{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;
+        padding:9px 12px;border-radius:8px;font-size:14px;color:var(--ink-2);font-family:inherit}
+  .nav button:hover{background:var(--line-2);color:var(--ink)}
+  .nav button:focus-visible{outline:2px solid var(--brand);outline-offset:1px}
+  .nav button[aria-current="true"]{background:var(--brand-soft);color:var(--brand-ink);font-weight:600}
+  .nav .code{margin-inline-start:auto;font-size:10.5px;color:var(--ink-3);font-family:var(--num)}
+  .nav button[aria-current="true"] .code{color:var(--brand)}
+
+  .main{flex:1;min-width:0;padding:22px 26px 60px}
+  .topbar{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+  h1{font-size:22px;margin:0 0 3px;font-weight:700;letter-spacing:-.02em;text-wrap:balance}
+  .sub{color:var(--ink-2);font-size:13.5px;margin:0}
+  .topbar .right{margin-inline-start:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+  /* ---------- primitives ---------- */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+        box-shadow:var(--shadow)}
+  .card>header{padding:13px 16px;border-bottom:1px solid var(--line-2);display:flex;
+        align-items:center;gap:10px;flex-wrap:wrap}
+  .card>header h2{font-size:14.5px;margin:0;font-weight:650}
+  .card>header .meta{margin-inline-start:auto;font-size:12px;color:var(--ink-3)}
+  .pad{padding:16px}
+  .grid{display:grid;gap:14px}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:1080px){.g4{grid-template-columns:repeat(2,1fr)}.g3,.g2{grid-template-columns:1fr}}
+
+  .pill{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;
+        padding:3px 9px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+  .pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+  .p-ok{background:var(--ok-bg);color:var(--ok)}
+  .p-warn{background:var(--warn-bg);color:var(--warn)}
+  .p-bad{background:var(--bad-bg);color:var(--bad)}
+  .p-info{background:var(--info-bg);color:var(--info)}
+  .p-mute{background:var(--line-2);color:var(--ink-3)}
+
+  .btn{all:unset;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;
+       padding:7px 14px;border-radius:8px;background:var(--brand);color:#fff}
+  .btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+  .btn.ghost{background:transparent;color:var(--ink-2);border:1px solid var(--line)}
+  .btn.ghost:hover{background:var(--line-2);color:var(--ink)}
+  .btn[disabled]{opacity:.45;cursor:not-allowed}
+
+  .tblwrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:520px}
+  th{text-align:right;font-size:11.5px;letter-spacing:.03em;color:var(--ink-3);
+     font-weight:600;padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:10px 12px;border-bottom:1px solid var(--line-2);vertical-align:middle}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr:hover{background:var(--line-2)}
+  td.n,th.n{text-align:left;font-family:var(--num);font-variant-numeric:tabular-nums}
+  tfoot td{font-weight:700;border-top:2px solid var(--line);padding:11px 12px}
+
+  /* ---------- KPI ---------- */
+  .kpi{padding:15px 16px;display:flex;flex-direction:column;gap:6px}
+  .kpi .lbl{font-size:12px;color:var(--ink-2)}
+  .kpi .val{font-family:var(--num);font-size:26px;font-weight:700;letter-spacing:-.03em;line-height:1.1}
+  .kpi .foot{font-size:11.5px;color:var(--ink-3);display:flex;align-items:center;gap:6px}
+  .spark{height:26px;width:100%;display:block}
+
+  /* ---------- day ribbon ---------- */
+  .ribbon{display:flex;align-items:stretch;gap:0;overflow-x:auto;padding:2px}
+  .step{flex:1;min-width:104px;padding:11px 12px;border:1px solid var(--line);
+        border-inline-start:0;background:var(--card);position:relative}
+  .step:first-child{border-inline-start:1px solid var(--line);
+        border-radius:0 var(--radius) var(--radius) 0}
+  .step:last-child{border-radius:var(--radius) 0 0 var(--radius)}
+  .step .s1{font-size:10.5px;color:var(--ink-3);margin-bottom:3px}
+  .step .s2{font-size:13px;font-weight:600}
+  .step.done{background:var(--ok-bg);border-color:transparent}
+  .step.done .s2{color:var(--ok)}
+  .step.now{background:var(--brand);border-color:transparent}
+  .step.now .s1{color:rgba(255,255,255,.72)}
+  .step.now .s2{color:#fff}
+  .step.next .s2{color:var(--ink-3)}
+
+  /* ---------- T account ---------- */
+  .tacc{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);
+        border-radius:var(--radius);overflow:hidden}
+  .tacc>div{padding:0}
+  .tacc h4{margin:0;padding:9px 14px;font-size:11.5px;letter-spacing:.05em;
+        background:var(--line-2);color:var(--ink-3);font-weight:600}
+  .tacc .side-d h4{color:var(--info)}
+  .tacc .side-c h4{color:var(--wheat)}
+  .tacc ul{list-style:none;margin:0;padding:8px 0}
+  .tacc li{display:flex;gap:10px;padding:7px 14px;font-size:13px;align-items:baseline}
+  .tacc li .acc{font-family:var(--num);font-size:11.5px;color:var(--ink-3);flex:none}
+  .tacc li .nm{flex:1;min-width:0}
+  .tacc li .amt{font-family:var(--num);font-variant-numeric:tabular-nums;font-weight:600}
+  .tacc .side-c{border-inline-start:1px solid var(--line)}
+  .balrow{display:flex;justify-content:space-between;align-items:center;gap:12px;
+        padding:11px 16px;background:var(--ok-bg);color:var(--ok);font-weight:650;font-size:13px;
+        border-radius:var(--radius);margin-top:12px}
+
+  .keyval{display:grid;grid-template-columns:auto 1fr;gap:7px 16px;font-size:13.5px}
+  .keyval dt{color:var(--ink-3);font-size:12.5px}
+  .keyval dd{margin:0;font-weight:550}
+
+  .note{font-size:12.5px;color:var(--ink-2);background:var(--line-2);
+        border-inline-start:3px solid var(--brand);padding:10px 13px;border-radius:0 8px 8px 0}
+  .note b{color:var(--ink)}
+
+  /* ---------- presentation-only pieces ---------- */
+  .hero{background:var(--brand);color:#fff;border-radius:var(--radius);padding:26px 28px;
+        display:flex;gap:26px;align-items:flex-end;flex-wrap:wrap;box-shadow:var(--shadow)}
+  .hero h2{margin:0 0 6px;font-size:25px;font-weight:700;letter-spacing:-.025em;text-wrap:balance}
+  .hero p{margin:0;color:rgba(255,255,255,.82);font-size:14px;max-width:56ch}
+  .hero .figs{margin-inline-start:auto;display:flex;gap:26px;flex-wrap:wrap}
+  .hero .fig{display:flex;flex-direction:column;gap:1px}
+  .hero .fig b{font-family:var(--num);font-size:27px;font-weight:700;letter-spacing:-.03em;line-height:1}
+  .hero .fig span{font-size:11.5px;color:rgba(255,255,255,.7)}
+
+  .askcard{border-inline-start:4px solid var(--wheat);background:var(--wheat-soft);
+        border-radius:0 var(--radius) var(--radius) 0;padding:15px 18px}
+  .askcard h3{margin:0 0 4px;font-size:14.5px}
+  .askcard p{margin:0;font-size:13px;color:var(--ink-2)}
+
+  .bar{height:8px;border-radius:99px;background:var(--line-2);overflow:hidden;display:flex}
+  .bar i{display:block;height:100%}
+
+  .wave{display:grid;grid-template-columns:96px 1fr;gap:0;align-items:stretch}
+  .wave+.wave{border-top:1px solid var(--line-2)}
+  .wave .w1{padding:14px 16px;background:var(--line-2);display:flex;flex-direction:column;
+        justify-content:center;gap:2px}
+  .wave .w1 b{font-size:13px}
+  .wave .w1 span{font-size:11px;color:var(--ink-3);font-family:var(--num)}
+  .wave .w2{padding:14px 16px}
+  .wave .w2 b{font-size:13.5px;display:block;margin-bottom:3px}
+  .wave .w2 p{margin:0;font-size:12.5px;color:var(--ink-2)}
+  .wave.live .w1{background:var(--brand-soft)}
+  .wave.live .w1 b{color:var(--brand-ink)}
+
+  /* phone */
+  .phones{display:flex;gap:26px;flex-wrap:wrap;justify-content:center;padding:6px 0}
+  .phone{width:300px;flex:none;border:9px solid var(--ink);border-radius:34px;
+        background:var(--card);overflow:hidden;box-shadow:var(--shadow)}
+  :root[data-theme="dark"] .phone{border-color:#050807}
+  .phone .notch{background:var(--ink);height:20px;display:grid;place-items:center}
+  :root[data-theme="dark"] .phone .notch{background:#050807}
+  .phone .notch i{display:block;width:78px;height:5px;border-radius:99px;background:#5a6a66}
+  .phone .pbar{display:flex;justify-content:space-between;align-items:center;
+        padding:7px 14px;font-size:10.5px;color:var(--ink-3);font-family:var(--num);
+        border-bottom:1px solid var(--line-2)}
+  .phone .phd{padding:12px 14px;border-bottom:1px solid var(--line-2)}
+  .phone .phd b{font-size:14.5px;display:block}
+  .phone .phd span{font-size:11.5px;color:var(--ink-3)}
+  .phone .pbody{padding:13px 14px;display:flex;flex-direction:column;gap:11px}
+  .phone .prow{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px}
+  .phone .pbig{border-radius:9px;padding:12px 13px;background:var(--brand-soft);
+        display:flex;flex-direction:column;gap:2px}
+  .phone .pbig span{font-size:11px;color:var(--brand-ink)}
+  .phone .pbig b{font-family:var(--num);font-size:22px;color:var(--brand-ink);letter-spacing:-.02em}
+  .phone .pbtn{background:var(--brand);color:#fff;text-align:center;padding:11px;
+        border-radius:9px;font-weight:650;font-size:13.5px}
+  .phone .pbtn.dim{background:var(--line-2);color:var(--ink-3)}
+  .phone .line{border-top:1px solid var(--line-2);margin:1px 0}
+  .phone .plot{font-family:var(--num);font-size:10.5px;color:var(--ink-3)}
+  .phcap{text-align:center;font-size:12.5px;color:var(--ink-3);margin-top:9px}
+
+  .roi-in{font-family:var(--num);font-variant-numeric:tabular-nums;font-size:13px;
+        width:100%;max-width:118px;padding:6px 9px;border:1px solid var(--line);
+        border-radius:7px;background:var(--paper);color:var(--ink);text-align:left;
+        -moz-appearance:textfield}
+  .roi-in::-webkit-outer-spin-button,.roi-in::-webkit-inner-spin-button{
+        -webkit-appearance:none;margin:0}
+  .roi-in:focus{outline:2px solid var(--brand);outline-offset:0;border-color:var(--brand)}
+  .roi-in.touched{border-color:var(--brand);background:var(--brand-soft)}
+
+  .screen{display:none}
+  .screen.on{display:block;animation:fade .22s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){.screen.on{animation:none}}
+
+  .stack{display:flex;flex-direction:column;gap:14px}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .muted{color:var(--ink-3);font-size:12.5px}
+  .lot{font-family:var(--num);font-size:11px;color:var(--ink-3)}
+
+  @media(max-width:860px){
+    .shell{flex-direction:column}
+    .side{width:auto;border-inline-start:0;border-bottom:1px solid var(--line);
+          flex-direction:row;overflow-x:auto;padding:10px}
+    .brandmark{display:none}
+    .navlbl{display:none}
+    .nav{flex-direction:row;gap:4px}
+    .nav .code{display:none}
+    .main{padding:16px}
+  }
+</style>
+
+<div class="app">
+
+  <div class="proto">
+    <span class="dot"></span>
+    <b>نموذج أولي للعرض</b>
+    <span style="color:var(--ink-2)">— الشاشات والبيانات توضيحية مبنية على مواصفات المشروع الفعلية. لا يوجد نظام مُشغَّل بعد.</span>
+  </div>
+
+  <div class="shell">
+    <nav class="side">
+      <div class="brandmark">
+        <div class="glyph">ت</div>
+        <div>
+          <div class="t1">منظومة التوزيع</div>
+          <div class="t2">Cash Van · ليبيا</div>
+        </div>
+      </div>
+
+      <div class="navlbl">العرض</div>
+      <div class="nav">
+        <button data-s="exec" aria-current="true">ملخص تنفيذي</button>
+        <button data-s="ready">الجاهزية والأرقام</button>
+        <button data-s="plan">خطة التنفيذ</button>
+        <button data-s="roi">التكلفة والعائد</button>
+      </div>
+
+      <div class="navlbl">الإدارة</div>
+      <div class="nav">
+        <button data-s="dash">لوحة الإدارة <span class="code">CMD</span></button>
+        <button data-s="c360">ملف العميل <span class="code">CRM-002</span></button>
+      </div>
+
+      <div class="navlbl">يوم المندوب</div>
+      <div class="nav">
+        <button data-s="day">لوحة اليوم <span class="code">CV-001</span></button>
+        <button data-s="mob">تطبيق المندوب <span class="code">Android</span></button>
+        <button data-s="inv">فاتورة Cash Van <span class="code">CV-007</span></button>
+        <button data-s="close">إقفال اليوم <span class="code">CV-013</span></button>
+      </div>
+
+      <div class="navlbl">المالية</div>
+      <div class="nav">
+        <button data-s="gl">الأثر المحاسبي <span class="code">FIN-001</span></button>
+      </div>
+    </nav>
+
+    <main class="main">
+
+      <!-- ================= ملخص تنفيذي ================= -->
+      <section class="screen on" id="exec">
+        <div class="hero" style="margin-bottom:16px">
+          <div>
+            <h2>منصة تشغيل واحدة بدل خمسة برامج منفصلة</h2>
+            <p>من حضور المندوب وتحميل السيارة، إلى زيارة العميل والفاتورة والتحصيل، وحتى القيد المحاسبي وتسوية النقدية — حركة واحدة تُدخل مرة واحدة.</p>
+          </div>
+          <div class="figs">
+            <div class="fig"><b>٩</b><span>فروع</span></div>
+            <div class="fig"><b>٩</b><span>مخازن</span></div>
+            <div class="fig"><b>٢٥</b><span>مندوبًا</span></div>
+          </div>
+        </div>
+
+        <div class="grid g3" style="margin-bottom:14px">
+          <div class="card pad">
+            <span class="pill p-bad" style="margin-bottom:9px">الوضع اليوم</span>
+            <b style="display:block;font-size:14px;margin-bottom:6px">الطلب يمرّ بواتساب</b>
+            <p class="muted" style="margin:0">صورة أو فاتورة يدوية، ثم موافقة، ثم إدخال في نظام المخزون، ثم إدخال في الحسابات. أربع مرات لنفس الحركة.</p>
+          </div>
+          <div class="card pad">
+            <span class="pill p-warn" style="margin-bottom:9px">الأثر</span>
+            <b style="display:block;font-size:14px;margin-bottom:6px">الفرق يظهر بعد فوات الأوان</b>
+            <p class="muted" style="margin:0">تسوية نقدية المندوب ومخزون السيارة تتم يدويًا. لا رؤية لحظية لمبيعات المسار ولا لأعمار الديون.</p>
+          </div>
+          <div class="card pad">
+            <span class="pill p-ok" style="margin-bottom:9px">بعد التشغيل</span>
+            <b style="display:block;font-size:14px;margin-bottom:6px">إدخال واحد يصل لكل مكان</b>
+            <p class="muted" style="margin:0">الفاتورة تخصم مخزون السيارة وتزيد خزينة المندوب وتُنشئ القيد — في معاملة واحدة لا تقبل التجزئة.</p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:14px">
+          <header><h2>ما أنجزناه قبل كتابة أي سطر برمجي</h2><span class="meta">مستودع موثّق بتاريخ مراجعات</span></header>
+          <div class="pad grid g4" style="gap:16px">
+            <div><b class="num" style="font-size:23px">٦٬٢٥٠</b><div class="muted">متطلبًا مفهرسًا بمعرّف فريد</div></div>
+            <div><b class="num" style="font-size:23px">٢٨٨</b><div class="muted">قرار تشغيلي معتمد في ١٨ محورًا</div></div>
+            <div><b class="num" style="font-size:23px">٣٣٥</b><div class="muted">حسابًا في شجرة حسابات جاهزة</div></div>
+            <div><b class="num" style="font-size:23px">١١٣</b><div class="muted">انتقال حالة موثّق في ١٧ مسارًا</div></div>
+          </div>
+        </div>
+
+        <div class="grid g2">
+          <div class="card">
+            <header><h2>ما نطلبه من هذا الاجتماع</h2><span class="meta">٣ قرارات</span></header>
+            <div class="pad stack" style="gap:11px">
+              <div class="askcard">
+                <h3>١ — اعتماد البنية التقنية</h3>
+                <p>خادم داخلي On-Premise وتطبيق Android يعمل يومين بلا إنترنت. أي كود يُكتب قبل هذا القرار سيُعاد.</p>
+              </div>
+              <div class="askcard">
+                <h3>٢ — اعتماد الجدول الزمني</h3>
+                <p>شهر لتشغيل تجريبي مضبوط على فرع واحد، ثم تعميم على موجات — لا نظام كامل في شهر.</p>
+              </div>
+              <div class="askcard">
+                <h3>٣ — تسمية مالك المنتج ومالك عملية لكل مجال</h3>
+                <p>من يوقّع القبول، ومن يحسم الخلاف بين الإدارات، وفي أي مدة.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="card">
+              <header><h2>ما يمنعه النظام من اليوم الأول</h2></header>
+              <div class="pad stack" style="gap:8px;font-size:13.5px">
+                <div class="row"><span class="pill p-bad">✕</span> بيع صنف منتهي الصلاحية أو محجور</div>
+                <div class="row"><span class="pill p-bad">✕</span> خصم يدوي من المندوب بلا اعتماد</div>
+                <div class="row"><span class="pill p-bad">✕</span> إقفال يوم بفرق نقدي غير مفسَّر</div>
+                <div class="row"><span class="pill p-bad">✕</span> اعتماد المندوب لتسوية نفسه</div>
+                <div class="row"><span class="pill p-bad">✕</span> حذف فاتورة أو قيد بعد الترحيل</div>
+                <div class="row"><span class="pill p-bad">✕</span> بدء يوم قبل إقفال اليوم السابق</div>
+              </div>
+            </div>
+            <div class="card pad">
+              <div class="note">
+                <b>هذه ليست تقارير رقابية تُقرأ آخر الشهر.</b> إنها قواعد مبنية داخل النظام تمنع المخالفة لحظة حدوثها.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= الجاهزية ================= -->
+      <section class="screen" id="ready">
+        <div class="topbar">
+          <div>
+            <h1>الجاهزية والأرقام</h1>
+            <p class="sub">أين نقف بالضبط — وما الذي يوقف البدء</p>
+          </div>
+          <div class="right"><span class="pill p-warn">٣ قرارات حاجبة</span></div>
+        </div>
+
+        <div class="grid g2" style="margin-bottom:14px">
+          <div class="card">
+            <header><h2>مكتمل وجاهز</h2><span class="meta">لا يحتاج قرارًا</span></header>
+            <div class="pad stack" style="gap:12px">
+              <div>
+                <div class="row" style="justify-content:space-between;margin-bottom:5px">
+                  <span>المتطلبات الوظيفية</span><b class="num">٦٬٢٥٠</b></div>
+                <div class="bar"><i style="width:100%;background:var(--ok)"></i></div>
+              </div>
+              <div>
+                <div class="row" style="justify-content:space-between;margin-bottom:5px">
+                  <span>القرارات التشغيلية المعتمدة</span><b class="num">٢٨٨ / ٢٨٨</b></div>
+                <div class="bar"><i style="width:100%;background:var(--ok)"></i></div>
+              </div>
+              <div>
+                <div class="row" style="justify-content:space-between;margin-bottom:5px">
+                  <span>شجرة الحسابات</span><b class="num">٣٣٥ حسابًا</b></div>
+                <div class="bar"><i style="width:100%;background:var(--ok)"></i></div>
+              </div>
+              <div>
+                <div class="row" style="justify-content:space-between;margin-bottom:5px">
+                  <span>مسارات العمل وانتقالاتها</span><b class="num">١٧ مسارًا</b></div>
+                <div class="bar"><i style="width:100%;background:var(--ok)"></i></div>
+              </div>
+              <div>
+                <div class="row" style="justify-content:space-between;margin-bottom:5px">
+                  <span>الشاشات الموصَّفة</span><b class="num">١٢١ شاشة</b></div>
+                <div class="bar"><i style="width:100%;background:var(--ok)"></i></div>
+              </div>
+              <div>
+                <div class="row" style="justify-content:space-between;margin-bottom:5px">
+                  <span>قواعد فصل المهام</span><b class="num">٢٢ قاعدة</b></div>
+                <div class="bar"><i style="width:100%;background:var(--ok)"></i></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="card">
+              <header><h2>يوقف البدء الآن</h2><span class="meta">٣ بنود</span></header>
+              <div class="tblwrap">
+                <table>
+                  <thead><tr><th>البند</th><th>صاحب القرار</th></tr></thead>
+                  <tbody>
+                    <tr><td><b>البنية التقنية</b><div class="muted">لغة وقاعدة بيانات وتطبيق الميدان</div></td><td>الإدارة و‎IT</td></tr>
+                    <tr><td><b>أثر ٢٣ عملية محاسبية</b><div class="muted">١٢ من ٣٥ جاهزة بالتفصيل</div></td><td>المدير المالي</td></tr>
+                    <tr><td><b>الاسم القانوني للشركة</b><div class="muted">مطلوب قبل طباعة أي فاتورة</div></td><td>الإدارة</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card">
+              <header><h2>يحتاج جهة خارجية</h2></header>
+              <div class="pad">
+                <p style="margin:0 0 9px;font-size:13.5px"><b>مستشار ضرائب ورواتب ليبي.</b></p>
+                <p class="muted" style="margin:0">محرّك الرواتب مبنيّ بحيث تُدخَل كل نسبة كإعداد بتاريخ نفاذ — لا نسبة واحدة مكتوبة داخل الكود. لكن لا تُفعَّل أي نسبة قبل توقيع المستشار.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card pad">
+          <div class="note">
+            <b>لماذا هذا التفصيل مهم؟</b> لأن أكثر ما يُفشل مشاريع الأنظمة هو البدء فوق قرار غير محسوم، ثم اكتشافه بعد شهرين. كل بند أعلاه له مالك وتاريخ.
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= خطة التنفيذ ================= -->
+      <section class="screen" id="plan">
+        <div class="topbar">
+          <div>
+            <h1>خطة التنفيذ</h1>
+            <p class="sub">موجات متتابعة — كل موجة تُسلّم قيمة قابلة للتشغيل وحدها</p>
+          </div>
+          <div class="right"><span class="pill p-info">بوابة قبول بين كل موجتين</span></div>
+        </div>
+
+        <div class="card" style="margin-bottom:14px">
+          <div class="wave">
+            <div class="w1"><b>الموجة ٠</b><span>أسبوعان</span></div>
+            <div class="w2"><b>التأسيس</b><p>ورش القرارات المالية · تصدير بيانات النظام الحالي وتنظيفها · اعتماد الأدوار وفصل المهام · تجهيز البيئات</p></div>
+          </div>
+          <div class="wave live">
+            <div class="w1"><b>الموجة ١</b><span>٤ أسابيع</span></div>
+            <div class="w2"><b>تشغيل تجريبي — فرع واحد</b><p>نواة Cash Van كاملة: تحميل السيارة ← الزيارة ← الفاتورة ← التحصيل ← التسوية ← القيود الآلية · الحضور الأساسي</p></div>
+          </div>
+          <div class="wave">
+            <div class="w1"><b>الموجة ٢</b><span>٤–٦ أسابيع</span></div>
+            <div class="w2"><b>التعميم والتوسع</b><p>بقية الفروع · الطلب المسبق والتوصيل · المرتجعات والجودة · إدارة العملاء والتسعير والعروض</p></div>
+          </div>
+          <div class="wave">
+            <div class="w1"><b>الموجة ٣</b><span>٤–٨ أسابيع</span></div>
+            <div class="w2"><b>الموارد البشرية والمشتريات</b><p>الرواتب والعمولات · المشتريات والموردون · الأصول والأسطول · الموازنات · المراسلات الداخلية</p></div>
+          </div>
+          <div class="wave">
+            <div class="w1"><b>الموجة ٤</b><span>مستمر</span></div>
+            <div class="w2"><b>الذكاء والتحسين</b><p>لوحات تحليلية متقدمة · توقع الطلب · تحليل صور الأرفف · تحسين المسارات</p></div>
+          </div>
+        </div>
+
+        <div class="grid g2">
+          <div class="card">
+            <header><h2>شروط الانتقال بين الموجات</h2></header>
+            <div class="pad stack" style="gap:8px;font-size:13.5px">
+              <div class="row"><span class="pill p-ok">✓</span> مطابقة مخزون ونقدية بلا فروق غير مفسَّرة</div>
+              <div class="row"><span class="pill p-ok">✓</span> نجاح يوم كامل بلا إنترنت ثم مزامنة بلا تكرار</div>
+              <div class="row"><span class="pill p-ok">✓</span> صفر قيد محاسبي غير متوازن</div>
+              <div class="row"><span class="pill p-ok">✓</span> نجاح كل السيناريوهات الحرجة في اختبار القبول</div>
+              <div class="row"><span class="pill p-ok">✓</span> تدريب المستخدمين وتوقيع مالك العملية</div>
+              <div class="row"><span class="pill p-ok">✓</span> خطة رجوع مختبَرة قبل التشغيل</div>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="card">
+              <header><h2>لماذا لا نطلق النظام كاملًا في شهر</h2></header>
+              <div class="pad">
+                <p class="muted" style="margin:0 0 10px">إطلاق شامل يعني تشغيل المحاسبة والمخزون والمبيعات والرواتب في يوم واحد على ٩ فروع. أي خطأ في الأرصدة الافتتاحية ينتشر في كل مكان قبل اكتشافه.</p>
+                <p class="muted" style="margin:0"><b style="color:var(--ink)">البديل المقترح:</b> فرع واحد ومسارات محددة لمدة شهر، بتشغيل متوازٍ مع النظام الحالي لدورة مالية واحدة. تُكتشف الفروق وهي صغيرة.</p>
+              </div>
+            </div>
+            <div class="card pad">
+              <div class="note">
+                <b>المدد تقديرية لا عرض مالي.</b> تتغير بعدد التكاملات وجودة البيانات وحجم التخصيص وسرعة اعتماد القرارات.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= التكلفة والعائد ================= -->
+      <section class="screen" id="roi">
+        <div class="topbar">
+          <div>
+            <h1>التكلفة والعائد</h1>
+            <p class="sub">نموذج مفتوح — كل رقم مُدخَل قابل للتعديل، والنتيجة تتغير أمامكم</p>
+          </div>
+          <div class="right"><button class="btn ghost" id="roiReset">إعادة القيم الافتراضية</button></div>
+        </div>
+
+        <div class="askcard" style="margin-bottom:16px">
+          <h3>اقرأ هذا قبل أي رقم أدناه</h3>
+          <p>القيم المُدخَلة <b>افتراضات توضيحية</b> وليست تقديرًا لشركتكم. نحن لا نملك أرقامكم الفعلية بعد. غيّروا الحقول بأرقامكم الحقيقية وستتغير النتيجة فورًا — <b>هذه أداة نقاش لا وعد بعائد</b>.</p>
+        </div>
+
+        <div class="grid" style="grid-template-columns:1fr 380px;gap:14px;margin-bottom:14px">
+
+          <div class="card">
+            <header>
+              <h2>من أين يأتي العائد</h2>
+              <span class="meta">كل بند مرتبط بإجابة موثّقة من ملف الاكتشاف</span>
+            </header>
+            <div class="tblwrap">
+              <table>
+                <thead>
+                  <tr><th>مصدر العائد</th><th style="width:130px">قيمتكم الشهرية</th><th style="width:96px">نسبة الخفض</th><th class="n" style="width:110px">العائد/شهر</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <b>فروق النقدية ومخزون السيارات</b>
+                      <div class="muted">التسوية اليوم يدوية والاعتماد على الثقة. النظام يفرض عدًّا بالفئات وثلاثة اعتمادات مستقلة قبل الإقفال.</div>
+                    </td>
+                    <td><input class="roi-in" id="v1" type="number" min="0" step="100" value="4000"></td>
+                    <td><input class="roi-in" id="p1" type="number" min="0" max="100" step="5" value="60"></td>
+                    <td class="n" id="r1">—</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <b>هدر انتهاء الصلاحية</b>
+                      <div class="muted">لا يوجد تتبّع تشغيلات اليوم رغم التعامل في مواد غذائية. النظام يفرض FEFO وينبّه قبل الانتهاء.</div>
+                    </td>
+                    <td><input class="roi-in" id="v2" type="number" min="0" step="100" value="6000"></td>
+                    <td><input class="roi-in" id="p2" type="number" min="0" max="100" step="5" value="45"></td>
+                    <td class="n" id="r2">—</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <b>خصومات وأسعار خارج السياسة</b>
+                      <div class="muted">الطلب يمر عبر واتساب، والاستبيان يذكر تسريب أسعار وعملاء. النظام يمنع الخصم اليدوي ويوثّق كل استثناء.</div>
+                    </td>
+                    <td><input class="roi-in" id="v3" type="number" min="0" step="100" value="5000"></td>
+                    <td><input class="roi-in" id="p3" type="number" min="0" max="100" step="5" value="50"></td>
+                    <td class="n" id="r3">—</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <b>وقت الإدخال المزدوج</b>
+                      <div class="muted">الحركة تُدخَل في واتساب ثم المخزون ثم الحسابات. ساعات شهريًا × تكلفة الساعة.</div>
+                    </td>
+                    <td>
+                      <div class="row" style="gap:6px;flex-wrap:nowrap">
+                        <input class="roi-in" id="v4" type="number" min="0" step="10" value="160" style="width:64px" title="ساعة/شهر">
+                        <span class="muted">×</span>
+                        <input class="roi-in" id="p4" type="number" min="0" step="5" value="25" style="width:60px" title="د.ل للساعة">
+                      </div>
+                    </td>
+                    <td class="muted" style="font-size:11.5px">ساعة × أجر</td>
+                    <td class="n" id="r4">—</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <b>طلبات ضائعة وزيارات غير منتجة</b>
+                      <div class="muted">لا منصة موحّدة للتحقق من الزيارة. النظام يربط الزيارة بالموقع والوقت والنتيجة.</div>
+                    </td>
+                    <td><input class="roi-in" id="v5" type="number" min="0" step="500" value="8000"></td>
+                    <td><input class="roi-in" id="p5" type="number" min="0" max="100" step="5" value="25"></td>
+                    <td class="n" id="r5">—</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <b>تسريع التحصيل</b>
+                      <div class="muted">أعمار ديون لحظية وتنبيهات استحقاق. الأثر على السيولة لا على الربح — يُحسب كتكلفة تمويل موفَّرة.</div>
+                    </td>
+                    <td><input class="roi-in" id="v6" type="number" min="0" step="500" value="3000"></td>
+                    <td><input class="roi-in" id="p6" type="number" min="0" max="100" step="5" value="30"></td>
+                    <td class="n" id="r6">—</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr><td colspan="3">إجمالي العائد الشهري</td><td class="n" id="rMonth">—</td></tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="card">
+              <header><h2>التكلفة</h2><span class="meta">د.ل</span></header>
+              <div class="pad stack" style="gap:9px">
+                <div class="prow row" style="justify-content:space-between">
+                  <span>بناء وتطوير <span class="muted">(مرة واحدة)</span></span>
+                  <input class="roi-in" id="c1" type="number" min="0" step="5000" value="120000">
+                </div>
+                <div class="row" style="justify-content:space-between">
+                  <span>أجهزة الميدان <span class="muted">٢٥ جهازًا + طابعات</span></span>
+                  <input class="roi-in" id="c2" type="number" min="0" step="1000" value="45000">
+                </div>
+                <div class="row" style="justify-content:space-between">
+                  <span>خادم وبنية تحتية</span>
+                  <input class="roi-in" id="c3" type="number" min="0" step="1000" value="35000">
+                </div>
+                <div class="row" style="justify-content:space-between">
+                  <span>تدريب وترحيل بيانات</span>
+                  <input class="roi-in" id="c4" type="number" min="0" step="1000" value="20000">
+                </div>
+                <div class="row" style="justify-content:space-between">
+                  <span>تشغيل ودعم <span class="muted">شهريًا</span></span>
+                  <input class="roi-in" id="c5" type="number" min="0" step="500" value="6000">
+                </div>
+                <div class="line" style="border-top:1px solid var(--line);margin-top:4px;padding-top:10px">
+                  <div class="row" style="justify-content:space-between">
+                    <b>تكلفة السنة الأولى</b><b class="num" id="cYear1">—</b>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <header><h2>النتيجة</h2></header>
+              <div class="pad stack" style="gap:12px">
+                <div>
+                  <div class="muted" style="font-size:12px">العائد السنوي</div>
+                  <div class="num" id="bYear" style="font-size:27px;font-weight:700;letter-spacing:-.03em;color:var(--ok)">—</div>
+                </div>
+                <div>
+                  <div class="muted" style="font-size:12px">صافي السنة الأولى</div>
+                  <div class="num" id="net1" style="font-size:27px;font-weight:700;letter-spacing:-.03em">—</div>
+                </div>
+                <div style="border-top:1px solid var(--line-2);padding-top:11px">
+                  <div class="muted" style="font-size:12px">فترة الاسترداد</div>
+                  <div class="num" id="payback" style="font-size:21px;font-weight:700">—</div>
+                </div>
+                <div class="bar"><i id="payBar" style="width:0%;background:var(--brand)"></i></div>
+                <div class="muted" style="font-size:11.5px" id="payNote">—</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid g2">
+          <div class="card">
+            <header><h2>ما لا نَعِد به</h2><span class="meta">بصراحة</span></header>
+            <div class="pad stack" style="gap:9px;font-size:13.5px">
+              <div class="row"><span class="pill p-bad">✕</span> <span>لا نضمن أن الفروق تصل صفرًا — النظام يكشفها ويمنع إخفاءها، والباقي قرار إداري</span></div>
+              <div class="row"><span class="pill p-bad">✕</span> <span>لا يعوّض النظام غياب الالتزام. لو لم تُقفل الوردية يوميًا، تعود المشكلة</span></div>
+              <div class="row"><span class="pill p-bad">✕</span> <span>لا عائد يظهر قبل نظافة البيانات — عملاء وأصناف وأرصدة افتتاحية سليمة</span></div>
+              <div class="row"><span class="pill p-bad">✕</span> <span>لا نضمن أرقام التكلفة أعلاه قبل حسم البنية التقنية وحجم التخصيص</span></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <header><h2>عائد لا يظهر في الجدول</h2></header>
+            <div class="pad stack" style="gap:9px;font-size:13.5px">
+              <div class="row"><span class="pill p-ok">✓</span> <span><b>تتبّع التشغيلات</b> — استدعاء منتج غذائي يصبح ممكنًا في دقائق بدل أيام</span></div>
+              <div class="row"><span class="pill p-ok">✓</span> <span><b>فصل المهام</b> — ٢٢ قاعدة تمنع أن يجمع شخص واحد الطلب والاعتماد والتنفيذ</span></div>
+              <div class="row"><span class="pill p-ok">✓</span> <span><b>سجل تدقيق كامل</b> — من فعل ماذا ومتى وبأي جهاز، بلا حذف</span></div>
+              <div class="row"><span class="pill p-ok">✓</span> <span><b>قوائم مالية في مواعيدها</b> — الإقفال الشهري بقائمة تحقق لا باجتهاد فردي</span></div>
+              <div class="row"><span class="pill p-ok">✓</span> <span><b>قابلية التوسع</b> — فرع أو مندوب جديد يُضاف من شاشة إعداد، لا بتطوير</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card pad" style="margin-top:14px">
+          <div class="note">
+            <b>الخطوة الصحيحة:</b> املأوا الجدول بأرقامكم الفعلية في ورشة مالية واحدة مع المدير المالي ومدير المخازن. عندها فقط يصبح هذا النموذج قرارًا استثماريًا لا عرضًا تقديريًا.
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= تطبيق المندوب ================= -->
+      <section class="screen" id="mob">
+        <div class="topbar">
+          <div>
+            <h1>تطبيق المندوب</h1>
+            <p class="sub">Android · يعمل يومين كاملين بلا إنترنت · شاشات كبيرة ومسارات قصيرة</p>
+          </div>
+          <div class="right"><span class="pill p-warn">وضع بدون اتصال</span></div>
+        </div>
+
+        <div class="card pad" style="margin-bottom:16px">
+          <div class="phones">
+
+            <div>
+              <div class="phone">
+                <div class="notch"><i></i></div>
+                <div class="pbar"><span>٠٩:٤١</span><span>⛔ بدون شبكة · ٨٤٪</span></div>
+                <div class="phd"><b>ماركت الأندلس</b><span>العميل ٥ من ١٨ · تجزئة</span></div>
+                <div class="pbody">
+                  <div class="pbig" style="background:var(--ok-bg)">
+                    <span style="color:var(--ok)">داخل نطاق العميل</span>
+                    <b style="color:var(--ok)">٦ م</b>
+                  </div>
+                  <div class="prow"><span class="muted">دقة الموقع</span><b class="num">٨ م</b></div>
+                  <div class="prow"><span class="muted">الرصيد المفتوح</span><b class="num">٠٫٠٠</b></div>
+                  <div class="prow"><span class="muted">آخر زيارة</span><b>٢٠ يوليو</b></div>
+                  <div class="line"></div>
+                  <div class="prow"><span class="muted">مطلوب في الزيارة</span><span class="pill p-info">صورة رف</span></div>
+                  <div class="pbtn">تسجيل الوصول</div>
+                  <div class="pbtn dim">تعذّر الوصول — سبب</div>
+                </div>
+              </div>
+              <div class="phcap">تسجيل الوصول — يُرفض خارج ٣٠٠ م</div>
+            </div>
+
+            <div>
+              <div class="phone">
+                <div class="notch"><i></i></div>
+                <div class="pbar"><span>٠٩:٥٣</span><span>⛔ بدون شبكة · ٨٣٪</span></div>
+                <div class="phd"><b>فاتورة جديدة</b><span>ماركت الأندلس · ‎INV-240118</span></div>
+                <div class="pbody">
+                  <div class="prow">
+                    <div>زيت عباد شمس ١٫٥ل<div class="plot">L-2611 · ينتهي ١٠ أغسطس</div></div>
+                    <b class="num">٦ × ٦٤</b>
+                  </div>
+                  <div class="line"></div>
+                  <div class="prow">
+                    <div>معجون طماطم ٤٠٠ج<div class="plot">L-2588</div></div>
+                    <b class="num">٤ × ٤٢٫٥</b>
+                  </div>
+                  <div class="line"></div>
+                  <div class="prow">
+                    <div>أرز مصري ٥ك<div class="plot">L-2604</div></div>
+                    <b class="num">١٠ × ٢٨</b>
+                  </div>
+                  <div class="line"></div>
+                  <div class="pbig">
+                    <span>الإجمالي المستحق</span>
+                    <b>٩٩٩٫٠٠ د.ل</b>
+                  </div>
+                  <div class="pbtn">استلام نقدي وطباعة</div>
+                </div>
+              </div>
+              <div class="phcap">الفاتورة — التشغيلة والصلاحية ظاهرتان للمندوب</div>
+            </div>
+
+            <div>
+              <div class="phone">
+                <div class="notch"><i></i></div>
+                <div class="pbar"><span>١٦:٤٠</span><span>✓ متصل · ٦١٪</span></div>
+                <div class="phd"><b>المزامنة</b><span>عودة الاتصال بعد ٦ ساعات</span></div>
+                <div class="pbody">
+                  <div class="prow"><span>٩ فواتير</span><span class="pill p-ok">أُرسلت</span></div>
+                  <div class="line"></div>
+                  <div class="prow"><span>٤ تحصيلات</span><span class="pill p-ok">أُرسلت</span></div>
+                  <div class="line"></div>
+                  <div class="prow"><span>١٢ زيارة</span><span class="pill p-ok">أُرسلت</span></div>
+                  <div class="line"></div>
+                  <div class="prow"><span>١٨ صورة رف</span><span class="pill p-info">جارٍ الرفع ٦/١٨</span></div>
+                  <div class="line"></div>
+                  <div class="pbig" style="background:var(--ok-bg)">
+                    <span style="color:var(--ok)">بلا فقد وبلا تكرار</span>
+                    <b style="color:var(--ok)">٢٥ / ٢٥</b>
+                  </div>
+                  <div class="prow"><span class="muted">الصور لا تعطّل الإرسال</span></div>
+                </div>
+              </div>
+              <div class="phcap">المزامنة — المعاملة أولًا والصور في الخلفية</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="grid g3">
+          <div class="card pad">
+            <b style="font-size:13.5px">لماذا يومان بلا إنترنت؟</b>
+            <p class="muted" style="margin:6px 0 0">لأن التغطية في المسارات غير مضمونة. اليوم كامل يُنفَّذ محليًا على الجهاز، والمزامنة إلزامية يوميًا.</p>
+          </div>
+          <div class="card pad">
+            <b style="font-size:13.5px">كيف نمنع تكرار الفاتورة؟</b>
+            <p class="muted" style="margin:6px 0 0">كل مستند يُولَّد بمعرّف فريد على الجهاز قبل الإرسال، ونطاق أرقام محجوز لكل سيارة. إعادة الإرسال لا تُنشئ نسخة ثانية.</p>
+          </div>
+          <div class="card pad">
+            <b style="font-size:13.5px">ماذا لو ضاع الجهاز؟</b>
+            <p class="muted" style="margin:6px 0 0">إلغاء فوري لصلاحية الدخول، ومسح عن بُعد، وبيانات مشفّرة على الجهاز. التتبع يعمل بين بدء اليوم وإقفاله فقط.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= لوحة الإدارة ================= -->
+      <section class="screen" id="dash">
+        <div class="topbar">
+          <div>
+            <h1>لوحة الإدارة</h1>
+            <p class="sub">الأحد ٢٧ يوليو ٢٠٢٦ · ٩ فروع · ٢٥ مندوبًا · العملة: دينار ليبي</p>
+          </div>
+          <div class="right">
+            <span class="pill p-ok">٢٣ مسارًا نشطًا</span>
+            <span class="pill p-warn">٢ لم يبدآ اليوم</span>
+          </div>
+        </div>
+
+        <div class="grid g4" style="margin-bottom:14px">
+          <div class="card kpi">
+            <span class="lbl">مبيعات اليوم</span>
+            <span class="val">٤٨٬٢٧٠</span>
+            <svg class="spark" viewBox="0 0 120 26" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M0,20 L15,18 L30,21 L45,14 L60,16 L75,9 L90,11 L105,6 L120,4 L120,26 L0,26 Z" fill="var(--brand-soft)"/>
+              <path d="M0,20 L15,18 L30,21 L45,14 L60,16 L75,9 L90,11 L105,6 L120,4" fill="none" stroke="var(--brand)" stroke-width="1.6"/>
+              <circle cx="120" cy="4" r="2.4" fill="var(--brand)"/>
+            </svg>
+            <span class="foot">د.ل · ‎+١٢٪ عن أمس</span>
+          </div>
+          <div class="card kpi">
+            <span class="lbl">التحصيل النقدي</span>
+            <span class="val">٤١٬٩٣٠</span>
+            <svg class="spark" viewBox="0 0 120 26" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M0,16 L15,19 L30,15 L45,17 L60,12 L75,14 L90,10 L105,12 L120,8 L120,26 L0,26 Z" fill="var(--wheat-soft)"/>
+              <path d="M0,16 L15,19 L30,15 L45,17 L60,12 L75,14 L90,10 L105,12 L120,8" fill="none" stroke="var(--wheat)" stroke-width="1.6"/>
+              <circle cx="120" cy="8" r="2.4" fill="var(--wheat)"/>
+            </svg>
+            <span class="foot">د.ل · ٨٦٫٩٪ من المبيعات</span>
+          </div>
+          <div class="card kpi">
+            <span class="lbl">الزيارات المنفذة</span>
+            <span class="val">١٨٤ / ٢١٠</span>
+            <div style="height:6px;background:var(--line-2);border-radius:99px;overflow:hidden">
+              <div style="width:87.6%;height:100%;background:var(--brand)"></div>
+            </div>
+            <span class="foot">الالتزام بالمسار ٨٧٫٦٪</span>
+          </div>
+          <div class="card kpi">
+            <span class="lbl">فروق نقدية مفتوحة</span>
+            <span class="val" style="color:var(--bad)">‎−٣٤٠</span>
+            <span class="pill p-bad" style="align-self:flex-start">مندوبان بانتظار الاعتماد</span>
+            <span class="foot">د.ل · حساب ١١٠١٠٨ عجز قيد الفحص</span>
+          </div>
+        </div>
+
+        <div class="grid g2">
+          <div class="card">
+            <header>
+              <h2>أداء الفروع اليوم</h2>
+              <span class="meta">محدَّث ١٦:٤٢</span>
+            </header>
+            <div class="tblwrap">
+              <table>
+                <thead>
+                  <tr><th>الفرع</th><th class="n">المبيعات</th><th class="n">التحصيل</th><th>التسوية</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>طرابلس — المركز</td><td class="n">١٤٬٨٢٠</td><td class="n">١٣٬٦٥٠</td><td><span class="pill p-ok">مقفل</span></td></tr>
+                  <tr><td>طرابلس — سوق الجمعة</td><td class="n">٩٬٤٦٠</td><td class="n">٩٬٤٦٠</td><td><span class="pill p-ok">مقفل</span></td></tr>
+                  <tr><td>مصراتة</td><td class="n">٨٬١٩٠</td><td class="n">٧٬٢٤٠</td><td><span class="pill p-warn">قيد المراجعة</span></td></tr>
+                  <tr><td>بنغازي</td><td class="n">٧٬٦٣٠</td><td class="n">٦٬٩٨٠</td><td><span class="pill p-warn">قيد المراجعة</span></td></tr>
+                  <tr><td>الزاوية</td><td class="n">٥٬١٧٠</td><td class="n">٤٬٦٠٠</td><td><span class="pill p-mute">لم يبدأ</span></td></tr>
+                  <tr><td>سبها</td><td class="n">٣٬٠٠٠</td><td class="n">—</td><td><span class="pill p-bad">فرق ٣٤٠ د.ل</span></td></tr>
+                </tbody>
+                <tfoot>
+                  <tr><td>الإجمالي</td><td class="n">٤٨٬٢٧٠</td><td class="n">٤١٬٩٣٠</td><td></td></tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="card">
+              <header><h2>تنبيهات تحتاج قرارًا</h2><span class="meta">٤ بنود</span></header>
+              <div class="pad stack" style="gap:10px">
+                <div class="row" style="justify-content:space-between">
+                  <div><b style="font-size:13.5px">تشغيلة قاربت الانتهاء</b><div class="muted">زيت عباد شمس ١٫٥ل · تشغيلة L-2611 · ١٤ يومًا · ٣٢٠ كرتونة</div></div>
+                  <span class="pill p-warn">صلاحية</span>
+                </div>
+                <div class="row" style="justify-content:space-between">
+                  <div><b style="font-size:13.5px">عميل تجاوز الحد الائتماني</b><div class="muted">سوبرماركت الواحة · الحد ٠ · مطلوب ١٬٢٥٠ د.ل</div></div>
+                  <span class="pill p-bad">أوقف البيع</span>
+                </div>
+                <div class="row" style="justify-content:space-between">
+                  <div><b style="font-size:13.5px">Check-in خارج النطاق</b><div class="muted">مندوب سبها · ٣٨٠ م من العميل · بانتظار اعتماد المشرف</div></div>
+                  <span class="pill p-warn">استثناء</span>
+                </div>
+                <div class="row" style="justify-content:space-between">
+                  <div><b style="font-size:13.5px">مخزون تحت حد الأمان</b><div class="muted">معجون طماطم ٤٠٠ج · مخزن مصراتة · ٤٨ كرتونة</div></div>
+                  <span class="pill p-info">إعادة طلب</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card pad">
+              <div class="note">
+                <b>كل رقم في هذه الشاشة قابل للتتبع</b> حتى الفاتورة والسطر والتشغيلة والزيارة — لا تجميع يدوي ولا ملفات وسيطة.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= لوحة يوم المندوب ================= -->
+      <section class="screen" id="day">
+        <div class="topbar">
+          <div>
+            <h1>لوحة يوم المندوب</h1>
+            <p class="sub">عبدالسلام الفيتوري · سيارة ط‌ب ٤٢٧١ · مسار: طرابلس — سوق الجمعة · وردية ٢٧ يوليو</p>
+          </div>
+          <div class="right"><span class="pill p-ok">اليوم مفتوح</span></div>
+        </div>
+
+        <div class="ribbon" style="margin-bottom:16px">
+          <div class="step done"><div class="s1">٠٧:٤٠</div><div class="s2">✓ حضور</div></div>
+          <div class="step done"><div class="s1">٠٧:٥٥</div><div class="s2">✓ فحص السيارة</div></div>
+          <div class="step done"><div class="s1">٠٨:٣٠</div><div class="s2">✓ تحميل FEFO</div></div>
+          <div class="step now"><div class="s1">جارٍ الآن</div><div class="s2">البيع · ١٢ من ١٨</div></div>
+          <div class="step next"><div class="s1">—</div><div class="s2">جرد السيارة</div></div>
+          <div class="step next"><div class="s1">—</div><div class="s2">عد النقدية</div></div>
+          <div class="step next"><div class="s1">—</div><div class="s2">إقفال</div></div>
+        </div>
+
+        <div class="grid g4" style="margin-bottom:14px">
+          <div class="card kpi"><span class="lbl">مبيعات اليوم</span><span class="val">٣٬٨٤٠</span><span class="foot">د.ل · ٩ فواتير</span></div>
+          <div class="card kpi"><span class="lbl">نقدية بالحوزة</span><span class="val" style="color:var(--wheat)">٣٬٦٩٠</span><span class="foot">د.ل · حساب ١١٠١٠٣</span></div>
+          <div class="card kpi"><span class="lbl">قيمة مخزون السيارة</span><span class="val">٦٬١٢٠</span><span class="foot">د.ل · حساب ١١٠٤٠٣</span></div>
+          <div class="card kpi"><span class="lbl">حالة المزامنة</span><span class="val" style="font-size:19px;color:var(--ok)">مُزامَن</span><span class="foot">آخر مزامنة ١٦:٣٨ · ٠ في الانتظار</span></div>
+        </div>
+
+        <div class="grid g2">
+          <div class="card">
+            <header><h2>عملاء المسار</h2><span class="meta">١٢ / ١٨ منفذة</span></header>
+            <div class="tblwrap">
+              <table>
+                <thead><tr><th>العميل</th><th>الحالة</th><th class="n">الفاتورة</th><th class="n">المسافة</th></tr></thead>
+                <tbody>
+                  <tr><td>بقالة النجمة</td><td><span class="pill p-ok">مكتملة</span></td><td class="n">٤٨٠</td><td class="n">١٢ م</td></tr>
+                  <tr><td>سوبرماركت الواحة</td><td><span class="pill p-bad">أُوقفت — ائتمان</span></td><td class="n">—</td><td class="n">٢٤ م</td></tr>
+                  <tr><td>مخبز الأصيل</td><td><span class="pill p-ok">مكتملة</span></td><td class="n">٧٢٥</td><td class="n">٨ م</td></tr>
+                  <tr><td>بقالة الفتح</td><td><span class="pill p-ok">مكتملة</span></td><td class="n">٣١٠</td><td class="n">٤١ م</td></tr>
+                  <tr><td>ماركت الأندلس</td><td><span class="pill p-info">جارية الآن</span></td><td class="n">—</td><td class="n">٦ م</td></tr>
+                  <tr><td>بقالة الشط</td><td><span class="pill p-mute">مخططة</span></td><td class="n">—</td><td class="n">—</td></tr>
+                  <tr><td>سوبرماركت المدينة</td><td><span class="pill p-warn">فائتة — مغلق</span></td><td class="n">—</td><td class="n">١٩ م</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <header><h2>مخزون السيارة</h2><span class="meta">FEFO · الأقرب انتهاءً أولًا</span></header>
+            <div class="tblwrap">
+              <table>
+                <thead><tr><th>الصنف</th><th>التشغيلة</th><th class="n">الرصيد</th><th class="n">الصلاحية</th></tr></thead>
+                <tbody>
+                  <tr><td>زيت عباد شمس ١٫٥ل</td><td class="lot">L-2611</td><td class="n">٧٢</td><td class="n" style="color:var(--warn)">١٤ يومًا</td></tr>
+                  <tr><td>معجون طماطم ٤٠٠ج</td><td class="lot">L-2588</td><td class="n">١١٤</td><td class="n">٩٦ يومًا</td></tr>
+                  <tr><td>أرز مصري ٥ك</td><td class="lot">L-2604</td><td class="n">٣٨</td><td class="n">٢١٠ يومًا</td></tr>
+                  <tr><td>شاي أحمر ٤٠٠ج</td><td class="lot">L-2570</td><td class="n">٦٠</td><td class="n">١٨٤ يومًا</td></tr>
+                  <tr><td>حليب مجفف ٩٠٠ج</td><td class="lot">L-2619</td><td class="n">٢٤</td><td class="n">٣٠٢ يومًا</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="pad" style="padding-top:0">
+              <div class="note" style="margin-top:14px">
+                <b>لا يبدأ يوم جديد</b> قبل إقفال تسوية اليوم السابق — قاعدة مثبَّتة في النظام لا سياسة ورقية.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= الفاتورة ================= -->
+      <section class="screen" id="inv">
+        <div class="topbar">
+          <div>
+            <h1>فاتورة Cash Van</h1>
+            <p class="sub">ماركت الأندلس · زيارة ‎V-24817 · الفاتورة ‎INV-240118</p>
+          </div>
+          <div class="right">
+            <span class="pill p-info">مُسعّرة — بانتظار الترحيل</span>
+            <button class="btn ghost">حفظ مسودة</button>
+            <button class="btn">ترحيل وطباعة</button>
+          </div>
+        </div>
+
+        <div class="grid" style="grid-template-columns:1fr 340px;gap:14px">
+          <div class="stack">
+            <div class="card">
+              <header><h2>سطور الفاتورة</h2><span class="meta">السعر من قائمة «تجزئة طرابلس» إصدار ٧</span></header>
+              <div class="tblwrap">
+                <table>
+                  <thead>
+                    <tr><th>الصنف</th><th>التشغيلة</th><th class="n">الكمية</th><th class="n">السعر</th><th class="n">الصافي</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>زيت عباد شمس ١٫٥ل<div class="muted">كرتونة ١٢ عبوة</div></td>
+                      <td class="lot">L-2611<div class="lot" style="color:var(--warn)">ينتهي ١٠ أغسطس</div></td>
+                      <td class="n">٦</td><td class="n">٦٤٫٠٠</td><td class="n">٣٨٤٫٠٠</td>
+                    </tr>
+                    <tr>
+                      <td>معجون طماطم ٤٠٠ج<div class="muted">كرتونة ٢٤ عبوة</div></td>
+                      <td class="lot">L-2588</td>
+                      <td class="n">٤</td><td class="n">٤٢٫٥٠</td><td class="n">١٧٠٫٠٠</td>
+                    </tr>
+                    <tr>
+                      <td>أرز مصري ٥ك<div class="muted">كيس</div></td>
+                      <td class="lot">L-2604</td>
+                      <td class="n">١٠</td><td class="n">٢٨٫٠٠</td><td class="n">٢٨٠٫٠٠</td>
+                    </tr>
+                    <tr>
+                      <td>شاي أحمر ٤٠٠ج<div class="muted">كرتونة ٢٠ عبوة</div></td>
+                      <td class="lot">L-2570</td>
+                      <td class="n">٣</td><td class="n">٥٥٫٠٠</td><td class="n">١٦٥٫٠٠</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr><td colspan="4">الصافي المستحق</td><td class="n">٩٩٩٫٠٠</td></tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+
+            <div class="card pad">
+              <div class="note">
+                <b>الخصم اليدوي معطَّل لهذا الدور.</b> كل تخفيض يأتي من قائمة سعر أو عرض معتمد — واستثناؤه يمرّ باعتماد مسجَّل.
+              </div>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="card">
+              <header><h2>العميل والتحقق</h2></header>
+              <div class="pad">
+                <dl class="keyval">
+                  <dt>العميل</dt><dd>ماركت الأندلس</dd>
+                  <dt>القناة</dt><dd>تجزئة</dd>
+                  <dt>الرصيد المفتوح</dt><dd class="num">٠٫٠٠ د.ل</dd>
+                  <dt>الحد الائتماني</dt><dd class="num">٠٫٠٠ — نقدي فقط</dd>
+                  <dt>Check-in</dt><dd><span class="pill p-ok">داخل النطاق · ٦ م</span></dd>
+                  <dt>دقة الموقع</dt><dd class="num">٨ م</dd>
+                </dl>
+              </div>
+            </div>
+
+            <div class="card">
+              <header><h2>الدفع</h2></header>
+              <div class="pad stack" style="gap:10px">
+                <div class="row" style="justify-content:space-between">
+                  <span class="muted">طريقة الدفع</span><b>نقدي</b>
+                </div>
+                <div class="row" style="justify-content:space-between">
+                  <span class="muted">المستلم</span><b class="num">٩٩٩٫٠٠ د.ل</b>
+                </div>
+                <div class="row" style="justify-content:space-between">
+                  <span class="muted">الباقي</span><b class="num">٠٫٠٠</b>
+                </div>
+                <div style="border-top:1px solid var(--line-2);padding-top:10px">
+                  <span class="pill p-ok">مستوفية شروط الترحيل</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <header><h2>الفحوصات الآلية</h2></header>
+              <div class="pad stack" style="gap:7px;font-size:13px">
+                <div class="row"><span class="pill p-ok">✓</span> رصيد السيارة يكفي</div>
+                <div class="row"><span class="pill p-ok">✓</span> لا تشغيلة منتهية أو محجورة</div>
+                <div class="row"><span class="pill p-ok">✓</span> الصلاحية المتبقية فوق حد العميل</div>
+                <div class="row"><span class="pill p-ok">✓</span> السعر من إصدار سارٍ</div>
+                <div class="row"><span class="pill p-ok">✓</span> رقم فاتورة محجوز للجهاز</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= الأثر المحاسبي ================= -->
+      <section class="screen" id="gl">
+        <div class="topbar">
+          <div>
+            <h1>الأثر المحاسبي للفاتورة</h1>
+            <p class="sub">قيد آلي مولَّد من ‎INV-240118 — لا إدخال يدوي</p>
+          </div>
+          <div class="right"><span class="pill p-ok">مرحَّل · متوازن</span></div>
+        </div>
+
+        <div class="grid g2" style="margin-bottom:14px">
+          <div class="card">
+            <header><h2>قيد الإيراد والنقدية</h2><span class="meta">JE-2026-07-8841</span></header>
+            <div class="pad">
+              <div class="tacc">
+                <div class="side-d">
+                  <h4>مدين</h4>
+                  <ul>
+                    <li><span class="acc">١١٠١٠٣</span><span class="nm">خزينة مندوب Cash Van</span><span class="amt">٩٩٩٫٠٠</span></li>
+                  </ul>
+                </div>
+                <div class="side-c">
+                  <h4>دائن</h4>
+                  <ul>
+                    <li><span class="acc">٤١٠١٠١</span><span class="nm">مبيعات Cash Van نقدية</span><span class="amt">٩٩٩٫٠٠</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <header><h2>قيد التكلفة والمخزون</h2><span class="meta">نفس المعاملة</span></header>
+            <div class="pad">
+              <div class="tacc">
+                <div class="side-d">
+                  <h4>مدين</h4>
+                  <ul>
+                    <li><span class="acc">٥١٠١٠١</span><span class="nm">تكلفة مبيعات Cash Van</span><span class="amt">٧٤٢٫٣٠</span></li>
+                  </ul>
+                </div>
+                <div class="side-c">
+                  <h4>دائن</h4>
+                  <ul>
+                    <li><span class="acc">١١٠٤٠٣</span><span class="nm">بضاعة سيارات Cash Van</span><span class="amt">٧٤٢٫٣٠</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="balrow">
+          <span>مجموع المدين ١٬٧٤١٫٣٠ = مجموع الدائن ١٬٧٤١٫٣٠</span>
+          <span>هامش الفاتورة ٢٥٦٫٧٠ د.ل · ٢٥٫٧٪</span>
+        </div>
+
+        <div class="grid g3" style="margin-top:14px">
+          <div class="card pad">
+            <b style="font-size:13.5px">ترحيل ذرّي</b>
+            <p class="muted" style="margin:6px 0 0">الفاتورة ومخزون السيارة وخزينة المندوب والقيد تُكتب في معاملة واحدة. تنجح كلها أو لا يُكتب شيء.</p>
+          </div>
+          <div class="card pad">
+            <b style="font-size:13.5px">لا حذف بعد الترحيل</b>
+            <p class="muted" style="margin:6px 0 0">التصحيح بمستند عكسي مرتبط. القيد المرحَّل لا يُعدَّل ولا يُحذف.</p>
+          </div>
+          <div class="card pad">
+            <b style="font-size:13.5px">لا تكرار عند إعادة الإرسال</b>
+            <p class="muted" style="margin:6px 0 0">المندوب يعمل يومين بلا إنترنت. مفتاح فريد لكل مستند يمنع ازدواج الفاتورة أو القيد.</p>
+          </div>
+        </div>
+
+        <div class="card pad" style="margin-top:14px">
+          <div class="note">
+            <b>مصفوفة الترحيل بيانات لا كود.</b> تغيير حساب أو قاعدة يتم من شاشة إعدادات باعتماد المدير المالي — بدون تعديل برمجي وبدون إعادة نشر.
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= إقفال اليوم ================= -->
+      <section class="screen" id="close">
+        <div class="topbar">
+          <div>
+            <h1>عد وتسوية النقدية</h1>
+            <p class="sub">عبدالسلام الفيتوري · وردية ٢٧ يوليو · قبل إقفال اليوم</p>
+          </div>
+          <div class="right"><span class="pill p-bad">فرق ‎−٤٠ د.ل</span></div>
+        </div>
+
+        <div class="grid" style="grid-template-columns:1fr 1fr;gap:14px">
+          <div class="card">
+            <header><h2>العد بالفئات</h2><span class="meta">إلزامي — لا يقبل إجماليًا</span></header>
+            <div class="tblwrap">
+              <table>
+                <thead><tr><th>الفئة</th><th class="n">العدد</th><th class="n">القيمة</th></tr></thead>
+                <tbody>
+                  <tr><td>٥٠ د.ل</td><td class="n">٤٢</td><td class="n">٢٬١٠٠</td></tr>
+                  <tr><td>٢٠ د.ل</td><td class="n">٥٥</td><td class="n">١٬١٠٠</td></tr>
+                  <tr><td>١٠ د.ل</td><td class="n">٣٠</td><td class="n">٣٠٠</td></tr>
+                  <tr><td>٥ د.ل</td><td class="n">٢٤</td><td class="n">١٢٠</td></tr>
+                  <tr><td>١ د.ل</td><td class="n">٣٠</td><td class="n">٣٠</td></tr>
+                </tbody>
+                <tfoot><tr><td>المعدود فعليًا</td><td class="n"></td><td class="n">٣٬٦٥٠</td></tr></tfoot>
+              </table>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="card">
+              <header><h2>المطابقة</h2></header>
+              <div class="pad">
+                <dl class="keyval">
+                  <dt>مبيعات نقدية</dt><dd class="num">٣٬٨٤٠٫٠٠</dd>
+                  <dt>تحصيل مديونيات</dt><dd class="num">٠٫٠٠</dd>
+                  <dt>مصروفات معتمدة</dt><dd class="num">‎−١٥٠٫٠٠</dd>
+                  <dt style="color:var(--ink)"><b>المتوقع</b></dt><dd class="num"><b>٣٬٦٩٠٫٠٠</b></dd>
+                  <dt style="color:var(--ink)"><b>المعدود</b></dt><dd class="num"><b>٣٬٦٥٠٫٠٠</b></dd>
+                </dl>
+                <div style="margin-top:12px;padding:11px 14px;background:var(--bad-bg);color:var(--bad);
+                            border-radius:8px;display:flex;justify-content:space-between;font-weight:650">
+                  <span>العجز</span><span class="num">‎−٤٠٫٠٠ د.ل</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <header><h2>ما يمنعه النظام الآن</h2></header>
+              <div class="pad stack" style="gap:8px;font-size:13px">
+                <div class="row"><span class="pill p-bad">✕</span> الإقفال بدون سبب ومرفق للفرق</div>
+                <div class="row"><span class="pill p-bad">✕</span> اعتماد المندوب لتسوية نفسه</div>
+                <div class="row"><span class="pill p-bad">✕</span> بدء يوم جديد قبل الإقفال</div>
+                <div class="row"><span class="pill p-ok">✓</span> ترحيل العجز لحساب ١١٠١٠٨ بعد الاعتماد</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card pad" style="margin-top:14px">
+          <div class="note">
+            <b>ثلاثة اعتمادات مستقلة قبل الإقفال:</b> أمين المخزن للمخزون · أمين الخزينة للنقدية · المشرف للوردية. لا يجمعها مستخدم واحد.
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= ملف العميل ================= -->
+      <section class="screen" id="c360">
+        <div class="topbar">
+          <div>
+            <h1>ماركت الأندلس</h1>
+            <p class="sub">‎CUST-04182 · تجزئة · طرابلس — سوق الجمعة · نشط منذ مارس ٢٠٢٤</p>
+          </div>
+          <div class="right"><span class="pill p-ok">ملتزم بالسداد</span></div>
+        </div>
+
+        <div class="grid g4" style="margin-bottom:14px">
+          <div class="card kpi"><span class="lbl">مشتريات ١٢ شهرًا</span><span class="val">٨٧٬٤٢٠</span><span class="foot">د.ل</span></div>
+          <div class="card kpi"><span class="lbl">الرصيد المفتوح</span><span class="val">٠</span><span class="foot">نقدي فقط · الحد ٠</span></div>
+          <div class="card kpi"><span class="lbl">متوسط الفاتورة</span><span class="val">٩٤٢</span><span class="foot">د.ل · ٩٣ فاتورة</span></div>
+          <div class="card kpi"><span class="lbl">هامش العميل</span><span class="val" style="color:var(--ok)">٢٤٫٨٪</span><span class="foot">بعد المرتجعات</span></div>
+        </div>
+
+        <div class="grid g2">
+          <div class="card">
+            <header><h2>آخر الحركات</h2><span class="meta">كل الإدارات في خط زمني واحد</span></header>
+            <div class="tblwrap">
+              <table>
+                <thead><tr><th>التاريخ</th><th>الحركة</th><th class="n">القيمة</th><th>الحالة</th></tr></thead>
+                <tbody>
+                  <tr><td class="n">٢٧ يوليو</td><td>فاتورة ‎INV-240118</td><td class="n">٩٩٩</td><td><span class="pill p-info">قيد الترحيل</span></td></tr>
+                  <tr><td class="n">٢٠ يوليو</td><td>فاتورة ‎INV-239640</td><td class="n">١٬١٢٤</td><td><span class="pill p-ok">مسدَّدة</span></td></tr>
+                  <tr><td class="n">٢٠ يوليو</td><td>مرتجع — صلاحية</td><td class="n">‎−٨٤</td><td><span class="pill p-ok">إشعار دائن</span></td></tr>
+                  <tr><td class="n">١٣ يوليو</td><td>زيارة بلا بيع</td><td class="n">—</td><td><span class="pill p-mute">مخزون كافٍ</span></td></tr>
+                  <tr><td class="n">٠٦ يوليو</td><td>فاتورة ‎INV-238902</td><td class="n">٨٦٧</td><td><span class="pill p-ok">مسدَّدة</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="card">
+              <header><h2>الأصناف الأعلى شراءً</h2></header>
+              <div class="tblwrap">
+                <table>
+                  <thead><tr><th>الصنف</th><th class="n">كرتونة/شهر</th><th class="n">الحصة</th></tr></thead>
+                  <tbody>
+                    <tr><td>زيت عباد شمس ١٫٥ل</td><td class="n">٢٤</td><td class="n">٣٤٪</td></tr>
+                    <tr><td>أرز مصري ٥ك</td><td class="n">٣٨</td><td class="n">٢٦٪</td></tr>
+                    <tr><td>معجون طماطم ٤٠٠ج</td><td class="n">١٦</td><td class="n">١٨٪</td></tr>
+                    <tr><td>شاي أحمر ٤٠٠ج</td><td class="n">٩</td><td class="n">١٤٪</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card pad">
+              <div class="note">
+                <b>سجل واحد للعميل</b> يجمع المبيعات والتحصيل والمرتجعات والزيارات والشكاوى — لا نسخة للمبيعات وأخرى للحسابات.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var buttons = document.querySelectorAll('.nav button');
+    var screens = document.querySelectorAll('.screen');
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        buttons.forEach(function (x) { x.setAttribute('aria-current', 'false'); });
+        b.setAttribute('aria-current', 'true');
+        screens.forEach(function (s) { s.classList.remove('on'); });
+        var target = document.getElementById(b.dataset.s);
+        if (target) { target.classList.add('on'); }
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      });
+    });
+  })();
+
+  /* ---------- حاسبة التكلفة والعائد ---------- */
+  (function () {
+    var DEFAULTS = {
+      v1:4000, p1:60, v2:6000, p2:45, v3:5000, p3:50,
+      v4:160,  p4:25, v5:8000, p5:25, v6:3000, p6:30,
+      c1:120000, c2:45000, c3:35000, c4:20000, c5:6000
+    };
+    var ids = Object.keys(DEFAULTS);
+    var el = {};
+    ids.forEach(function (k) { el[k] = document.getElementById(k); });
+    if (!el.v1) { return; }
+
+    function n(k) { var v = parseFloat(el[k].value); return isFinite(v) && v > 0 ? v : 0; }
+    function fmt(x) {
+      return Math.round(x).toLocaleString('ar-EG', { maximumFractionDigits: 0 });
+    }
+    function put(id, txt) { var e = document.getElementById(id); if (e) { e.textContent = txt; } }
+
+    function calc() {
+      var r = [];
+      r[1] = n('v1') * n('p1') / 100;
+      r[2] = n('v2') * n('p2') / 100;
+      r[3] = n('v3') * n('p3') / 100;
+      r[4] = n('v4') * n('p4');           // ساعات × أجر الساعة
+      r[5] = n('v5') * n('p5') / 100;
+      r[6] = n('v6') * n('p6') / 100;
+
+      var month = 0;
+      for (var i = 1; i <= 6; i++) { put('r' + i, fmt(r[i])); month += r[i]; }
+      put('rMonth', fmt(month));
+
+      var oneOff  = n('c1') + n('c2') + n('c3') + n('c4');
+      var monthly = n('c5');
+      var year1   = oneOff + monthly * 12;
+      var benefit = month * 12;
+      var net     = benefit - year1;
+
+      put('cYear1', fmt(year1));
+      put('bYear', fmt(benefit));
+      put('net1', (net < 0 ? '‎−' : '') + fmt(Math.abs(net)));
+
+      var netEl = document.getElementById('net1');
+      if (netEl) { netEl.style.color = net >= 0 ? 'var(--ok)' : 'var(--bad)'; }
+
+      var netMonthly = month - monthly;
+      var bar = document.getElementById('payBar');
+      if (netMonthly <= 0) {
+        put('payback', 'لا يُسترد');
+        put('payNote', 'العائد الشهري لا يغطي تكلفة التشغيل الشهرية. راجعوا المُدخلات.');
+        if (bar) { bar.style.width = '100%'; bar.style.background = 'var(--bad)'; }
+      } else {
+        var m = oneOff / netMonthly;
+        put('payback', fmt(m) + ' شهرًا');
+        put('payNote', 'تُسترد تكلفة التأسيس بعد ' + fmt(m) + ' شهرًا من صافي العائد الشهري (' + fmt(netMonthly) + ' د.ل).');
+        if (bar) {
+          bar.style.width = Math.max(4, Math.min(100, (m / 24) * 100)) + '%';
+          bar.style.background = m <= 12 ? 'var(--ok)' : (m <= 24 ? 'var(--wheat)' : 'var(--bad)');
+        }
+      }
+    }
+
+    ids.forEach(function (k) {
+      el[k].addEventListener('input', function () {
+        el[k].classList.add('touched');
+        calc();
+      });
+    });
+
+    var reset = document.getElementById('roiReset');
+    if (reset) {
+      reset.addEventListener('click', function () {
+        ids.forEach(function (k) {
+          el[k].value = DEFAULTS[k];
+          el[k].classList.remove('touched');
+        });
+        calc();
+      });
+    }
+
+    calc();
+  })();
+</script>
+
+</body>
+</html>
