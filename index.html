@@ -822,7 +822,8 @@ var ACC = {
 var S = {
   started:false, closed:false, online:true, drawer:false, fab:false,
   stock:{}, cash:0, invoices:[], collections:[], journal:[], visited:{},
-  visitLog:[], tasks:[], visit:null, seq:118, rseq:40, counted:null,`n  custQ:'', custSort:'geo', custFilter:'all', cmenu:false,
+  visitLog:[], tasks:[], visit:null, seq:118, rseq:40, counted:null,
+  custQ:'', custSort:'geo', custFilter:'all', cmenu:false,
   curCust:null, returns:[], retCart:{}, retInv:null, retWhy:'', tseq:20, expenses:[], eseq:60};
 PRODUCTS.forEach(function(p){ S.stock[p.id] = p.open; });
 
