@@ -472,6 +472,8 @@ tfoot td{font-weight:800;border-top:1px solid var(--ink);border-bottom:0;padding
 .rescount{font-size:11.5px;color:var(--ink-3);margin-bottom:9px;font-weight:600}
 .rescount b{color:var(--brand);font-weight:800}
 
+.ccard{cursor:pointer}
+.ccard:hover{border-color:var(--brand)}
 .scr{display:none}.scr.on{display:block;animation:up .25s cubic-bezier(.2,.7,.3,1)}
 @keyframes up{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.scr.on{animation:none}}
@@ -500,6 +502,11 @@ tfoot td{font-weight:800;border-top:1px solid var(--ink);border-bottom:0;padding
       <button data-jump="stock">مخزون السيارة</button>
       <button data-jump="gl">دفتر القيود</button>
       <button data-jump="close">التقفيلة المالية</button>
+      <button data-jump="rets">المرتجعات</button>
+      <button data-jump="exps">المصروفات</button>
+      <button data-jump="tgt">الأهداف والعمولة</button>
+      <button data-jump="notif">التنبيهات</button>
+      <button data-jump="dash">لوحة التحكم</button>
       <button data-jump="about">عن المشروع</button>
       <button id="drwEnd">إنهاء العمل</button>
     </div>
@@ -528,6 +535,18 @@ tfoot td{font-weight:800;border-top:1px solid var(--ink);border-bottom:0;padding
       <button data-s="close">
         <span class="ring"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 10v4M18 10v4"/></svg></span>
         <span class="lb">التحصيلات</span></button>
+      <button data-s="rets">
+        <span class="ring"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></span>
+        <span class="lb">المرتجعات</span></button>
+      <button data-s="exps">
+        <span class="ring"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg></span>
+        <span class="lb">المصروفات</span></button>
+      <button data-s="tgt">
+        <span class="ring"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/></svg></span>
+        <span class="lb">الأهداف والعمولة</span></button>
+      <button data-s="notif">
+        <span class="ring"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span>
+        <span class="lb">التنبيهات</span></button>
       <button data-s="dash">
         <span class="ring"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg></span>
         <span class="lb">لوحة التحكم</span></button>
@@ -604,6 +623,32 @@ tfoot td{font-weight:800;border-top:1px solid var(--ink);border-bottom:0;padding
         <div><h1>قائمة العملاء</h1><p class="sub">بحث ذكي بالاسم والرقم والجوال والعنوان · ترتيب حسب الأقرب إليك</p></div>
       </div>
       <div id="custBody"></div>
+    </section>
+
+    <section class="scr" id="c360">
+      <div class="hd"><div><h1 id="c360T">ملف العميل</h1><p class="sub">حركات اليوم والزيارات والبيانات في مكان واحد</p></div>
+      <div class="r"><button class="btn g" id="c360Top">قائمة العملاء</button></div></div>
+      <div id="c360Body"></div>
+    </section>
+
+    <section class="scr" id="rets">
+      <div class="hd"><div><h1>المرتجعات</h1><p class="sub">مرتجع مربوط بالفاتورة الأصلية والتشغيلة والسبب</p></div></div>
+      <div id="retsBody"></div>
+    </section>
+
+    <section class="scr" id="exps">
+      <div class="hd"><div><h1>مصروفات المندوب</h1><p class="sub">تُخصم من الخزينة وتظهر في مطابقة الإقفال</p></div></div>
+      <div id="expsBody"></div>
+    </section>
+
+    <section class="scr" id="tgt">
+      <div class="hd"><div><h1>الأهداف والعمولة</h1><p class="sub">٤٠٪ مبيعات + ٤٠٪ تحصيل + ٢٠٪ تغطية</p></div></div>
+      <div id="tgtBody"></div>
+    </section>
+
+    <section class="scr" id="notif">
+      <div class="hd"><div><h1>التنبيهات</h1><p class="sub">محسوبة لحظيًا من حالة المخزون والعملاء واليوم</p></div></div>
+      <div id="notifBody"></div>
     </section>
 
     <!-- ============ المخزون ============ -->
@@ -758,14 +803,19 @@ var ACC = {
   van:   {c:'١١٠٤٠٣', n:'بضاعة سيارات Cash Van'},
   short: {c:'١١٠١٠٨', n:'عجز نقدية قيد الفحص'},
   over:  {c:'١١٠١٠٧', n:'زيادة نقدية قيد الفحص'},
-  bank:  {c:'١١٠٢٠٣', n:'تحويلات واردة قيد المطابقة'}
+  bank:  {c:'١١٠٢٠٣', n:'تحويلات واردة قيد المطابقة'},
+  retn:  {c:'٤١٠٢٠١', n:'مردودات مبيعات Cash Van'},
+  retinv:{c:'١١٠٤٠٦', n:'بضاعة مرتجعة قيد الفحص'},
+  dmg:   {c:'١١٠٤٠٨', n:'بضاعة تالفة'},
+  retcogs:{c:'٥١٠١٠٦', n:'تكلفة مرتجعات مقبولة'}
 };
 
 /* ================= الحالة ================= */
 var S = {
   started:false, closed:false, online:true, drawer:false, fab:false,
   stock:{}, cash:0, invoices:[], collections:[], journal:[], visited:{},
-  visitLog:[], tasks:[], visit:null, seq:118, rseq:40, counted:null,`n  custQ:'', custSort:'geo', custFilter:'all', cmenu:false};
+  visitLog:[], tasks:[], visit:null, seq:118, rseq:40, counted:null,`n  custQ:'', custSort:'geo', custFilter:'all', cmenu:false,
+  curCust:null, returns:[], retCart:{}, retInv:null, retWhy:'', tseq:20, expenses:[], eseq:60};
 PRODUCTS.forEach(function(p){ S.stock[p.id] = p.open; });
 
 /* ================= أدوات ================= */
@@ -795,6 +845,11 @@ function visitCount(){ return Object.keys(S.visited).length; }
 function stockValue(){ var t=0; PRODUCTS.forEach(function(p){ t += S.stock[p.id]*p.cost; }); return t; }
 /* ================= الهيكل: الرأس والدرج والزر العائم ================= */
 var SHD = {
+  c360:  {t:'ملف العميل',           d:'الحركات والزيارات والبيانات'},
+  rets:  {t:'المرتجعات',             d:'مربوطة بالفاتورة والتشغيلة والسبب'},
+  exps:  {t:'مصروفات المندوب',       d:'تُخصم من الخزينة فورًا'},
+  tgt:   {t:'الأهداف والعمولة',      d:'المعادلة المعتمدة ٤٠/٤٠/٢٠'},
+  notif: {t:'التنبيهات',             d:'محسوبة لحظيًا'},
   custs: {t:'قائمة العملاء',        d:'بحث ذكي · الأقرب إلى موقعك أولًا'},
   day:   {t:'زيارات اليوم',        d:'مسار طرابلس — سوق الجمعة'},
   sell:  {t:'الزيارة الحالية',      d:'البيع والتحصيل وصورة الرف والأسئلة'},
@@ -825,6 +880,7 @@ function bindShell(){
   b = $('drwUp');  if (b) b.onclick = function(){ S.drawer = false; renderShell(curScreen()); };
   b = $('icOut');  if (b) b.onclick = function(){ toast('إنهاء العمل يتطلب إقفال اليوم أولًا'); go('close'); };
   b = $('drwEnd'); if (b) b.onclick = function(){ S.drawer=false; toast('إنهاء العمل يتطلب إقفال اليوم أولًا'); go('close'); };
+  b = $('c360Top'); if (b) b.onclick = function(){ go('custs'); };
   b = $('icBell'); if (b) b.onclick = function(){
     S.online = !S.online;
     toast(S.online ? 'عاد الاتصال — جارٍ مزامنة ما تم حفظه محليًا' : 'انقطع الاتصال — التطبيق يواصل العمل ويحفظ محليًا');
@@ -1016,6 +1072,250 @@ function closeVisit(){
   go('day');
 }
 
+/* ================= ملف العميل ================= */
+function openCust(cid){ S.curCust = cid; go('c360'); }
+
+function renderC360(){
+  var c = cust(S.curCust);
+  if (!c){
+    $('c360Body').innerHTML = '<div class="epill"><span>اختر عميلًا من قائمة العملاء.</span></div>';
+    return;
+  }
+  var inv = S.invoices.filter(function(i){ return i.cid===c.id; });
+  var col = S.collections.filter(function(x){ return x.cid===c.id; });
+  var tot = 0; inv.forEach(function(i){ tot += i.total; });
+  var colT = 0; col.forEach(function(x){ colT += x.amt; });
+  var vlog = S.visitLog.filter(function(v){ return v.cid===c.id; });
+  var avg = inv.length ? tot/inv.length : 0;
+  var st = S.visited[c.id];
+  var canV = S.started && !S.closed && !st;
+
+  var mv = inv.map(function(i){
+    return '<tr><td><b>'+esc(i.no)+'</b><div class="muted">'+(i.pay==='cash'?'نقدي':'آجل')+' · '+ai(i.lines.length)+' صنف</div></td>'
+      + '<td class="a">'+ar(i.total)+'</td><td><span class="pill ok">مرحّلة</span></td></tr>'; })
+    .concat(col.map(function(x){
+      return '<tr><td><b>'+esc(x.no)+'</b><div class="muted">تحصيل '+(x.method==='cash'?'نقدي':'تحويل')+'</div></td>'
+        + '<td class="a">'+ar(x.amt)+'</td><td><span class="pill if">تحصيل</span></td></tr>'; })).join('');
+
+  $('c360Body').innerHTML =
+      '<div class="grid g4" style="margin-bottom:12px">'
+    + '<div class="card kpi"><span class="l">مشتريات اليوم</span><span class="v">'+ai(tot)+'</span><span class="f">د.ل · '+ai(inv.length)+' فاتورة</span></div>'
+    + '<div class="card kpi"><span class="l">الرصيد المفتوح</span><span class="v" style="color:'+(c.bal>0?'var(--warn)':'var(--pos)')+'">'+ai(c.bal)+'</span><span class="f">د.ل</span></div>'
+    + '<div class="card kpi"><span class="l">متوسط الفاتورة</span><span class="v">'+ai(avg)+'</span><span class="f">د.ل</span></div>'
+    + '<div class="card kpi"><span class="l">المسافة</span><span class="v">'+ar(c.km,1)+'</span><span class="f">كم من موقعك</span></div>'
+    + '</div>'
+    + '<div class="grid g2">'
+    + '<div class="card"><header><h2>حركات اليوم</h2><span class="meta">'+ai(inv.length+col.length)+' حركة</span></header>'
+    +   (mv ? '<div class="tw"><table><thead><tr><th>المستند</th><th class="a">القيمة</th><th>الحالة</th></tr></thead><tbody>'+mv+'</tbody></table></div>'
+           : '<div class="empty">لا توجد حركات اليوم على هذا العميل.</div>') + '</div>'
+    + '<div class="stack">'
+    +   '<div class="card"><header><h2>بيانات العميل</h2></header><div class="pad"><dl class="kv">'
+    +     '<dt>الرقم التعريفي</dt><dd>'+esc(c.code)+'</dd>'
+    +     '<dt>القناة</dt><dd>'+esc(c.ch)+'</dd>'
+    +     '<dt>الجوال</dt><dd>'+esc(c.mob)+'</dd>'
+    +     '<dt>العنوان</dt><dd style="text-align:start">'+esc(c.addr)+'</dd>'
+    +     '<dt>الحد الائتماني</dt><dd>'+(c.limit>0?ai(c.limit)+' د.ل':'نقدي فقط')+'</dd>'
+    +     '<dt>أضيف في</dt><dd>'+esc(c.added)+'</dd>'
+    +     '<dt>آخر زيارة</dt><dd>'+esc(c.last)+'</dd>'
+    +     '<dt>الحالة</dt><dd>'+(c.active?'<span class="pill ok">فاعل</span>':'<span class="pill bd">غير فاعل</span>')+'</dd>'
+    +   '</dl></div></div>'
+    +   '<div class="card"><header><h2>زيارات اليوم</h2></header>'
+    +     (vlog.length ? vlog.map(function(v){
+            return '<div class="tk"><span class="pill ok">'+esc(v.outcome)+'</span><div class="ti"><b>'
+              + ai(v.mins)+' دقيقة · '+ai(v.photos)+' صورة</b><span>'
+              + (v.inv ? 'فاتورة '+esc(v.inv)+' · ' : '') + (v.col ? 'تحصيل '+ar(v.col) : 'بلا تحصيل') + '</span></div></div>'; }).join('')
+          : '<div class="empty">لم تُسجَّل زيارة اليوم.</div>') + '</div>'
+    +   '<div class="card pad"><div class="row" style="gap:8px">'
+    +     (canV ? '<button class="btn" id="c360Visit">فتح زيارة الآن</button>' : '')
+    +     '<button class="btn g" id="c360Back">رجوع للقائمة</button></div></div>'
+    + '</div></div>';
+
+  var a = $('c360Visit'); if (a) a.onclick = function(){ openVisit(c.id); };
+  var b = $('c360Back');  if (b) b.onclick = function(){ go('custs'); };
+}
+
+/* ================= المرتجعات ================= */
+var RET_REASONS = ['قرب انتهاء الصلاحية','تلف في العبوة','خطأ في الصنف','رفض العميل','منتج بطيء الحركة'];
+
+function renderRets(){
+  if (!S.invoices.length){
+    $('retsBody').innerHTML = '<div class="epill"><span>لا توجد فواتير مرحّلة. نفّذ عملية بيع أولًا ثم ارجع لتسجيل مرتجع.</span></div>';
+    return;
+  }
+  var opts = S.invoices.map(function(i){
+    return '<option value="'+i.no+'"'+(S.retInv===i.no?' selected':'')+'>'+esc(i.no)+' — '+esc(i.cnm)+' — '+ar(i.total)+'</option>'; }).join('');
+  var inv = null; S.invoices.forEach(function(i){ if (i.no===S.retInv) inv = i; });
+  if (!inv){ inv = S.invoices[0]; S.retInv = inv.no; }
+
+  var lines = inv.lines.map(function(l){
+    var q = (S.retCart[l.id]||0);
+    return '<div class="sl'+(q>0?' act':'')+'">'
+      + '<div class="info"><b>'+esc(l.nm)+'</b><div class="m">'+esc(l.lot)+' · مباع '+ai(l.q)+' · سعر '+ar(l.price)+'</div></div>'
+      + '<div class="qty'+(q===0?' z':'')+'"><button data-rm="'+l.id+'">−</button><i>'+ai(q)+'</i>'
+      + '<button data-rp="'+l.id+'"'+(q>=l.q?' disabled':'')+'>+</button></div>'
+      + '<div class="tt">'+(q>0?ar(q*l.price):'—')+'</div></div>';
+  }).join('');
+
+  var tot = 0; inv.lines.forEach(function(l){ tot += (S.retCart[l.id]||0) * l.price; });
+
+  $('retsBody').innerHTML =
+      '<div class="grid" style="grid-template-columns:1fr 320px;gap:12px">'
+    + '<div class="card"><header><h2>أصناف المرتجع</h2><span class="meta">لا يتجاوز المرتجع الكمية المباعة</span></header>'
+    +   '<div class="pad" style="padding-bottom:0"><div class="fld"><label>الفاتورة الأصلية</label>'
+    +     '<select id="retSel">'+opts+'</select></div></div>'
+    +   '<div style="margin-top:12px">'+lines+'</div></div>'
+    + '<div class="stack">'
+    +   '<div class="tot"><div class="ln"><span>العميل</span><b>'+esc(inv.cnm)+'</b></div>'
+    +     '<div class="ln"><span>طريقة البيع</span><b>'+(inv.pay==='cash'?'نقدي':'آجل')+'</b></div>'
+    +     '<div class="big"><span>قيمة المرتجع</span><b>'+ar(tot)+'</b></div></div>'
+    +   '<div class="card pad stack" style="gap:10px">'
+    +     '<div class="fld"><label>سبب المرتجع (إلزامي)</label><select id="retWhy">'
+    +       '<option value="">— اختر السبب —</option>'
+    +       RET_REASONS.map(function(r){ return '<option'+(S.retWhy===r?' selected':'')+'>'+r+'</option>'; }).join('')
+    +     '</select></div>'
+    +     '<div class="fld"><label>حالة البضاعة</label><select id="retCond">'
+    +       '<option value="ok">صالحة — تعود للمخزون بعد الفحص</option>'
+    +       '<option value="bad">تالفة — لا تعود للمتاح</option></select></div>'
+    +     '<button class="btn" id="retPost"'+((tot>0 && S.retWhy)?'':' disabled')+'>ترحيل المرتجع</button>'
+    +   '</div>'
+    +   '<div class="card pad"><div class="note"><b>القيد الآلي:</b> مدين مردودات مبيعات ٤١٠٢٠١ · دائن خزينة المندوب أو ذمة العميل — وعكس التكلفة إلى مخزون المرتجعات قيد الفحص ١١٠٤٠٦.</div></div>'
+    + '</div></div>'
+    + (S.returns.length ? '<div class="card" style="margin-top:12px"><header><h2>مرتجعات اليوم</h2><span class="meta">'+ai(S.returns.length)+'</span></header><div class="tw"><table>'
+        + '<thead><tr><th>المستند</th><th>العميل</th><th>السبب</th><th class="a">القيمة</th></tr></thead><tbody>'
+        + S.returns.map(function(r){ return '<tr><td><b>'+esc(r.no)+'</b></td><td>'+esc(r.cnm)+'</td><td>'+esc(r.why)+'</td><td class="a">'+ar(r.amt)+'</td></tr>'; }).join('')
+        + '</tbody></table></div></div>' : '');
+
+  var s = $('retSel'); if (s) s.onchange = function(){ S.retInv = s.value; S.retCart = {}; renderRets(); };
+  var w = $('retWhy'); if (w) w.onchange = function(){ S.retWhy = w.value; renderRets(); };
+  document.querySelectorAll('[data-rp]').forEach(function(b){ b.onclick = function(){ retQty(b.dataset.rp, 1, inv); }; });
+  document.querySelectorAll('[data-rm]').forEach(function(b){ b.onclick = function(){ retQty(b.dataset.rm, -1, inv); }; });
+  var p = $('retPost'); if (p) p.onclick = function(){ postReturn(inv); };
+}
+function retQty(pid, d, inv){
+  var max = 0; inv.lines.forEach(function(l){ if (l.id===pid) max = l.q; });
+  var cur = S.retCart[pid]||0, nx = cur + d;
+  if (nx < 0) nx = 0;
+  if (nx > max){ toast('المرتجع لا يتجاوز الكمية المباعة ('+ai(max)+')'); return; }
+  if (nx===0) delete S.retCart[pid]; else S.retCart[pid] = nx;
+  renderRets();
+}
+function postReturn(inv){
+  var tot = 0, cogs = 0, n = 0;
+  inv.lines.forEach(function(l){
+    var q = S.retCart[l.id]||0;
+    if (q>0){ tot += q*l.price; cogs += q*prod(l.id).cost; n += q; S.stock[l.id] += q; }
+  });
+  if (!tot || !S.retWhy) return;
+  var cond = $('retCond') ? $('retCond').value : 'ok';
+  S.tseq++;
+  var no = 'RET-240'+S.tseq;
+  var c = cust(inv.cid);
+  if (inv.pay==='cash') S.cash -= tot; else c.bal -= tot;
+  S.returns.push({no:no, cnm:inv.cnm, why:S.retWhy, amt:tot, qty:n});
+  S.journal.push({
+    src:no, ttl:'مرتجع عميل — '+S.retWhy,
+    d:[{a:ACC.retn, v:tot}, {a:(cond==='ok'?ACC.retinv:ACC.dmg), v:cogs}],
+    c:[(inv.pay==='cash'?{a:ACC.cash,v:tot}:{a:ACC.ar,v:tot}), {a:ACC.retcogs, v:cogs}]
+  });
+  S.retCart = {}; S.retWhy = '';
+  toast('رُحّل '+no+' — عادت '+ai(n)+' وحدة وتولّد القيد العكسي');
+  renderRets();
+}
+
+/* ================= المصروفات ================= */
+var EXP_TYPES = [
+  {k:'وقود',        a:{c:'٦١٠١٠٣', n:'وقود ومحروقات'}},
+  {k:'صيانة سيارة', a:{c:'٦١٠١٠٤', n:'صيانة مركبات'}},
+  {k:'مصروف نثري',  a:{c:'٦١٠١٠٧', n:'مصروفات نثرية ميدانية'}}
+];
+function renderExps(){
+  var tot = 0; S.expenses.forEach(function(e){ tot += e.amt; });
+  $('expsBody').innerHTML =
+      '<div class="grid g2">'
+    + '<div class="card"><header><h2>تسجيل مصروف</h2><span class="meta">يخصم من خزينة المندوب فورًا</span></header>'
+    +   '<div class="pad stack" style="gap:10px">'
+    +     '<div class="fld"><label>النوع</label><select id="expT">'
+    +       EXP_TYPES.map(function(t){ return '<option>'+t.k+'</option>'; }).join('')+'</select></div>'
+    +     '<div class="fld"><label>المبلغ (د.ل)</label><input id="expA" type="number" step="10" placeholder="0"></div>'
+    +     '<div class="fld"><label>ملاحظة</label><input id="expN" placeholder="مثال: تعبئة وقود محطة الشط"></div>'
+    +     '<button class="btn" id="expAdd">ترحيل المصروف</button>'
+    +     '<div class="note">المصروف المعتمد يُخصم من الخزينة ويظهر في مطابقة الإقفال. لا يُقبل بلا نوع ومبلغ.</div>'
+    +   '</div></div>'
+    + '<div class="card"><header><h2>مصروفات اليوم</h2><span class="meta">الإجمالي '+ar(tot)+' د.ل</span></header>'
+    +   (S.expenses.length ? '<div class="tw"><table><thead><tr><th>المستند</th><th>النوع</th><th>ملاحظة</th><th class="a">المبلغ</th></tr></thead><tbody>'
+        + S.expenses.map(function(e){ return '<tr><td><b>'+esc(e.no)+'</b></td><td>'+esc(e.t)+'</td><td class="muted">'+esc(e.note||'—')+'</td><td class="a">'+ar(e.amt)+'</td></tr>'; }).join('')
+        + '</tbody></table></div>' : '<div class="empty">لا مصروفات مسجّلة اليوم.</div>')
+    + '</div></div>';
+  var b = $('expAdd');
+  if (b) b.onclick = function(){
+    var t = $('expT').value, a = parseFloat($('expA').value), nt = $('expN').value;
+    if (!a || a<=0){ toast('أدخل مبلغ المصروف'); return; }
+    if (a > S.cash){ toast('المبلغ يتجاوز نقدية الخزينة ('+ar(S.cash)+')'); return; }
+    S.eseq++;
+    var no = 'EXP-240'+S.eseq;
+    var acc = EXP_TYPES[0].a; EXP_TYPES.forEach(function(x){ if (x.k===t) acc = x.a; });
+    S.cash -= a;
+    S.expenses.push({no:no, t:t, amt:a, note:nt});
+    S.journal.push({src:no, ttl:'مصروف مندوب — '+t, d:[{a:acc, v:a}], c:[{a:ACC.cash, v:a}]});
+    toast('رُحّل '+no+' — نقصت الخزينة وتولّد القيد');
+    renderExps();
+  };
+}
+
+/* ================= الأهداف والعمولة ================= */
+var TGT = {sales:60000, coll:55000, cov:8};
+function renderTgt(){
+  var s = salesTotal(), cl = S.cash, cv = visitCount();
+  var ps = Math.min(150, s/TGT.sales*100), pc = Math.min(150, cl/TGT.coll*100), pv = Math.min(150, cv/TGT.cov*100);
+  var score = ps*0.4 + pc*0.4 + pv*0.2;
+  function row(lbl, act, tgt, pct, unit, w){
+    return '<div style="padding:13px 0;border-bottom:1px solid var(--line-soft)">'
+      + '<div class="row sp" style="margin-bottom:6px"><b style="font-size:13px">'+lbl+' <span class="muted">وزن '+w+'٪</span></b>'
+      + '<span class="n" style="font-weight:800">'+ai(act)+' / '+ai(tgt)+' '+unit+'</span></div>'
+      + '<div class="bar"><i style="width:'+Math.min(100,pct)+'%;background:'+(pct>=100?'var(--pos)':(pct>=60?'var(--warn)':'var(--neg)'))+'"></i></div>'
+      + '<div class="muted" style="margin-top:5px">التحقيق '+ar(pct,1)+'٪</div></div>';
+  }
+  $('tgtBody').innerHTML =
+      '<div class="grid g3" style="margin-bottom:12px">'
+    + '<div class="card kpi"><span class="l">درجة التحقيق</span><span class="v" style="color:'+(score>=100?'var(--pos)':'var(--warn)')+'">'+ar(score,1)+'٪</span><span class="f">مرجّحة ٤٠/٤٠/٢٠</span></div>'
+    + '<div class="card kpi"><span class="l">المبيعات</span><span class="v">'+ai(s)+'</span><span class="f">د.ل من '+ai(TGT.sales)+'</span></div>'
+    + '<div class="card kpi"><span class="l">التحصيل</span><span class="v">'+ai(cl)+'</span><span class="f">د.ل من '+ai(TGT.coll)+'</span></div>'
+    + '</div>'
+    + '<div class="card"><header><h2>مكوّنات العمولة</h2><span class="meta">المعادلة المعتمدة HR-017</span></header><div class="pad">'
+    +   row('صافي المبيعات', s, TGT.sales, ps, 'د.ل', '٤٠')
+    +   row('التحصيل الفعلي', cl, TGT.coll, pc, 'د.ل', '٤٠')
+    +   row('التغطية — زيارات منفذة', cv, TGT.cov, pv, 'عميل', '٢٠')
+    + '</div></div>'
+    + '<div class="card pad" style="margin-top:12px"><div class="note"><b>٤٠٪ صافي مبيعات + ٤٠٪ تحصيل فعلي + ٢٠٪ تغطية والتزام.</b> '
+    + 'العمولة لا تُستحق قبل إقفال الشهر وتسوية الوردية، وأي مرتجع لاحق يُنشئ تعديلًا في الفترة التالية.</div></div>';
+}
+
+/* ================= الإشعارات ================= */
+function buildAlerts(){
+  var a = [];
+  PRODUCTS.forEach(function(p){
+    if (p.days<=30) a.push({t:'wr', h:'تشغيلة قاربت الانتهاء', d:p.nm+' · '+p.lot+' · '+ai(p.days)+' يومًا · رصيد '+ai(S.stock[p.id])});
+    if (S.stock[p.id] <= 10) a.push({t:'bd', h:'رصيد منخفض في السيارة', d:p.nm+' · متبقٍ '+ai(S.stock[p.id])+' فقط'});
+  });
+  CUSTOMERS.forEach(function(c){
+    if (c.bal>0 && !c.active) a.push({t:'bd', h:'عميل غير فاعل عليه رصيد', d:c.nm+' · '+ar(c.bal)+' د.ل'});
+    else if (c.bal>0) a.push({t:'wr', h:'رصيد مفتوح', d:c.nm+' · '+ar(c.bal)+' د.ل'});
+  });
+  if (!S.online) a.push({t:'bd', h:'انقطع الاتصال', d:'العمليات محفوظة محليًا وستُزامَن تلقائيًا'});
+  if (S.started && !S.closed) a.push({t:'if', h:'اليوم مفتوح', d:'لا يمكن بدء يوم جديد قبل الإقفال والتسوية'});
+  if (visitCount() < CUSTOMERS.length && S.started)
+    a.push({t:'if', h:'زيارات متبقية', d:ai(CUSTOMERS.length-visitCount())+' عميل لم تتم زيارتهم بعد'});
+  return a;
+}
+function renderNotif(){
+  var a = buildAlerts();
+  $('notifBody').innerHTML = a.length
+    ? '<div class="card"><header><h2>تنبيهات تحتاج إجراء</h2><span class="meta">'+ai(a.length)+'</span></header>'
+      + a.map(function(x){ return '<div class="tk"><span class="pill '+x.t+'">تنبيه</span><div class="ti"><b>'+esc(x.h)+'</b><span>'+esc(x.d)+'</span></div></div>'; }).join('')
+      + '</div>'
+    : '<div class="epill"><span>لا توجد تنبيهات مفتوحة.</span></div>';
+}
+
 /* ================= قائمة العملاء والبحث الذكي ================= */
 function esc2(s){ return esc(s); }
 
@@ -1128,6 +1428,12 @@ function renderCusts(){
   });
   document.querySelectorAll('[data-cs]').forEach(function(b){
     b.onclick = function(e){ e.stopPropagation(); S.custSort = b.dataset.cs; S.cmenu=false; renderCusts(); };
+  });
+  document.querySelectorAll('#custBody .ccard').forEach(function(card, ix){
+    card.onclick = function(e){
+      if (e.target.closest('button')) return;
+      openCust(custList()[ix].id);
+    };
   });
   document.querySelectorAll('#custBody [data-visit]').forEach(function(b){
     b.onclick = function(){ openVisit(b.dataset.visit); };
@@ -1336,7 +1642,7 @@ function resetAll(){
   PRODUCTS.forEach(function(p){ S.stock[p.id] = p.open; });
   CUSTOMERS.forEach(function(c){ if (c.id==='C4') c.bal = 1250; else c.bal = 0; });
   S.started=false; S.closed=false; S.cash=0; S.invoices=[]; S.collections=[]; S.journal=[];
-  S.visited={}; S.visitLog=[]; S.tasks=[]; S.visit=null; S.seq=118; S.rseq=40; S.counted=null; S.custQ='';  toast('أُعيد ضبط اليوم');
+  S.visited={}; S.visitLog=[]; S.tasks=[]; S.visit=null; S.seq=118; S.rseq=40; S.counted=null; S.custQ=''; S.curCust=null; S.returns=[]; S.retCart={}; S.retInv=null; S.retWhy=''; S.tseq=20; S.expenses=[]; S.eseq=60;  toast('أُعيد ضبط اليوم');
   go('day');
 }
 
@@ -1563,6 +1869,11 @@ function render(){
   if (!on) return;
   if (on.id==='day')   renderDay();
   if (on.id==='custs') renderCusts();
+  if (on.id==='c360')  renderC360();
+  if (on.id==='rets')  renderRets();
+  if (on.id==='exps')  renderExps();
+  if (on.id==='tgt')   renderTgt();
+  if (on.id==='notif') renderNotif();
   if (on.id==='sell')  renderSell();
   if (on.id==='stock') renderStock();
   if (on.id==='gl')    renderGl();
