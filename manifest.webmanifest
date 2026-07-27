@@ -1,0 +1,23 @@
+{
+  "name": "هومي لتوزيع الأغذية — مندوب Cash Van",
+  "short_name": "هومي مندوب",
+  "description": "تطبيق مندوب المبيعات: خط السير، الزيارات، البيع، التحصيل، المرتجعات، التسوية اليومية — يعمل دون إنترنت.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#073650",
+  "theme_color": "#073650",
+  "categories": ["business", "productivity"],
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "خط السير", "short_name": "الزيارات", "url": "./index.html#route" },
+    { "name": "التسوية اليومية", "short_name": "التسوية", "url": "./index.html#close" }
+  ]
+}
