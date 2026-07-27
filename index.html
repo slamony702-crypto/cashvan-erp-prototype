@@ -481,6 +481,19 @@ tfoot td{font-weight:800;border-top:1px solid var(--ink);border-bottom:0;padding
   font-variant-numeric:tabular-nums;color:var(--brand);line-height:1.15}
 .live4 span{display:block;font-size:9.5px;color:var(--ink-3);font-weight:700;letter-spacing:.04em;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:11px}
+.chip{font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--brand-soft);
+  color:var(--brand);display:inline-flex;align-items:center;gap:6px}
+.chip.rm{cursor:pointer}
+.chip.rm:hover{background:var(--brand);color:#fff}
+.chip i{font-style:normal;font-size:13px;line-height:1;opacity:.8}
+.chips .cnt{margin-inline-start:auto;font-size:11.5px;color:var(--ink-3);font-weight:600}
+.chips .cnt b{color:var(--ink);font-weight:800}
+.sbox .clr{all:unset;cursor:pointer;width:20px;height:20px;display:grid;place-items:center;
+  border-radius:50%;background:var(--line-soft);color:var(--ink-3);font-size:14px;line-height:1;flex:none}
+.sbox .clr:hover{background:var(--neg);color:#fff}
+.ccard .cact{gap:6px}
+.ccard .cact .btn.sm{padding:4px 10px;font-size:11px}
 .scr{display:none}.scr.on{display:block;animation:up .25s cubic-bezier(.2,.7,.3,1)}
 @keyframes up{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.scr.on{animation:none}}
@@ -627,9 +640,6 @@ tfoot td{font-weight:800;border-top:1px solid var(--ink);border-bottom:0;padding
     </section>
 
     <section class="scr" id="custs">
-      <div class="hd">
-        <div><h1>قائمة العملاء</h1><p class="sub">بحث ذكي بالاسم والرقم والجوال والعنوان · ترتيب حسب الأقرب إليك</p></div>
-      </div>
       <div id="custBody"></div>
     </section>
 
@@ -823,7 +833,7 @@ var S = {
   started:false, closed:false, online:true, drawer:false, fab:false,
   stock:{}, cash:0, invoices:[], collections:[], journal:[], visited:{},
   visitLog:[], tasks:[], visit:null, seq:118, rseq:40, counted:null,
-  custQ:'', custSort:'geo', custFilter:'all', cmenu:false,
+  custQ:'', custSort:'geo', custFilter:'all', custOnly:'', cmenu:false,
   curCust:null, returns:[], retCart:{}, retInv:null, retWhy:'', tseq:20, expenses:[], eseq:60};
 PRODUCTS.forEach(function(p){ S.stock[p.id] = p.open; });
 
@@ -1330,79 +1340,98 @@ function esc2(s){ return esc(s); }
 
 function custMatch(c, q){
   if (!q) return true;
-  q = q.trim();
-  if (!q) return true;
-  var hay = c.nm + ' ' + c.code + ' ' + c.mob + ' ' + c.addr + ' ' + c.ch;
-  return hay.indexOf(q) >= 0;
+  q = q.trim(); if (!q) return true;
+  return (c.nm + ' ' + c.code + ' ' + c.mob + ' ' + c.addr + ' ' + c.ch).indexOf(q) >= 0;
 }
-
 function custList(){
   var q = S.custQ || '';
   var out = CUSTOMERS.filter(function(c){
     if (S.custFilter === 'inactive' && c.active) return false;
     if (S.custFilter === 'active' && !c.active) return false;
+    if (S.custOnly === 'bal' && !(c.bal > 0)) return false;
+    if (S.custOnly === 'todo' && S.visited[c.id]) return false;
     return custMatch(c, q);
   });
   if (S.custSort === 'geo')       out.sort(function(a,b){ return a.km - b.km; });
   else if (S.custSort === 'date') out.sort(function(a,b){ return b.addedN - a.addedN; });
+  else if (S.custSort === 'bal')  out.sort(function(a,b){ return b.bal - a.bal; });
   else                             out.sort(function(a,b){ return a.nm.localeCompare(b.nm,'ar'); });
   return out;
 }
+function sortName(k){
+  return k==='geo' ? 'الأقرب إليك' : k==='date' ? 'الأحدث إضافة' : k==='bal' ? 'الأعلى مديونية' : 'الاسم';
+}
+function setSort(k, msg){ S.custSort = k; S.cmenu = false; toast(msg); renderCusts(); }
+function setFilt(k, msg){ S.custFilter = k; S.cmenu = false; toast(msg); renderCusts(); }
+function setOnly(k, msg){ S.custOnly = (S.custOnly===k ? '' : k); S.cmenu = false; toast(msg); renderCusts(); }
 
 function renderCusts(){
-  var list = custList();
-  var geoOn  = S.custSort === 'geo';
-  var q = S.custQ || '';
+  var list = custList(), q = S.custQ || '', geoOn = S.custSort === 'geo';
 
-  var sortLbl = S.custSort==='geo' ? 'الأقرب إليك' : (S.custSort==='date' ? 'تاريخ الإضافة' : 'الاسم');
-  var filtLbl = S.custFilter==='inactive' ? 'غير الفاعلين' : (S.custFilter==='active' ? 'الفاعلين' : 'الكل');
+  var chips = [];
+  chips.push({k:'sort', t:'الترتيب: ' + sortName(S.custSort), x:(S.custSort!=='geo')});
+  if (S.custFilter !== 'all') chips.push({k:'filt', t:(S.custFilter==='inactive'?'غير الفاعلين':'الفاعلون'), x:true});
+  if (S.custOnly === 'bal')   chips.push({k:'only', t:'عليهم مديونية', x:true});
+  if (S.custOnly === 'todo')  chips.push({k:'only', t:'لم تتم زيارتهم', x:true});
+  if (q) chips.push({k:'q', t:'بحث: ' + q, x:true});
 
   var bar = '<div class="sbar">'
-    + '<button class="sbtn" id="cMenuBtn" title="خيارات" aria-label="خيارات">'
-    +   '<svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="19" r="1.4"/></svg></button>'
-    + '<button class="sbtn' + (geoOn?' on':'') + '" id="cGeo" title="البحث الجغرافي" aria-label="البحث الجغرافي">'
-    +   '<svg viewBox="0 0 24 24"><circle cx="11" cy="10" r="7"/><path d="M11 7v3l2 1.5"/><path d="M20 20l-4-4"/></svg></button>'
+    + '<button class="sbtn" id="cMenuBtn" aria-label="خيارات"><svg viewBox="0 0 24 24">'
+    +   '<circle cx="12" cy="5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="19" r="1.4"/></svg></button>'
+    + '<button class="sbtn' + (geoOn?' on':'') + '" id="cGeo" aria-label="البحث الجغرافي"><svg viewBox="0 0 24 24">'
+    +   '<circle cx="11" cy="10" r="7"/><path d="M11 7v3l2 1.5"/><path d="M20 20l-4-4"/></svg></button>'
     + '<div class="sbox"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>'
-    +   '<input id="cQ" placeholder="ابحث بالاسم أو الرقم أو الجوال أو العنوان" value="' + esc(q) + '"></div>'
+    +   '<input id="cQ" placeholder="ابحث بالاسم أو الرقم أو الجوال أو العنوان" value="' + esc(q) + '">'
+    +   (q ? '<button class="clr" id="cClr" aria-label="مسح">×</button>' : '') + '</div>'
     + '<div class="menu" id="cMenu">'
     +   '<button data-cf="inactive" class="' + (S.custFilter==='inactive'?'on':'') + '">العملاء غير الفاعلين</button>'
-    +   '<button data-cf="active" class="' + (S.custFilter==='active'?'on':'') + '">العملاء الفاعلون</button>'
-    +   '<button data-cf="all" class="' + (S.custFilter==='all'?'on':'') + '">كل العملاء</button>'
+    +   '<button data-cf="active"   class="' + (S.custFilter==='active'?'on':'') + '">العملاء الفاعلون</button>'
+    +   '<button data-cf="all"      class="' + (S.custFilter==='all'?'on':'') + '">كل العملاء</button>'
     +   '<div class="sepm"></div>'
-    +   '<button data-cs="name" class="' + (S.custSort==='name'?'on':'') + '">بحث بالاسم</button>'
-    +   '<button data-cs="geo" class="' + (S.custSort==='geo'?'on':'') + '">البحث الجغرافي — الأقرب</button>'
+    +   '<button data-co="bal"  class="' + (S.custOnly==='bal'?'on':'')  + '">عليهم مديونية فقط</button>'
+    +   '<button data-co="todo" class="' + (S.custOnly==='todo'?'on':'') + '">لم تتم زيارتهم بعد</button>'
+    +   '<div class="sepm"></div>'
+    +   '<button data-cs="name" class="' + (S.custSort==='name'?'on':'') + '">ترتيب بالاسم</button>'
+    +   '<button data-cs="geo"  class="' + (S.custSort==='geo'?'on':'')  + '">البحث الجغرافي — الأقرب</button>'
     +   '<button data-cs="date" class="' + (S.custSort==='date'?'on':'') + '">البحث بتاريخ الإضافة</button>'
+    +   '<button data-cs="bal"  class="' + (S.custSort==='bal'?'on':'')  + '">الأعلى مديونية</button>'
     + '</div></div>';
 
-  var count = '<div class="rescount">'
-    + (q ? 'نتائج «' + esc(q) + '»: ' : 'العرض: ')
-    + '<b>' + ai(list.length) + '</b> من ' + ai(CUSTOMERS.length)
-    + ' · الترتيب: ' + sortLbl + ' · التصفية: ' + filtLbl + '</div>';
+  var chipRow = '<div class="chips">'
+    + chips.map(function(c){
+        return '<span class="chip' + (c.x?' rm':'') + '" data-chip="' + c.k + '">' + esc(c.t)
+          + (c.x ? '<i>×</i>' : '') + '</span>'; }).join('')
+    + '<span class="cnt"><b>' + ai(list.length) + '</b> من ' + ai(CUSTOMERS.length) + '</span></div>';
 
   var body;
   if (!list.length){
-    body = '<div class="epill"><span>لا يوجد عميل مطابق. جرّب اسمًا أو رقمًا آخر.</span></div>';
+    body = '<div class="epill"><span>لا يوجد عميل مطابق — جرّب اسمًا أو رقمًا آخر، أو أزل الفلاتر.</span></div>';
   } else {
     body = list.map(function(c, i){
       var st = S.visited[c.id];
-      var near = geoOn && i === 0;
+      var near = geoOn && i === 0 && !q;
       var cls = near ? 'near' : (c.active ? 'act' : 'ina');
       var canV = S.started && !S.closed && !st;
-      return '<div class="ccard ' + cls + '">'
+      return '<div class="ccard ' + cls + '" data-open="' + c.id + '">'
         + '<div class="av">' + esc(c.nm.charAt(0)) + '</div>'
         + '<div class="cb">'
-        +   '<div class="cn">' + esc(c.nm) + (near ? ' <span class="pill ok">الأقرب إليك</span>' : '')
-        +     (c.active ? '' : ' <span class="pill bd">غير فاعل</span>') + '</div>'
-        +   '<div class="cm"><b>الرقم التعريفي:</b> ' + esc(c.code) + ' · ' + esc(c.ch)
+        +   '<div class="cn">' + esc(c.nm)
+        +     (near ? ' <span class="pill ok">الأقرب إليك</span>' : '')
+        +     (c.active ? '' : ' <span class="pill bd">غير فاعل</span>')
+        +     (c.bal>0 ? ' <span class="pill wr">مديونية</span>' : '') + '</div>'
+        +   '<div class="cm"><b>الرقم:</b> ' + esc(c.code) + ' · ' + esc(c.ch)
         +     (c.limit>0 ? ' · حد ' + ai(c.limit) : ' · نقدي فقط')
         +     (c.bal>0 ? ' · <b>رصيد ' + ar(c.bal) + '</b>' : '') + '</div>'
         +   '<div class="cm"><b>الجوال:</b> ' + esc(c.mob) + '</div>'
-        +   '<div class="cm"><b>العنوان:</b> ' + esc(c.addr) + '</div>'
+        +   '<div class="cm">' + esc(c.addr) + '</div>'
         +   '<div class="cm"><b>أضيف:</b> ' + esc(c.added) + ' · <b>آخر زيارة:</b> ' + esc(c.last) + '</div>'
         +   '<div class="cact">'
         +     (st ? '<span class="pill ok">' + esc(st) + '</span>'
                   : (canV ? '<button class="btn sm" data-visit="' + c.id + '">فتح الزيارة</button>'
                           : '<span class="pill mt">مخططة</span>'))
+        +     '<button class="btn g sm" data-call="' + c.id + '">اتصال</button>'
+        +     '<button class="btn g sm" data-map="' + c.id + '">الموقع</button>'
+        +     '<button class="btn g sm" data-open2="' + c.id + '">الملف</button>'
         +   '</div>'
         + '</div>'
         + '<div class="cr"><div class="km">' + ar(c.km,1) + '<span>كم</span></div></div>'
@@ -1410,43 +1439,69 @@ function renderCusts(){
     }).join('');
   }
 
-  $('custBody').innerHTML = bar + count + body;
+  $('custBody').innerHTML = bar + chipRow + body;
 
-  var mb = $('cMenuBtn'), mn = $('cMenu');
-  if (mb) mb.onclick = function(e){ e.stopPropagation(); S.cmenu = !S.cmenu; mn.classList.toggle('open', S.cmenu); };
-  document.addEventListener('click', function(){ if (S.cmenu){ S.cmenu=false; var m=$('cMenu'); if(m) m.classList.remove('open'); } }, {once:true});
+  var mn = $('cMenu'), mb = $('cMenuBtn');
   if (mn) mn.classList.toggle('open', !!S.cmenu);
+  if (mb) mb.onclick = function(e){ e.stopPropagation(); S.cmenu = !S.cmenu; mn.classList.toggle('open', S.cmenu); };
+  if (mn) mn.onclick = function(e){ e.stopPropagation(); };
+  document.addEventListener('click', function(){
+    if (S.cmenu){ S.cmenu = false; var m = $('cMenu'); if (m) m.classList.remove('open'); }
+  }, {once:true});
 
   var g = $('cGeo');
   if (g) g.onclick = function(){
-    S.custSort = (S.custSort==='geo') ? 'name' : 'geo';
-    toast(S.custSort==='geo' ? 'رُتّبت القائمة حسب الأقرب إلى موقعك' : 'رُتّبت القائمة حسب الاسم');
-    renderCusts();
+    if (S.custSort === 'geo') setSort('name', 'رُتّبت القائمة حسب الاسم');
+    else setSort('geo', 'رُتّبت حسب الأقرب إلى موقعك — تحديد الموقع تم');
   };
+
   var qi = $('cQ');
-  if (qi){
-    qi.oninput = function(){
-      S.custQ = qi.value;
-      var pos = qi.selectionStart;
-      renderCusts();
-      var n = $('cQ'); if (n){ n.focus(); n.setSelectionRange(pos, pos); }
-    };
-  }
+  if (qi) qi.oninput = function(){
+    var pos = qi.selectionStart; S.custQ = qi.value;
+    renderCusts();
+    var nn = $('cQ'); if (nn){ nn.focus(); nn.setSelectionRange(pos, pos); }
+  };
+  var cl = $('cClr');
+  if (cl) cl.onclick = function(e){ e.stopPropagation(); S.custQ = ''; renderCusts(); };
+
   document.querySelectorAll('[data-cf]').forEach(function(b){
-    b.onclick = function(e){ e.stopPropagation(); S.custFilter = b.dataset.cf; S.cmenu=false; renderCusts(); };
+    b.onclick = function(e){ e.stopPropagation();
+      setFilt(b.dataset.cf, b.dataset.cf==='inactive' ? 'عُرض العملاء غير الفاعلين'
+        : b.dataset.cf==='active' ? 'عُرض العملاء الفاعلون' : 'عُرض كل العملاء'); };
+  });
+  document.querySelectorAll('[data-co]').forEach(function(b){
+    b.onclick = function(e){ e.stopPropagation();
+      setOnly(b.dataset.co, b.dataset.co==='bal' ? 'تصفية: عليهم مديونية' : 'تصفية: لم تتم زيارتهم'); };
   });
   document.querySelectorAll('[data-cs]').forEach(function(b){
-    b.onclick = function(e){ e.stopPropagation(); S.custSort = b.dataset.cs; S.cmenu=false; renderCusts(); };
+    b.onclick = function(e){ e.stopPropagation(); setSort(b.dataset.cs, 'الترتيب: ' + sortName(b.dataset.cs)); };
   });
-  document.querySelectorAll('#custBody .ccard').forEach(function(card, ix){
-    card.onclick = function(e){
-      if (e.target.closest('button')) return;
-      openCust(custList()[ix].id);
+  document.querySelectorAll('[data-chip]').forEach(function(s){
+    if (!s.classList.contains('rm')) return;
+    s.onclick = function(){
+      var k = s.dataset.chip;
+      if (k==='sort') S.custSort = 'geo';
+      if (k==='filt') S.custFilter = 'all';
+      if (k==='only') S.custOnly = '';
+      if (k==='q')    S.custQ = '';
+      renderCusts();
     };
   });
+
   document.querySelectorAll('#custBody [data-visit]').forEach(function(b){
-    b.onclick = function(){ openVisit(b.dataset.visit); };
-  });
+    b.onclick = function(e){ e.stopPropagation(); openVisit(b.dataset.visit); }; });
+  document.querySelectorAll('#custBody [data-call]').forEach(function(b){
+    b.onclick = function(e){ e.stopPropagation();
+      var c = cust(b.dataset.call);
+      toast('جارٍ الاتصال بـ' + c.nm + ' — ' + c.mob + ' · تُسجَّل المكالمة في سجل العميل'); }; });
+  document.querySelectorAll('#custBody [data-map]').forEach(function(b){
+    b.onclick = function(e){ e.stopPropagation();
+      var c = cust(b.dataset.map);
+      toast('فتح الاتجاهات إلى ' + c.nm + ' — يبعد ' + ar(c.km,1) + ' كم'); }; });
+  document.querySelectorAll('#custBody [data-open2]').forEach(function(b){
+    b.onclick = function(e){ e.stopPropagation(); openCust(b.dataset.open2); }; });
+  document.querySelectorAll('#custBody [data-open]').forEach(function(card){
+    card.onclick = function(e){ if (e.target.closest('button')) return; openCust(card.dataset.open); }; });
 }
 
 /* ================= عرض شاشة الزيارة ================= */
@@ -1651,7 +1706,7 @@ function resetAll(){
   PRODUCTS.forEach(function(p){ S.stock[p.id] = p.open; });
   CUSTOMERS.forEach(function(c){ if (c.id==='C4') c.bal = 1250; else c.bal = 0; });
   S.started=false; S.closed=false; S.cash=0; S.invoices=[]; S.collections=[]; S.journal=[];
-  S.visited={}; S.visitLog=[]; S.tasks=[]; S.visit=null; S.seq=118; S.rseq=40; S.counted=null; S.custQ=''; S.curCust=null; S.returns=[]; S.retCart={}; S.retInv=null; S.retWhy=''; S.tseq=20; S.expenses=[]; S.eseq=60;  toast('أُعيد ضبط اليوم');
+  S.visited={}; S.visitLog=[]; S.tasks=[]; S.visit=null; S.seq=118; S.rseq=40; S.counted=null; S.custQ=''; S.custOnly=''; S.custFilter='all'; S.custSort='geo'; S.curCust=null; S.returns=[]; S.retCart={}; S.retInv=null; S.retWhy=''; S.tseq=20; S.expenses=[]; S.eseq=60;  toast('أُعيد ضبط اليوم');
   go('day');
 }
 
