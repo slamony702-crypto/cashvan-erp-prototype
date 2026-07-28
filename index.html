@@ -2372,9 +2372,6 @@ table{font-size:13.5px}
     <div id="bsMoreBody"></div>
   </div>
 
-  <div class="bs" id="bsAcc"
-  </div>
-
   <div class="bs" id="bsAcc" role="dialog" aria-modal="true" aria-label="الحساب">
     <div class="gr"></div>
     <div class="bh"><h3>عبدالسلام الفيتوري</h3><button class="x" id="bsAX" aria-label="إغلاق">×</button></div>
@@ -4185,7 +4182,7 @@ function bindShell(){
   b = $('bsw'); if (b) b.onclick = shut;
   b = $('bsX'); if (b) b.onclick = shut;
   b = $('bsAX'); if (b) b.onclick = shut;
-  b = $('icBell'); if (b) b.onclick = function(){ go('notif'); };
+  b = $('icBell'); if (b) b.onclick = function(){ if (curScreen() === 'notif') go(S.bellFrom || 'day'); else { S.bellFrom = curScreen(); go('notif'); } };
   b = $('c360Top'); if (b) b.onclick = function(){ go('custs'); };
   b = $('drwEnd'); if (b) b.onclick = function(){ go('close'); };
 
