@@ -1066,6 +1066,75 @@ table{font-size:13.5px}
 .btn.wide{font-size:18.7px}
 .nextc .top{color:#005E52}
 .cnav button[aria-current="true"] .lb,.cnav button[aria-current="true"] .ring svg{color:var(--brand-txt);stroke:var(--brand-txt)}
+/* ---------- خريطة خط السير ---------- */
+.mapw{position:relative;background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.mapw svg{display:block;width:100%;height:auto;background:var(--panel-2)}
+.mapw .ring2{fill:none;stroke:var(--line);stroke-width:1;stroke-dasharray:3 4}
+.mapw .rlbl{fill:var(--ink-3);font-size:7px;font-weight:700}
+.mapw .rpath{fill:none;stroke:var(--brand);stroke-width:1.6;stroke-dasharray:4 3;opacity:.5}
+.mapw .me{fill:var(--info)}
+.mapw .mehalo{fill:var(--info);opacity:.16}
+.mapw .pin{cursor:pointer}
+.mapw .pin circle{stroke:var(--panel);stroke-width:1.6}
+.mapw .pin.dn circle{fill:var(--pos)}
+.mapw .pin.now circle{fill:var(--brand)}
+.mapw .pin.lat circle{fill:var(--warn-hi)}
+.mapw .pin.shut circle{fill:var(--neg-hi)}
+.mapw .pin circle{fill:var(--ink-3)}
+.mapw .pin.sel circle{stroke:var(--brand);stroke-width:2.6}
+.mapw .pin text{fill:#fff;font-size:6.5px;font-weight:800;text-anchor:middle;pointer-events:none}
+.mapw .lgd{position:absolute;inset-block-start:9px;inset-inline-start:9px;background:var(--panel);
+  border:1px solid var(--line);border-radius:10px;padding:7px 9px;font-size:10.5px;
+  font-weight:700;color:var(--ink-2);display:flex;flex-direction:column;gap:4px;box-shadow:var(--sh)}
+.mapw .lgd span{display:flex;align-items:center;gap:5px}
+.mapw .lgd i{width:8px;height:8px;border-radius:50%;flex:none}
+.mapc{border-top:1px solid var(--line);padding:12px 14px;background:var(--panel)}
+.mapc b{display:block;font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.mapc .mm{font-size:12.5px;color:var(--ink-3);font-weight:600;line-height:1.55;margin-top:2px}
+.mapc .mb{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.mapc .mb .btn{flex:1;min-width:96px}
+
+/* ---------- التوقيع ---------- */
+.sigw{border-radius:var(--rb);border:2px dashed var(--line);background:var(--panel-2);
+  position:relative;overflow:hidden;touch-action:none}
+.sigw.has{border-style:solid;border-color:var(--brand);background:var(--panel)}
+.sigw canvas{display:block;width:100%;height:130px;touch-action:none;cursor:crosshair}
+.sigw .ph2{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;
+  color:var(--ink-3);font-size:13px;font-weight:700;gap:5px}
+.sigw .ph2 svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round}
+.sigw .ln3{position:absolute;inset-inline:22px;inset-block-end:26px;height:1px;background:var(--line);pointer-events:none}
+.sigb{display:flex;gap:7px;margin-top:9px}
+.sigb .btn{flex:1}
+.sigimg{border:1px solid var(--line);border-radius:var(--rb);background:#fff;padding:6px}
+.sigimg img{display:block;width:100%;height:auto}
+
+/* ---------- المزامنة والحفظ ---------- */
+.qlist{display:flex;flex-direction:column;gap:7px}
+.qrow{display:flex;align-items:center;gap:9px;padding:10px 12px;border-radius:var(--rb);
+  background:var(--panel-2);border:1px solid var(--line-soft)}
+.qrow .qi{width:28px;height:28px;border-radius:9px;flex:none;display:grid;place-items:center}
+.qrow .qi svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.qrow.local .qi{background:var(--warn-soft);color:var(--warn)}
+.qrow.up .qi{background:var(--info-soft);color:var(--info)}
+.qrow.done .qi{background:var(--pos-soft);color:var(--pos)}
+.qrow.fail .qi{background:var(--neg-soft);color:var(--neg)}
+.qrow .qt{flex:1;min-width:0}
+.qrow .qt b{display:block;font-size:13.5px;font-weight:700;color:var(--ink);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qrow .qt span{font-size:11.5px;color:var(--ink-3);font-weight:600}
+.qrow .qv{font-size:13px;font-weight:800;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.qrow.up .qi svg{animation:spin 1.1s linear infinite}
+
+.saved{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;
+  color:var(--pos);background:var(--pos-soft);border-radius:99px;padding:3px 10px}
+.saved svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.phmeta{font-size:10px;color:var(--ink-3);font-weight:700;padding:3px 9px 7px;line-height:1.4}
+.phmeta b{color:var(--pos)}
+.seg button svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-inline-end:3px}
+.k4 .kc[style*="default"]{box-shadow:var(--sh)}
+
 </style>
 
 <div class="app">
@@ -1095,6 +1164,7 @@ table{font-size:13.5px}
       <button data-jump="rets">المرتجعات</button>
       <button data-jump="exps">المصروفات</button>
       <button data-jump="tgt">الأهداف والعمولة</button>
+      <button data-jump="sync"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v5h-5"/></svg>المزامنة والحفظ<span class="ar" id="bsSync"></span></button>
       <button data-jump="notif">التنبيهات</button>
       <button data-jump="dash">لوحة التحكم</button>
       <button data-jump="about">عن المشروع</button>
@@ -1146,6 +1216,11 @@ table{font-size:13.5px}
     <!-- ============ يوم المندوب ============ -->
     <section class="scr on" id="day">
       <div id="dayBody"></div>
+    </section>
+
+    <section class="scr" id="sync">
+      <div class="hd"><div><h1>المزامنة والحفظ</h1><p class="sub">كل عملية لها حالة واضحة — على الجهاز أو مُزامَنة</p></div></div>
+      <div id="syncBody"></div>
     </section>
 
     <section class="scr" id="route">
@@ -2486,6 +2561,7 @@ function render(){
   if (on.id==='gl')    renderGl();
   if (on.id==='close') renderClose();
   if (on.id==='dash')  renderDash();
+  if (on.id==='sync')  renderQ();
 }
 
 /* ================= إحياء كل الشاشات ================= */
@@ -3562,9 +3638,416 @@ function bindVisit(c, V){
     V.sign = !V.sign; toast(V.sign ? 'حُفظ توقيع العميل مع الزيارة' : 'أُزيل التوقيع'); renderSell(); };
 }
 
+/* ================================================================
+   المرحلة ٤ — خريطة خط السير · التوقيع · ضغط الصور · الحفظ والمزامنة
+   ================================================================ */
+S.rView = 'list';   /* list | map */
+S.mapSel = null;
+S.q = {};           /* طابور المزامنة */
+S.qseq = 0;
+
+IC.map  = '<path d="M9 3 3 5.5v15L9 18l6 2.5 6-2.5v-15L15 5.5z"/><path d="M9 3v15M15 5.5v15"/>';
+IC.list = '<path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/>';
+IC.pen  = '<path d="M3 21l3.8-.9a2 2 0 0 0 1-.54l11-11a2 2 0 0 0 0-2.83l-.5-.5a2 2 0 0 0-2.84 0l-11 11a2 2 0 0 0-.54 1z"/><path d="M14 5.5 18.5 10"/>';
+IC.up   = '<path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v5h-5"/>';
+IC.dev  = '<rect x="6" y="2" width="12" height="20" rx="2.4"/><path d="M10.5 18.4h3"/>';
+IC.zoom = '<path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7.5 7.5"/><path d="M3 21l7.5-7.5"/>';
+
+/* ================= 1) ضغط الصور قبل الرفع ================= */
+function compressImg(file, cb){
+  var url = URL.createObjectURL(file), img = new Image();
+  img.onload = function(){
+    var MAX = 1280, w = img.naturalWidth, h = img.naturalHeight;
+    if (w > MAX || h > MAX){ var r = Math.min(MAX/w, MAX/h); w = Math.round(w*r); h = Math.round(h*r); }
+    var cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+    var cx = cv.getContext('2d');
+    cx.fillStyle = '#fff'; cx.fillRect(0,0,w,h);
+    cx.drawImage(img, 0, 0, w, h);
+    var data = cv.toDataURL('image/jpeg', 0.72);
+    URL.revokeObjectURL(url);
+    cb({url:data, w:w, h:h, before:file.size, after:Math.round(data.length * 0.75)});
+  };
+  img.onerror = function(){ cb({url:url, w:0, h:0, before:file.size, after:file.size}); };
+  img.src = url;
+}
+function kb(n){ return n >= 1048576 ? ar(n/1048576,1) + ' م.ب' : ai(Math.round(n/1024)) + ' ك.ب'; }
+
+function addPhoto(file, kind){
+  var V = S.visit; if (!V) return;
+  compressImg(file, function(r){
+    var now = new Date();
+    V.photos.push({
+      url:r.url, kind:kind,
+      t: now.toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'}),
+      geo:'٣٢٫٨٨٤١، ١٣٫١٩٠٧',
+      w:r.w, h:r.h, before:r.before, after:r.after
+    });
+    toast('حُفظت الصورة — ضُغطت من ' + kb(r.before) + ' إلى ' + kb(r.after)
+      + (r.w ? ' · ' + ai(r.w) + '×' + ai(r.h) : ''));
+    saveNow();
+    render();
+  });
+}
+
+/* ================= 2) خريطة خط السير ================= */
+function mapPos(c, i){
+  var ang = (i * 137.508 + 18) * Math.PI / 180;
+  var rad = 22 + Math.min(c.km, 5) / 5 * 108;
+  return { x: 160 + Math.cos(ang) * rad, y: 158 + Math.sin(ang) * rad * .84 };
+}
+function mapSvg(list){
+  var pins = '', path = '';
+  var pts = list.map(function(c, i){
+    var p = mapPos(c, CUSTOMERS.indexOf(c));
+    return {c:c, p:p};
+  });
+  var ordered = pts.slice().sort(function(a,b){ return a.c.km - b.c.km; });
+  path = 'M160 158' + ordered.map(function(o){ return ' L' + o.p.x.toFixed(1) + ' ' + o.p.y.toFixed(1); }).join('');
+  pts.forEach(function(o, i){
+    var s = rtState(o.c);
+    pins += '<g class="pin ' + s.cls + (S.mapSel === o.c.id ? ' sel' : '') + '" data-pin="' + o.c.id + '">'
+      + '<circle cx="' + o.p.x.toFixed(1) + '" cy="' + o.p.y.toFixed(1) + '" r="10"/>'
+      + '<text x="' + o.p.x.toFixed(1) + '" y="' + (o.p.y + 2.4).toFixed(1) + '">' + ai(i+1) + '</text></g>';
+  });
+  return '<svg viewBox="0 0 320 300" role="img" aria-label="خريطة خط السير">'
+    + '<circle class="ring2" cx="160" cy="158" r="44"/><circle class="ring2" cx="160" cy="158" r="86"/>'
+    + '<circle class="ring2" cx="160" cy="158" r="128"/>'
+    + '<text class="rlbl" x="160" y="112" text-anchor="middle">١ كم</text>'
+    + '<text class="rlbl" x="160" y="70" text-anchor="middle">٣ كم</text>'
+    + '<text class="rlbl" x="160" y="28" text-anchor="middle">٥ كم</text>'
+    + '<path class="rpath" d="' + path + '"/>'
+    + '<circle class="mehalo" cx="160" cy="158" r="17"/>'
+    + '<circle class="me" cx="160" cy="158" r="6.5"/>'
+    + pins + '</svg>';
+}
+function mapCard(){
+  if (!S.mapSel) return '<div class="mapc"><b>خط السير على الخريطة</b>'
+    + '<div class="mm">النقطة الزرقاء موقعك. اضغط أي دبوس لعرض بيانات العميل وفتح الزيارة.</div></div>';
+  var c = cust(S.mapSel), s = rtState(c), m = meta(c.id);
+  var st = S.visited[c.id];
+  return '<div class="mapc"><b>' + esc(c.nm) + '</b>'
+    + '<div class="mm">' + esc(s.tt) + ' · ' + esc(m.type) + ' · يبعد ' + ar(c.km,1) + ' كم · الوصول ' + m.eta + '</div>'
+    + '<div class="mm">' + (c.bal>0 ? 'مستحق ' + ar(c.bal) + ' د.ل' : 'لا مديونية') + ' · ' + esc(c.addr) + '</div>'
+    + '<div class="mb">'
+    +   (st || !S.started || S.closed
+          ? '<button class="btn g" data-open2="' + c.id + '">ملف العميل</button>'
+          : '<button class="btn" data-visit="' + c.id + '">ابدأ الزيارة</button>')
+    +   '<button class="btn g" data-nav="' + c.id + '">الاتجاهات</button>'
+    +   '<button class="btn g" data-tel="' + c.id + '">اتصال</button>'
+    + '</div></div>';
+}
+function renderRoute(){
+  var list = routeList(), vc = visitCount(), tot = CUSTOMERS.length, d = new Date();
+  var body;
+  if (S.rView === 'map'){
+    body = '<div class="mapw">' + mapSvg(list)
+      + '<div class="lgd"><span><i style="background:var(--brand)"></i>التالية</span>'
+      +   '<span><i style="background:var(--pos)"></i>مكتملة</span>'
+      +   '<span><i style="background:var(--warn-hi)"></i>متأخرة</span>'
+      +   '<span><i style="background:var(--ink-3)"></i>مخططة</span></div>'
+      + mapCard() + '</div>';
+  } else {
+    body = '<div class="card">' + (list.length
+      ? '<ul class="rt">' + list.map(rtRow).join('') + '</ul>'
+      : '<div class="emp"><span class="ic2">' + svg('srch') + '</span><b>لا يوجد عميل مطابق</b>'
+        + '<span>جرّب اسمًا أو رقم هاتف آخر، أو أزل التصفية لعرض كل عملاء المسار.</span></div>') + '</div>';
+  }
+  $('routeBody').innerHTML =
+      '<div class="card" style="margin-bottom:12px"><div class="pad" style="padding-bottom:11px">'
+    +   '<div style="display:flex;align-items:center;gap:8px;margin-bottom:9px;flex-wrap:wrap">'
+    +     '<div style="font-size:13px;color:var(--ink-3);font-weight:600;flex:1;min-width:150px">'
+    +       d.toLocaleDateString('ar-EG',{weekday:'long',day:'numeric',month:'long'})
+    +       ' · مسار سوق الجمعة · <b style="color:var(--ink)">' + ai(vc) + ' مكتملة</b> · متبقٍ ' + ai(tot-vc) + '</div>'
+    +     '<div class="seg" id="vSeg" style="flex:none">'
+    +       '<button data-v="list" class="' + (S.rView==='list'?'on':'') + '">' + svg('list') + ' قائمة</button>'
+    +       '<button data-v="map" class="' + (S.rView==='map'?'on':'') + '">' + svg('map') + ' خريطة</button>'
+    +     '</div>'
+    +   '</div>'
+    +   '<div class="sbox" style="margin-bottom:9px"><svg viewBox="0 0 24 24">' + IC.srch + '</svg>'
+    +     '<input id="rQ" placeholder="ابحث باسم العميل أو رقم الهاتف" value="' + esc(S.routeQ) + '"></div>'
+    +   segBar('rSeg', RFILT, S.routeF)
+    + '</div></div>' + body;
+
+  var qi = $('rQ');
+  if (qi) qi.oninput = function(){ var p = qi.selectionStart; S.routeQ = qi.value; renderRoute();
+    var n2 = $('rQ'); if (n2){ n2.focus(); n2.setSelectionRange(p,p); } };
+  bindSeg('rSeg', function(v){ S.routeF = v; renderRoute(); });
+  bindSeg('vSeg', function(v){ S.rView = v; S.mapSel = null; saveNow(); renderRoute();
+    toast(v==='map' ? 'عرض الخريطة — اضغط أي دبوس' : 'عرض القائمة — الأسرع للاستخدام اليومي'); });
+  document.querySelectorAll('#routeBody [data-rt]').forEach(function(x){
+    x.onclick = function(){ openCust(x.dataset.rt); }; });
+  document.querySelectorAll('#routeBody [data-pin]').forEach(function(x){
+    x.onclick = function(){ S.mapSel = (S.mapSel === x.dataset.pin ? null : x.dataset.pin); renderRoute(); }; });
+  document.querySelectorAll('#routeBody [data-open2]').forEach(function(x){
+    x.onclick = function(e){ e.stopPropagation(); openCust(x.dataset.open2); }; });
+  document.querySelectorAll('#routeBody [data-visit]').forEach(function(x){
+    x.onclick = function(e){ e.stopPropagation(); openVisit(x.dataset.visit); }; });
+  bindCustActs();
+}
+
+/* ================= 3) التوقيع بالإصبع ================= */
+function sigHtml(V){
+  if (V.signImg) return '<div class="sigimg"><img src="' + V.signImg + '" alt="توقيع العميل"></div>'
+    + '<div class="sigb"><button class="btn g" id="sigClr">مسح وإعادة التوقيع</button></div>'
+    + '<div class="hint" style="font-size:11.5px;color:var(--ink-3);margin-top:7px;font-weight:600">'
+    + 'يُحفظ التوقيع مع الزيارة ومعه الوقت والموقع، ولا يُعدَّل بعد الإنهاء.</div>';
+  return '<div class="sigw" id="sigW"><canvas id="sigC"></canvas><div class="ln3"></div>'
+    + '<div class="ph2" id="sigPh">' + svg('pen') + 'وقّع هنا بإصبعك</div></div>'
+    + '<div class="sigb"><button class="btn g" id="sigClr">مسح</button>'
+    + '<button class="btn" id="sigOk">حفظ التوقيع</button></div>';
+}
+function bindSig(){
+  var V = S.visit; if (!V) return;
+  var b = $('sigClr');
+  if (b) b.onclick = function(){
+    if (V.signImg){ V.signImg = null; V.sign = false; saveNow(); renderSell(); return; }
+    var c = $('sigC'); if (c){ c.getContext('2d').clearRect(0,0,c.width,c.height);
+      var p = $('sigPh'); if (p) p.style.display = ''; $('sigW').classList.remove('has'); }
+  };
+  var cv = $('sigC'); if (!cv) return;
+  var box = $('sigW'), dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var r = cv.getBoundingClientRect();
+  cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);
+  var cx = cv.getContext('2d');
+  cx.scale(dpr, dpr);
+  cx.lineWidth = 2.2; cx.lineCap = 'round'; cx.lineJoin = 'round';
+  cx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || '#17232D';
+  var drawing = false, any = false, lx = 0, ly = 0;
+  function pt(e){ var q = cv.getBoundingClientRect();
+    return { x:(e.clientX - q.left), y:(e.clientY - q.top) }; }
+  cv.addEventListener('pointerdown', function(e){
+    e.preventDefault(); cv.setPointerCapture(e.pointerId);
+    drawing = true; any = true; var p = pt(e); lx = p.x; ly = p.y;
+    var ph = $('sigPh'); if (ph) ph.style.display = 'none';
+    box.classList.add('has');
+  });
+  cv.addEventListener('pointermove', function(e){
+    if (!drawing) return; e.preventDefault();
+    var p = pt(e); cx.beginPath(); cx.moveTo(lx, ly); cx.lineTo(p.x, p.y); cx.stroke(); lx = p.x; ly = p.y;
+  });
+  ['pointerup','pointercancel','pointerleave'].forEach(function(ev){
+    cv.addEventListener(ev, function(){ drawing = false; });
+  });
+  var ok = $('sigOk');
+  if (ok) ok.onclick = function(){
+    if (!any){ toast('لم يُرسم توقيع بعد — وقّع داخل الإطار'); return; }
+    V.signImg = cv.toDataURL('image/png'); V.sign = true;
+    toast('حُفظ توقيع العميل مع الزيارة'); saveNow(); renderSell();
+  };
+}
+
+/* الخطوة ٥ — استبدال مربع التوقيع */
+function vs5(c, V){
+  var gg = vgate2(), mins = Math.max(1, Math.round((Date.now() - V.t0)/60000));
+  var retV = 0; (S.returns||[]).forEach(function(r){ if (r.cnm === c.nm) retV += r.amt; });
+  var phB = 0, phA = 0; V.photos.forEach(function(p){ phB += (p.before||0); phA += (p.after||0); });
+  return '<div class="sumb">'
+    + '<div class="ln2"><span>قيمة المبيعات</span><b>' + ar(V.invoice ? V.invoice.total : 0) + ' د.ل</b></div>'
+    + '<div class="ln2"><span>قيمة التحصيل</span><b>' + ar(V.collect ? V.collect.amt : 0) + ' د.ل</b></div>'
+    + '<div class="ln2"><span>قيمة المرتجعات</span><b>' + ar(retV) + ' د.ل</b></div>'
+    + '<div class="ln2"><span>عدد الصور</span><b>' + ai(V.photos.length)
+    +   (phB ? ' · ' + kb(phB) + ' ← ' + kb(phA) : '') + '</b></div>'
+    + '<div class="ln2"><span>الحقول المكتملة</span><b>' + ai(gg.done) + ' / ' + ai(gg.total) + '</b></div>'
+    + '<div class="ln2"><span>مدة الزيارة</span><b>' + ai(mins) + ' دقيقة</b></div>'
+    + '<div class="ln2"><span>موقع البداية والنهاية</span><b>٣٢٫٨٨ / ١٣٫١٩</b></div>'
+    + '<div class="bg2"><span>صافي أثر الزيارة على الخزينة</span><b>'
+    +   ar((V.invoice && V.invoice.pay==='cash' ? V.invoice.total : 0) + (V.collect ? V.collect.amt : 0)) + '</b></div>'
+    + '</div>'
+    + '<div class="vcard"><h4>' + svg('chk') + 'نتيجة الزيارة<span class="rq">إلزامي</span></h4><div class="vb2">'
+    +   '<div class="opt">' + OUTCOMES.map(function(o){
+          return '<button data-o="' + esc(o) + '" class="' + (V.outcome===o?'sel':'') + '">' + esc(o) + '</button>'; }).join('')
+    +   '</div></div></div>'
+    + '<div class="vcard"><h4>' + svg('usr') + 'توقيع العميل'
+    +   (V.signImg ? '<span class="dnp">موقّع</span>' : '<span class="op">عند الطلب</span>') + '</h4>'
+    +   '<div class="vb2">' + sigHtml(V) + '</div></div>'
+    + '<div class="gate2' + (gg.ok?' rdy2':'') + '">'
+    +   (gg.ok ? '<b>اكتملت كل البنود الإلزامية — يمكن حفظ الزيارة وإنهاؤها.</b>'
+              : '<b>لا يمكن إنهاء الزيارة قبل:</b><ul>' + gg.miss.map(function(m){ return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>')
+    + '</div>';
+}
+
+/* ================= 4) الحفظ التلقائي وطابور المزامنة ================= */
+var LS = 'homy.rep.v3';
+var saveT = null;
+var PH_IMG = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 60"><rect width="80" height="60" fill="#073650"/>' +
+  '<g fill="none" stroke="#9DBDD2" stroke-width="2" stroke-linecap="round"><rect x="26" y="22" width="28" height="19" rx="3"/>' +
+  '<circle cx="40" cy="31.5" r="6"/><path d="M34 22l2-3h8l2 3"/></g></svg>');
+
+function snap(lite){
+  var vis = S.visit;
+  if (lite && vis && vis.photos && vis.photos.length){
+    vis = JSON.parse(JSON.stringify(vis));
+    vis.photos.forEach(function(p){ p.url = ''; p.off = true; });
+  }
+  return {
+    v:3, started:S.started, closed:S.closed, online:S.online,
+    stock:S.stock, cash:S.cash, invoices:S.invoices, collections:S.collections,
+    journal:S.journal, visited:S.visited, visitLog:S.visitLog, tasks:S.tasks,
+    visit:vis, seq:S.seq, rseq:S.rseq, counted:S.counted,
+    returns:S.returns, expenses:S.expenses, tseq:S.tseq, eseq:S.eseq,
+    theme:S.theme, q:S.q, qseq:S.qseq, rView:S.rView, notifRead:S.notifRead,
+    bal: CUSTOMERS.map(function(c){ return c.bal; }),
+    screen: curScreen(), at: Date.now()
+  };
+}
+function saveNow(){
+  try{ localStorage.setItem(LS, JSON.stringify(snap(false))); return true; }
+  catch(e){
+    try{
+      localStorage.setItem(LS, JSON.stringify(snap(true)));
+      if (!S.saveWarn){ S.saveWarn = true;
+        toast('مساحة التخزين قاربت الامتلاء — حُفظت كل البيانات، والصور باقية في الذاكرة حتى تُرفع'); }
+      return true;
+    } catch(e2){
+      if (!S.saveWarn){ S.saveWarn = true;
+        toast('تعذّر الحفظ على الجهاز — أفرغ مساحة من إعدادات المتصفح'); }
+      return false;
+    }
+  }
+}
+function saveSoon(){ clearTimeout(saveT); saveT = setTimeout(saveNow, 800); }
+function loadSaved(){
+  try{
+    var raw = localStorage.getItem(LS); if (!raw) return null;
+    var d = JSON.parse(raw); if (!d || d.v !== 3) return null;
+    return d;
+  } catch(e){ return null; }
+}
+function clearSaved(){ try{ localStorage.removeItem(LS); }catch(e){} }
+
+/* طابور العمليات — يُبنى من الحركات الفعلية دون المساس بالترحيل */
+function qBuild(){
+  var add = function(id, t, v, ic){
+    if (!S.q[id]) S.q[id] = {t:t, v:v, ic:ic, st: S.online ? 'up' : 'local', at: 0};
+  };
+  S.invoices.forEach(function(i){ add(i.no, 'فاتورة ' + i.no + ' — ' + i.cnm, i.total, 'cart'); });
+  S.collections.forEach(function(c){ add(c.no, 'تحصيل ' + c.no + ' — ' + c.cnm, c.amt, 'cash'); });
+  (S.returns||[]).forEach(function(r){ add(r.no, 'مرتجع ' + r.no + ' — ' + r.cnm, r.amt, 'ret'); });
+  (S.expenses||[]).forEach(function(e){ add(e.no, 'مصروف ' + e.no + ' — ' + e.t, e.amt, 'cash'); });
+  S.visitLog.forEach(function(v, i){ add('VIS-' + i + '-' + v.cid, 'زيارة ' + v.cnm + ' — ' + v.outcome, 0, 'pin'); });
+}
+function qCounts(){
+  var c = {local:0, up:0, done:0, fail:0};
+  for (var k in S.q) c[S.q[k].st] = (c[S.q[k].st]||0) + 1;
+  return c;
+}
+function qPending(){ var c = qCounts(); return c.local + c.up + c.fail; }
+function qTick(){
+  qBuild();
+  var changed = false, doneNow = 0;
+  for (var k in S.q){
+    var it = S.q[k];
+    if (!S.online){ if (it.st === 'up'){ it.st = 'local'; changed = true; } continue; }
+    if (it.st === 'local' || it.st === 'fail'){ it.st = 'up'; it.at = Date.now(); changed = true; }
+    else if (it.st === 'up' && Date.now() - it.at > 1400){ it.st = 'done'; doneNow++; changed = true; }
+  }
+  if (changed){
+    if (doneNow && S.online){ S.syncAt = 0; }
+    renderSync(); saveSoon();
+    if (curScreen() === 'sync') renderQ();
+  }
+}
+function qIcon(st){ return st==='done'?'chk' : st==='up'?'up' : st==='fail'?'warn' : 'dev'; }
+function qLabel(st){ return st==='done'?'تمت المزامنة' : st==='up'?'جارٍ الرفع…' : st==='fail'?'فشل — سيُعاد' : 'محفوظ على الجهاز'; }
+
+function renderQ(){
+  qBuild();
+  var ks = Object.keys(S.q), c = qCounts();
+  var body = ks.length
+    ? '<div class="qlist">' + ks.map(function(k){
+        var it = S.q[k];
+        return '<div class="qrow ' + it.st + '"><span class="qi">' + svg(qIcon(it.st)) + '</span>'
+          + '<span class="qt"><b>' + esc(it.t) + '</b><span>' + qLabel(it.st) + '</span></span>'
+          + (it.v ? '<span class="qv">' + ar(it.v) + '</span>' : '') + '</div>'; }).join('') + '</div>'
+    : '<div class="emp"><span class="ic2">' + svg('chk') + '</span><b>لا توجد عمليات</b>'
+      + '<span>ستظهر هنا كل فاتورة وتحصيل ومرتجع وزيارة مع حالة مزامنتها.</span></div>';
+  $('syncBody').innerHTML =
+      '<div class="k4" style="grid-template-columns:1fr 1fr">'
+    +   '<div class="kc" style="cursor:default"><span class="l">' + svg('dev') + 'على الجهاز</span>'
+    +     '<span class="v">' + ai(c.local + c.up) + '</span><span class="f">بانتظار المزامنة</span></div>'
+    +   '<div class="kc" style="cursor:default"><span class="l">' + svg('chk') + 'مُزامَنة</span>'
+    +     '<span class="v">' + ai(c.done) + '</span><span class="f">وصلت إلى الخادم</span></div>'
+    + '</div>'
+    + '<div class="alrt ' + (S.online?'i':'w') + '" style="margin-bottom:12px">' + svg(S.online?'info':'warn')
+    +   '<span>' + (S.online
+          ? 'الاتصال متاح — العمليات تُرفع تلقائيًا بالترتيب، وكل عملية لها معرّف فريد يمنع تكرار الترحيل.'
+          : 'غير متصل بالإنترنت. تم حفظ ' + ai(S.invoices.length) + ' فاتورة و' + ai(S.visitLog.length)
+            + ' زيارة على الجهاز، وستتم مزامنتها تلقائيًا عند عودة الاتصال.') + '</span></div>'
+    + '<div class="card"><header><h2>سجل العمليات</h2><span class="meta">'
+    +   ai(ks.length) + ' عملية</span></header><div class="pad">' + body + '</div></div>'
+    + '<div class="card" style="margin-top:12px"><header><h2>الحفظ على الجهاز</h2></header><div class="pad">'
+    +   '<div style="font-size:13.5px;color:var(--ink-2);line-height:1.7">'
+    +     'كل تغيير يُحفظ تلقائيًا خلال أقل من ثانية. لو أُغلق التطبيق أو انطفأ الهاتف، '
+    +     'تعود الزيارة من حيث توقّفت بكل صورها وحقولها.</div>'
+    +   '<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">'
+    +     '<button class="btn g" id="qSave">حفظ الآن</button>'
+    +     '<button class="btn g" id="qWipe">مسح البيانات المحفوظة</button></div>'
+    + '</div></div>';
+  var b = $('qSave'); if (b) b.onclick = function(){
+    toast(saveNow() ? 'حُفظت حالة اليوم على الجهاز' : 'تعذّر الحفظ — تخزين المتصفح ممتلئ'); };
+  b = $('qWipe'); if (b) b.onclick = function(){ clearSaved(); toast('مُسحت البيانات المحفوظة — عند إعادة الفتح يبدأ يوم جديد'); };
+}
+
+/* شريط المزامنة يعكس الطابور الحقيقي */
+function renderSync(){
+  var el = $('syncb'); if (!el) return;
+  document.querySelector('.app').classList.toggle('offl', !S.online);
+  qBuild();
+  var p = qPending(), c = qCounts();
+  if (S.online){
+    el.innerHTML = '<i class="dt"></i><span><b>متصل</b> · '
+      + (p ? 'جارٍ رفع ' + ai(p) + ' عملية' : syncTxt()) + '</span>'
+      + (c.done ? '<span class="q">' + ai(c.done) + ' مُزامَنة</span>' : '');
+  } else {
+    el.innerHTML = '<i class="dt"></i><span><b>غير متصل</b> · محفوظ على الجهاز</span>'
+      + (p ? '<span class="q">' + ai(p) + ' بانتظار المزامنة</span>' : '');
+  }
+  el.style.cursor = 'pointer';
+  el.onclick = function(){ go('sync'); };
+  var bn = $('bsNotif'); if (bn) bn.textContent = ai(buildAlerts().length) + ' تنبيه';
+  var bs = $('bsSync'); if (bs) bs.textContent = p ? ai(p) + ' بانتظار الرفع' : 'كل شيء مُزامَن';
+}
+
+/* حفظ تلقائي بعد كل عرض */
+var _render = render;
+render = function(){ _render(); saveSoon(); };
+function renderVisitSaved(){
+  var h = document.querySelector('.vhead .chips2');
+  if (h && S.visit) h.insertAdjacentHTML('beforeend', '<span class="ok">حفظ تلقائي</span>');
+}
+
+/* استعادة الحالة عند الفتح */
+function __boot(){
+  var d = loadSaved();
+  if (d){
+    ['started','closed','stock','cash','invoices','collections','journal','visited','visitLog',
+     'tasks','visit','seq','rseq','counted','returns','expenses','tseq','eseq','theme','q','qseq',
+     'rView','notifRead'].forEach(function(k){ if (d[k] !== undefined) S[k] = d[k]; });
+    if (d.bal) CUSTOMERS.forEach(function(c, i){ if (d.bal[i] !== undefined) c.bal = d.bal[i]; });
+    if (S.visit && S.visit.photos) S.visit.photos.forEach(function(p){ if (!p.url || p.off) p.url = PH_IMG; });
+    if (S.theme && S.theme !== 'auto') document.documentElement.setAttribute('data-theme', S.theme);
+    var ts = $('accThemeS'); if (ts) ts.textContent = S.theme==='dark'?'ليلي':S.theme==='light'?'نهاري':'تلقائي';
+    var mins = Math.round((Date.now() - (d.at||Date.now())) / 60000);
+    if (d.screen && document.getElementById(d.screen)) go(d.screen); else go('day');
+    if (S.started) toast('عادت حالة اليوم كما تركتها' + (mins > 0 ? ' — منذ ' + ai(mins) + ' دقيقة' : ''));
+  } else { go('day'); }
+  S.online = navigator.onLine !== false;
+  qBuild(); renderSync();
+  setInterval(qTick, 700);
+}
+var _reset = resetAll;
+resetAll = function(){ clearSaved(); S.q = {}; S.mapSel = null; S.rView = 'list'; _reset(); };
+
+/* ربط الطبقات */
+var _bindVisit = bindVisit;
+bindVisit = function(c, V){ _bindVisit(c, V); bindSig(); renderVisitSaved(); };
+var _render2 = render;
+render = function(){ _render2(); if (curScreen() === 'sync') renderQ(); };
+
 bindShell();
 renderShell('day');
-render();
+__boot();
 })();
 /* ================= تطبيق مستقل (PWA) وحالات الشبكة ================= */
 (function(){
