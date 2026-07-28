@@ -1,7 +1,8 @@
 /* هومي — Service Worker باستراتيجية Network-first
    يجلب من الشبكة أولًا دائمًا (فتصل آخر نسخة فورًا)،
-   ويرجع للنسخة المحفوظة فقط عند غياب الاتصال أو بطئه الشديد. */
-const CACHE = 'homy-net-v4';
+   ويرجع للنسخة المحفوظة فقط عند غياب الاتصال أو بطئه الشديد.
+   وعند تفعيل نسخة جديدة يعيد تحميل كل التبويبات المفتوحة تلقائيًا. */
+const CACHE = 'homy-net-v5';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
@@ -13,11 +14,16 @@ self.addEventListener('install', e => {
 });
 
 self.addEventListener('activate', e => {
-  e.waitUntil(
-    caches.keys()
-      .then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k))))
-      .then(() => self.clients.claim())
-  );
+  e.waitUntil((async () => {
+    const ks = await caches.keys();
+    await Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)));
+    await self.clients.claim();
+    /* إعادة تحميل أي تبويب مفتوح كان يعمل بنسخة قديمة */
+    try {
+      const cls = await self.clients.matchAll({ type: 'window' });
+      cls.forEach(c => { if ('navigate' in c) { try { c.navigate(c.url); } catch (_) {} } });
+    } catch (_) {}
+  })());
 });
 
 /* Network-first لكل الطلبات: الشبكة أولًا بمهلة قصيرة،
