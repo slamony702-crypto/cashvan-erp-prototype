@@ -1890,6 +1890,256 @@ table{font-size:13.5px}
   .vbg{font-size:11.5px;padding:7px 10px;min-height:36px}
 }
 
+/* ================================================================
+   HOMY UI v5 — البيع · التحصيل · الملخص/النتيجة · المرتجعات · التوقيع
+   ================================================================ */
+
+/* ---------- عنوان القسم مع شارة ---------- */
+.stitle{display:flex;align-items:center;gap:10px;margin:2px 0 13px}
+.stitle h3{font-size:24px;font-weight:800;letter-spacing:-.035em;color:var(--ink);margin:0;line-height:1.25}
+.stitle .fefo{background:var(--panel-2);color:var(--ink-3);border:1px solid var(--line);
+  border-radius:9px;padding:5px 11px;font-size:12px;font-weight:800;letter-spacing:.02em;flex:none}
+.stitle .sub4{font-size:13.5px;color:var(--ink-3);font-weight:600;margin-top:2px}
+
+/* ---------- البحث + الباركود ---------- */
+.saler{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.saler .srch3{flex:1;margin-bottom:0}
+.saler .scanb{all:unset;box-sizing:border-box;cursor:pointer;width:52px;height:52px;flex:none;
+  border-radius:var(--rb);background:var(--navy);color:#fff;display:grid;place-items:center;
+  transition:var(--tr)}
+.saler .scanb:hover{background:var(--navy-2)}
+.saler .scanb:active{transform:scale(.95)}
+.saler .scanb svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- رقائق الاختصار ---------- */
+.qchips{display:flex;gap:9px;margin-bottom:13px}
+.qchips button{all:unset;box-sizing:border-box;cursor:pointer;font-family:inherit;flex:1;
+  min-height:50px;padding:0 13px;border-radius:var(--rb);border:1.5px solid var(--brand-sky);
+  background:var(--panel);color:var(--brand-txt);font-size:13.5px;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:var(--tr)}
+.qchips button:hover{background:var(--brand-soft);border-color:var(--brand)}
+.qchips button:active{transform:scale(.98)}
+.qchips button.on4{background:var(--brand-soft);border-color:var(--brand);color:var(--brand-deep)}
+.qchips button svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.9;flex:none;
+  stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- قائمة المنتجات ---------- */
+.plist2{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--sh);overflow:hidden;margin-bottom:13px}
+.prow{display:flex;align-items:center;gap:11px;padding:13px 15px;border-bottom:1px solid var(--line-soft)}
+.prow:last-child{border-bottom:0}
+.prow.act3{background:var(--brand-soft)}
+.prow .pinfo{flex:1;min-width:0}
+.prow .pn{font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.02em;line-height:1.35;
+  overflow-wrap:anywhere}
+.prow .pmeta{font-size:12.5px;color:var(--ink-3);font-weight:600;margin-top:2px}
+.prow .pmeta b{color:var(--ink-2);font-weight:700}
+.prow .pexp{display:inline-flex;align-items:center;gap:5px;margin-top:6px;
+  background:var(--warn-soft);color:var(--warn);border-radius:8px;padding:3px 9px;
+  font-size:11.5px;font-weight:800}
+.prow .pexp.crit{background:var(--neg-soft);color:var(--neg)}
+.prow .pexp svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.1;flex:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.prow .price2{font-size:16px;font-weight:800;color:var(--ink);letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;text-align:center;flex:none;min-width:62px;line-height:1.25}
+.prow .price2 u{display:block;text-decoration:none;font-size:11px;color:var(--ink-3);font-weight:700}
+.qstep{display:flex;align-items:center;gap:3px;flex:none;background:var(--panel-2);
+  border:1px solid var(--line);border-radius:12px;padding:3px}
+.qstep button{all:unset;box-sizing:border-box;cursor:pointer;width:44px;height:44px;
+  border-radius:9px;display:grid;place-items:center;font-size:21px;font-weight:800;
+  color:var(--brand);background:var(--panel);box-shadow:var(--sh);line-height:1;transition:var(--tr)}
+.qstep button:hover{background:var(--brand-soft)}
+.qstep button:active{transform:scale(.9)}
+.qstep button[disabled]{opacity:.3;cursor:not-allowed;background:transparent;box-shadow:none}
+.qstep i{font-style:normal;min-width:30px;text-align:center;font-size:16px;font-weight:800;
+  color:var(--ink);font-variant-numeric:tabular-nums}
+
+/* ---------- بطاقة الملخص الكحلية ---------- */
+.sumnavy{background:linear-gradient(158deg,var(--navy-2),var(--navy));border-radius:var(--r);
+  overflow:hidden;box-shadow:var(--sh-2);margin-bottom:13px}
+.sumnavy .srow{display:flex;align-items:center;gap:11px;padding:13px 16px;
+  border-bottom:1px solid rgba(255,255,255,.08)}
+.sumnavy .srow:last-child{border-bottom:0}
+.sumnavy .si{width:36px;height:36px;border-radius:10px;flex:none;display:grid;place-items:center;
+  background:rgba(145,201,243,.16);color:var(--brand-sky)}
+.sumnavy .si svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+.sumnavy .sk2{flex:1;min-width:0;font-size:14.5px;font-weight:700;color:#C6DEF2}
+.sumnavy .sv2{font-size:16px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em;white-space:nowrap}
+.sumnavy .srow.tot2{background:rgba(0,0,0,.18)}
+.sumnavy .srow.tot2 .si{background:rgba(145,201,243,.28)}
+.sumnavy .srow.tot2 .sk2{color:#fff;font-weight:800;font-size:16px}
+.sumnavy .srow.tot2 .sv2{color:var(--brand-sky);font-size:22px;letter-spacing:-.04em}
+
+/* ---------- أزرار الدفع ---------- */
+.paylist{display:flex;gap:10px;margin-bottom:13px}
+.paylist .pb4{all:unset;box-sizing:border-box;cursor:pointer;font-family:inherit;flex:1;
+  min-height:56px;border-radius:var(--rb);display:inline-flex;align-items:center;justify-content:center;
+  gap:9px;font-size:15.5px;font-weight:800;transition:var(--tr)}
+.paylist .pb4 svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.paylist .pb4.cash{background:var(--brand);color:#fff;box-shadow:var(--sh-3)}
+.paylist .pb4.cash:hover{background:var(--brand-hi)}
+.paylist .pb4.cash[disabled]{background:#CBDCEB;color:#3E5670;box-shadow:none;cursor:not-allowed}
+.paylist .pb4.credit{background:var(--panel);border:1.5px solid var(--brand);color:#17558F}
+.paylist .pb4.credit:hover{background:var(--brand-soft)}
+.paylist .pb4.credit[disabled]{border-color:var(--line);color:var(--ink-4);cursor:not-allowed;background:var(--panel-2)}
+.paylist .pb4:active{transform:scale(.985)}
+
+/* ---------- بطاقة نجاح داخلية (فاتورة/تحصيل مرحّل) ---------- */
+.donec{background:var(--panel);border:1px solid #B6E3CC;border-radius:var(--r);box-shadow:var(--sh);
+  padding:16px;margin-bottom:13px;text-align:center}
+.donec .dci{width:56px;height:56px;border-radius:50%;background:var(--pos-soft);color:var(--pos);
+  display:grid;place-items:center;margin:0 auto 11px}
+.donec .dci svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:2.4;
+  stroke-linecap:round;stroke-linejoin:round}
+.donec b{display:block;font-size:18px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
+.donec span{display:block;font-size:13.5px;color:var(--ink-3);font-weight:600;margin-top:4px}
+
+/* ---------- حالة فارغة كبيرة (تحصيل/مرتجع) ---------- */
+.bigempty{text-align:center;padding:22px 16px 4px}
+.bigempty .bei{width:78px;height:78px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center}
+.bigempty .bei svg{width:38px;height:38px;stroke:currentColor;fill:none;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
+.bigempty .bei.ok5{background:var(--pos-soft);color:var(--pos)}
+.bigempty .bei.bl2{background:var(--brand-soft);color:var(--brand)}
+.bigempty b{display:block;font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.03em}
+.bigempty p{font-size:14px;color:var(--ink-3);font-weight:600;line-height:1.6;margin:6px auto 0;max-width:32ch}
+
+/* ---------- صفوف مالية بسيطة ---------- */
+.frows{background:var(--panel-2);border:1px solid var(--line-soft);border-radius:var(--rb);
+  overflow:hidden;margin:16px 0 0}
+.frow2{display:flex;align-items:center;justify-content:space-between;padding:13px 15px;
+  border-bottom:1px solid var(--line);font-size:15px}
+.frow2:last-child{border-bottom:0}
+.frow2 .fk{color:var(--ink-2);font-weight:700}
+.frow2 .fv{color:var(--ink);font-weight:800;font-variant-numeric:tabular-nums}
+
+/* ---------- ملخص الزيارة: شبكة مؤشرات ---------- */
+.sumcard{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--sh);padding:16px;margin-bottom:14px}
+.sumgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
+.sumt{text-align:center;padding:8px 6px 12px;position:relative}
+.sumt::after{content:"";position:absolute;inset-inline-start:0;top:14px;bottom:14px;width:1px;background:var(--line-soft)}
+.sumt:nth-child(3n)::after,.sumt:last-child::after{display:none}
+.sumt .stl{font-size:12.5px;color:var(--ink-3);font-weight:700;margin-bottom:8px;line-height:1.3}
+.sumt .sic{width:40px;height:40px;border-radius:12px;background:var(--brand-soft);color:var(--brand);
+  display:grid;place-items:center;margin:0 auto 8px}
+.sumt .sic svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+.sumt .sval{font-size:16px;font-weight:800;color:var(--ink);letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums}
+.sumsep{height:1px;background:var(--line-soft);margin:6px 0 0}
+.sumnet{display:flex;align-items:center;gap:0;background:var(--panel-2);border:1px solid var(--line-soft);
+  border-radius:var(--rb);margin-top:14px;overflow:hidden}
+.sumnet .sn2{flex:1;display:flex;align-items:center;gap:10px;padding:13px 15px}
+.sumnet .sn2:first-child{border-inline-end:1px solid var(--line)}
+.sumnet .sni{width:36px;height:36px;border-radius:10px;background:var(--panel);border:1px solid var(--line);
+  display:grid;place-items:center;color:var(--brand);flex:none}
+.sumnet .sni svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+.sumnet .snt{min-width:0}
+.sumnet .snk{font-size:12px;color:var(--ink-3);font-weight:700;line-height:1.3}
+.sumnet .snv{font-size:15px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.sumnet .snv.pos2{color:var(--pos)}
+
+/* ---------- نتيجة الزيارة: بطاقات اختيار ---------- */
+.resgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rcard{all:unset;box-sizing:border-box;cursor:pointer;font-family:inherit;display:flex;
+  align-items:center;gap:11px;min-height:66px;padding:12px 13px;border-radius:var(--rb);
+  border:1.5px solid var(--line);background:var(--panel);transition:var(--tr);position:relative}
+.rcard:hover{border-color:var(--brand-sky);background:var(--brand-soft)}
+.rcard .rico{width:40px;height:40px;border-radius:11px;flex:none;display:grid;place-items:center;
+  background:var(--brand-soft);color:var(--brand)}
+.rcard .rico svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+.rcard .rtx{flex:1;min-width:0;font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.35}
+.rcard .rrad{width:22px;height:22px;border-radius:50%;border:2px solid var(--border-strong,#C8DCEB);flex:none;
+  display:grid;place-items:center;transition:var(--tr)}
+.rcard .rrad::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--pos-hi);
+  transform:scale(0);transition:var(--tr)}
+.rcard.sel3{border-color:var(--pos-hi);background:var(--pos-soft)}
+.rcard.sel3 .rrad{border-color:var(--pos-hi)}
+.rcard.sel3 .rrad::after{transform:scale(1)}
+.rcard.sel3 .rico{background:#D3F0E0;color:var(--pos)}
+.rcard.warn2 .rico{background:var(--warn-soft);color:var(--warn-hi)}
+.rcard.neg2 .rico{background:var(--neg-soft);color:var(--neg-hi)}
+.rcard[disabled]{opacity:.45;cursor:not-allowed}
+.rcard[disabled]:hover{border-color:var(--line);background:var(--panel)}
+.rcard.full{grid-column:1/-1}
+
+/* ---------- المرتجعات ومهمة المتابعة ---------- */
+.optb{background:var(--panel-2);color:var(--ink-3);border-radius:10px;padding:5px 12px;
+  font-size:12px;font-weight:800;flex:none}
+.retitem{display:flex;align-items:center;gap:11px;background:var(--panel-2);border:1px solid var(--line);
+  border-radius:var(--rb);padding:12px 13px;margin-top:10px;cursor:pointer;transition:var(--tr)}
+.retitem:hover{border-color:var(--brand-sky)}
+.retitem .rii{width:40px;height:40px;border-radius:11px;background:var(--brand-soft);color:var(--brand);
+  flex:none;display:grid;place-items:center}
+.retitem .rii svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+.retitem .rit{flex:1;min-width:0}
+.retitem .rit b{font-size:14.5px;font-weight:800;color:var(--ink)}
+.retitem .rit span{display:block;font-size:12.5px;color:var(--ink-3);font-weight:600;margin-top:1px}
+.retitem .rst{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:800;color:var(--pos)}
+.retitem .rst i{width:7px;height:7px;border-radius:50%;background:var(--pos-hi)}
+.subhead{font-size:12.5px;color:var(--ink-3);font-weight:700;text-align:center;margin:15px 0 0}
+.charc{font-size:11.5px;color:var(--ink-4);font-weight:700;text-align:start;margin-top:6px}
+
+/* ---------- التوقيع ---------- */
+.sigcard2 .sigw{border-color:var(--brand-sky);background:#F2F9FF;min-height:190px}
+.sigcard2 .sigw canvas{height:190px}
+.sigcard2 .ph2{color:var(--brand-txt)}
+.sigrow{display:flex;gap:10px;margin-top:11px}
+.sigrow .btn{min-height:52px}
+.sigrow .clr2{flex:1}
+.sigrow .sv3{flex:1.6}
+
+/* ---------- متطلبات الإنهاء ---------- */
+.reqcard .reqlist{border:1px solid var(--line);border-radius:var(--rb);overflow:hidden}
+.reqitem{all:unset;box-sizing:border-box;cursor:pointer;font-family:inherit;width:100%;
+  display:flex;align-items:center;gap:12px;padding:14px 15px;border-bottom:1px solid var(--line-soft);
+  transition:var(--tr)}
+.reqitem:last-child{border-bottom:0}
+.reqitem:hover{background:var(--panel-2)}
+.reqitem .rqi{width:28px;height:28px;border-radius:50%;flex:none;display:grid;place-items:center;color:#fff}
+.reqitem .rqi svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2.6;
+  stroke-linecap:round;stroke-linejoin:round}
+.reqitem.dn3 .rqi{background:var(--pos-hi)}
+.reqitem.no4 .rqi{background:var(--warn-hi);color:#3B2400}
+.reqitem .rqt{flex:1;min-width:0;font-size:15px;font-weight:700;color:var(--ink);text-align:start;line-height:1.4}
+.reqitem.dn3 .rqt{color:var(--ink-2)}
+.reqitem .rqc{color:var(--ink-4);flex:none}
+.reqitem .rqc svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;
+  stroke-linecap:round;stroke-linejoin:round}
+.reqnote{display:flex;align-items:center;gap:9px;background:var(--brand-soft);color:var(--brand-txt);
+  border-radius:var(--rb);padding:12px 14px;margin-top:12px;font-size:13.5px;font-weight:700;line-height:1.5}
+.reqnote svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2.2;flex:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.reqnote.done5{background:var(--pos-soft);color:var(--pos)}
+.finhint{font-size:12.5px;color:var(--ink-3);font-weight:600;text-align:center;
+  padding:10px 14px 2px;display:flex;align-items:center;justify-content:center;gap:7px}
+.finhint svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.1;flex:none;stroke-linecap:round}
+
+/* ---------- استجابة ---------- */
+@media(max-width:389px){
+  .stitle h3{font-size:21px}
+  .prow .pn{font-size:14.5px}
+  .prow .price2{min-width:54px;font-size:14.5px}
+  .qstep button{width:44px;height:44px}
+  .prow{gap:8px;padding:12px}
+  .paylist{flex-direction:column}
+  .resgrid{grid-template-columns:1fr}
+  .sumnavy .sv2{font-size:15px}
+  .sumnavy .srow.tot2 .sv2{font-size:20px}
+}
+@media(max-width:340px){
+  .sumt .stl{font-size:11px}
+  .sumt .sval{font-size:14px}
+}
+
 </style>
 
 <div class="app">
@@ -5763,6 +6013,394 @@ vgate2 = function(){
   }
   return g;
 };
+
+/* ================================================================
+   HOMY UI v5 — البيع · التحصيل · الملخص/النتيجة · المرتجعات · التوقيع
+   إعادة تصميم الخطوات ٣-٤-٥ مع ربطها بالدوال المحاسبية القائمة كما هي.
+   ================================================================ */
+IC.scan2  = '<rect x="3" y="4" width="18" height="16" rx="2.4"/><path d="M7 8v8M10 8v8M13.5 8v8M17 8v8"/>';
+IC.star2  = '<path d="M12 3.2l2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/>';
+IC.refr   = '<path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 4.5V10h-5.5"/>';
+IC.credit = '<rect x="2.5" y="5" width="19" height="14" rx="2.6"/><path d="M2.5 9.5h19"/>';
+IC.banknote = '<rect x="2.5" y="6" width="19" height="12" rx="2.4"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v.01M18 14.5v.01"/>';
+IC.shield = '<path d="M12 3l7.5 3v5.5c0 4.6-3.2 7.8-7.5 9.2C7.7 19.3 4.5 16.1 4.5 11.5V6z"/><path d="M9.3 12l1.9 1.9 3.5-3.7"/>';
+IC.receipt = '<path d="M5 3h14v18l-3-1.6L13 21l-3-1.6L7 21l-2-1.6z"/><path d="M9 8h6M9 12h6"/>';
+IC.calc2  = '<rect x="4.5" y="2.5" width="15" height="19" rx="2.4"/><path d="M8 6.5h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15v3M8 18h4"/>';
+IC.units  = '<path d="M12 2.8 3.5 7v10L12 21.2 20.5 17V7z"/><path d="M3.5 7 12 11.3 20.5 7M12 11.3v9.9"/>';
+IC.cal2   = '<rect x="3.5" y="5" width="17" height="16" rx="2.4"/><path d="M3.5 10h17M8 3v4M16 3v4"/>';
+IC.retbox = '<path d="M12 2.8 3.5 7v10L12 21.2 20.5 17V7z"/><path d="M3.5 7 12 11.3 20.5 7"/><path d="M9 14l-2-2 2-2M7 12h6a2 2 0 0 1 0 4h-1"/>';
+IC.clip2  = '<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V3a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1"/><path d="M9.5 12l1.6 1.6 3.4-3.6"/>';
+IC.cliptime = '<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V3a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1"/><circle cx="12" cy="13" r="3.2"/><path d="M12 11.4V13l1 .8"/>';
+IC.penbox = '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>';
+IC.ban    = '<circle cx="12" cy="12" r="8.6"/><path d="M6 6l12 12"/>';
+IC.info2  = '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5v.01"/>';
+
+/* أدوات البيع السريع */
+function topProducts(n){ return PRODUCTS.slice(0, n || 2); }
+
+/* ================= الخطوة ٣ — البيع ================= */
+function vs3(c, V){
+  var body;
+  if (V.invoice){
+    var pay = V.invoice.pay;
+    body = '<div class="donec"><span class="dci">' + svg('chk') + '</span>'
+      + '<b>رُحّلت الفاتورة ' + esc(V.invoice.no) + '</b>'
+      + '<span>' + (pay === 'cash' ? 'استلام نقدي' : 'بيع آجل') + ' · إجمالي ' + ar(V.invoice.total) + ' د.ل</span></div>'
+      + '<div class="plist2">' + V.invoice.lines.map(function(l){
+          return '<div class="prow"><div class="pinfo"><div class="pn">' + esc(l.nm) + '</div>'
+            + '<div class="pmeta"><b>' + esc(l.lot) + '</b> · الكمية ' + ai(l.q) + '</div></div>'
+            + '<div class="price2">' + ar(l.sum) + '<u>د.ل</u></div></div>'; }).join('') + '</div>'
+      + '<div class="vinfo">' + svg('lock') + '<span>الفاتورة مرحّلة ولا تُحذف. أي تعديل يتم بمرتجع أو إشعار دائن.</span></div>';
+  } else {
+    var q = (V.pq || '').trim();
+    var list = PRODUCTS.filter(function(p){ return !q || (p.nm + ' ' + p.lot).indexOf(q) >= 0; });
+    var rows = list.length ? list.map(function(p){
+      var n = V.cart[p.id] || 0, have = S.stock[p.id];
+      var expc = p.days <= 30 ? '<span class="pexp' + (p.days <= 7 ? ' crit' : '') + '">' + svg('cal2')
+        + 'ينتهي خلال ' + ai(p.days) + ' يومًا</span>' : '';
+      return '<div class="prow' + (n > 0 ? ' act3' : '') + '">'
+        + '<div class="pinfo"><div class="pn">' + esc(p.nm) + '</div>'
+        +   '<div class="pmeta"><b>' + esc(p.lot) + '</b> · رصيد ' + ai(have) + ' ' + esc(p.u) + '</div>'
+        +   expc + '</div>'
+        + '<div class="price2">' + ar(p.price) + '<u>د.ل</u></div>'
+        + '<div class="qstep"><button data-p="' + p.id + '" aria-label="زيادة ' + esc(p.nm) + '"'
+        +   (n >= have ? ' disabled' : '') + '>+</button><i>' + ai(n) + '</i>'
+        +   '<button data-m="' + p.id + '" aria-label="إنقاص ' + esc(p.nm) + '"'
+        +   (n === 0 ? ' disabled' : '') + '>−</button></div></div>';
+    }).join('') : '<div class="emp"><span class="ic2">' + svg('srch') + '</span><b>لا يوجد صنف مطابق</b>'
+        + '<span>جرّب اسمًا أو رقم تشغيلة آخر، أو امسح البحث لعرض كل مخزون السيارة.</span></div>';
+    var tot = cartTotal(), avail = c.limit - c.bal, canCr = c.limit > 0 && tot > 0 && tot <= avail;
+    body = '<div class="saler"><div class="srch3">' + svg('srch')
+      + '<input id="pQ" type="search" placeholder="ابحث عن صنف أو تشغيلة" value="' + esc(q) + '" aria-label="بحث المنتجات">'
+      + (q ? '<button class="x2" id="pQX" type="button" aria-label="مسح البحث">×</button>' : '') + '</div>'
+      + '<button class="scanb" id="scanB" type="button" aria-label="مسح باركود">' + svg('scan2') + '</button></div>'
+      + '<div class="qchips">'
+      +   '<button id="qTop" type="button">' + svg('star2') + 'الأكثر شراءً لهذا العميل</button>'
+      +   '<button id="qLast" type="button">' + svg('refr') + 'تكرار آخر طلب</button></div>'
+      + '<div class="plist2">' + rows + '</div>'
+      + '<div class="sumnavy">'
+      +   frow('units', 'عدد الوحدات', ai(cartQty()))
+      +   frow('wallet', 'رصيد العميل الحالي', ar(c.bal) + ' د.ل')
+      +   frow('calc2', 'الرصيد بعد الفاتورة', ar(c.bal + tot) + ' د.ل')
+      +   frow('shield', 'الحد الائتماني', c.limit > 0 ? ar(c.limit) + ' د.ل' : 'نقدي فقط')
+      +   '<div class="srow tot2"><span class="si">' + svg('receipt') + '</span>'
+      +     '<span class="sk2">إجمالي الفاتورة</span><span class="sv2">' + ar(tot) + ' د.ل</span></div>'
+      + '</div>'
+      + (c.limit > 0 && tot > avail
+          ? '<div class="verr" role="alert">' + svg('warn')
+            + '<span>الفاتورة تتجاوز المتاح الائتماني (' + ar(avail) + ' د.ل) — البيع الآجل موقوف ويحتاج اعتماد مشرف.</span></div>'
+          : '')
+      + '<div class="paylist">'
+      +   '<button class="pb4 cash" id="payCash" type="button"' + (tot === 0 ? ' disabled' : '') + '>'
+      +     svg('banknote') + 'استلام نقدي وترحيل</button>'
+      +   '<button class="pb4 credit" id="payCredit" type="button"' + (canCr ? '' : ' disabled')
+      +     (c.limit === 0 ? ' title="العميل نقدي فقط — البيع الآجل غير متاح"' : (canCr ? '' : ' title="الفاتورة تتجاوز المتاح الائتماني"'))
+      +     '>' + svg('cal2') + 'بيع آجل</button>'
+      + '</div>';
+  }
+  return '<div class="stitle"><h3>البيع من مخزون السيارة</h3><span class="fefo">FEFO</span></div>'
+    + body + '<div class="vpad"></div>'
+    + sbar('vPrev', 'السابق', 'vNextS', 'التالي: التحصيل', false, '');
+}
+function frow(ic, k, v){
+  return '<div class="srow"><span class="si">' + svg(ic) + '</span>'
+    + '<span class="sk2">' + k + '</span><span class="sv2">' + v + '</span></div>';
+}
+
+/* ================= الخطوة ٤ — التحصيل ================= */
+function vs4(c, V){
+  var body;
+  if (V.collect){
+    body = '<div class="sec2"><div class="sb2" style="padding-top:16px">'
+      + '<div class="donec"><span class="dci">' + svg('chk') + '</span>'
+      +   '<b>رُحّل التحصيل ' + esc(V.collect.no) + '</b>'
+      +   '<span>' + (V.collect.method === 'cash' ? 'نقدي' : 'تحويل مصرفي') + ' · ' + ar(V.collect.amt) + ' د.ل</span></div>'
+      + '<div class="frows"><div class="frow2"><span class="fk">الرصيد المتبقي على العميل</span>'
+      +   '<span class="fv">' + ar(c.bal) + ' د.ل</span></div></div>'
+      + '<button class="btn g" id="prnCol" type="button" style="width:100%;margin-top:12px;min-height:50px">'
+      +   svg('doc') + 'طباعة إيصال التحصيل</button></div></div>';
+  } else if (c.bal > 0){
+    body = '<div class="sec2"><div class="sh2"><h3 style="font-size:19px">تحصيل مديونية</h3>'
+      +   '<span class="cnt3">مستحق ' + ar(c.bal) + ' د.ل</span></div><div class="sb2">'
+      + '<div class="frows" style="margin-top:0"><div class="frow2"><span class="fk">الرصيد المستحق</span>'
+      +   '<span class="fv" style="color:var(--warn)">' + ar(c.bal) + ' د.ل</span></div></div>'
+      + '<div class="fgrid" style="margin-top:14px">'
+      +   '<div class="fld2"><label>المبلغ المحصَّل <i>*</i></label>'
+      +     '<input id="colAmt" type="number" inputmode="decimal" step="50" placeholder="٠٫٠٠" max="' + c.bal + '"'
+      +     ' aria-label="المبلغ المحصَّل"></div>'
+      +   '<div class="fld2"><label>طريقة الدفع</label><select id="colM" aria-label="طريقة الدفع">'
+      +     '<option value="cash">نقدي</option><option value="bank">تحويل مصرفي</option><option value="cheque">شيك</option></select></div>'
+      + '</div>'
+      + '<div class="opt" style="margin-top:10px">'
+      +   '<button type="button" id="colAll">تحصيل كامل الرصيد</button>'
+      +   '<button type="button" id="colHalf">تحصيل النصف</button></div>'
+      + '<button class="btn wide" id="doCol" type="button" style="margin-top:13px">ترحيل التحصيل</button>'
+      + '</div></div>';
+  } else {
+    body = '<div class="sec2"><div class="sh2" style="padding-bottom:0">'
+      +   '<h3 style="font-size:19px">التحصيل</h3><span class="optb">لا ينطبق</span></div>'
+      + '<div class="sb2" style="padding-top:8px">'
+      + '<div class="bigempty"><span class="bei ok5">' + svg('wallet') + '</span>'
+      +   '<b>لا يوجد رصيد مفتوح</b><p>هذا العميل نقدي ولا توجد عليه فواتير آجلة قائمة.</p></div>'
+      + '<div class="frows"><div class="frow2"><span class="fk">الرصيد المستحق</span>'
+      +   '<span class="fv">' + ar(0) + ' د.ل</span></div>'
+      +   '<div class="frow2"><span class="fk">مبلغ التحصيل</span><span class="fv">' + ar(0) + ' د.ل</span></div></div>'
+      + '</div></div>';
+  }
+  var note = '<div class="pnote">' + svg('pen')
+    + '<input id="colNote" placeholder="ملاحظة الزيارة (اختياري) — حول التحصيل أو حالة الحساب" '
+    + 'value="' + esc(V.colNote || '') + '" aria-label="ملاحظة التحصيل"></div>';
+  return body + note + '<div class="vpad"></div>'
+    + sbar('vPrev', 'السابق', 'vNextS', 'التالي: الإنهاء', false, '');
+}
+
+/* ================= الخطوة ٥ — الإنهاء (٣ صفحات فرعية) ================= */
+function outcomeConflict(o, V){
+  var hasInv = !!V.invoice, hasCol = !!V.collect;
+  if (hasInv && (o === 'لا يوجد احتياج' || o === 'المحل مغلق' || o === 'رفض الطلب')) return true;
+  if (hasCol && (o === 'المحل مغلق' || o === 'لا يوجد احتياج')) return true;
+  if (o === 'موقوف ائتمانيًا' && !(cust(V.cid).bal > 0)) return false;
+  return false;
+}
+var OUT_ICON = {
+  'بيع وتحصيل':'cart','بيع فقط':'cart','تحصيل فقط':'wallet','لا يوجد احتياج':'ban',
+  'المحل مغلق':'lock','رفض الطلب':'xc','موقوف ائتمانيًا':'warn'
+};
+function vs5Summary(c, V){
+  var gg = vgate2(), mins = Math.max(1, Math.round((Date.now() - V.t0) / 60000));
+  var retV = 0; (S.returns || []).forEach(function(r){ if (r.cnm === c.nm) retV += r.amt; });
+  var netCash = (V.invoice && V.invoice.pay === 'cash' ? V.invoice.total : 0) + (V.collect ? V.collect.amt : 0);
+  function tile(ic, lbl, val){
+    return '<div class="sumt"><div class="stl">' + lbl + '</div>'
+      + '<div class="sic">' + svg(ic) + '</div><div class="sval">' + val + '</div></div>';
+  }
+  var summary = '<div class="sumcard"><div class="sumgrid">'
+    + tile('box2',   'قيمة المرتجعات', ar(retV) + ' د.ل')
+    + tile('wallet', 'قيمة التحصيل', ar(V.collect ? V.collect.amt : 0) + ' د.ل')
+    + tile('cart',   'قيمة المبيعات', ar(V.invoice ? V.invoice.total : 0) + ' د.ل')
+    + '</div><div class="sumsep"></div><div class="sumgrid">'
+    + tile('clk',    'مدة الزيارة', ai(mins) + ' دقيقة')
+    + tile('okc',    'الحقول المكتملة', ai(gg.done) + ' / ' + ai(gg.total))
+    + tile('img',    'عدد الصور', ai(V.photos.length))
+    + '</div>'
+    + '<div class="sumnet">'
+    +   '<div class="sn2"><span class="sni">' + svg('pin') + '</span><span class="snt">'
+    +     '<span class="snk">موقع البداية والنهاية</span><span class="snv">٣٢٫٨٨ / ١٣٫١٩</span></span></div>'
+    +   '<div class="sn2"><span class="sni">' + svg('wallet') + '</span><span class="snt">'
+    +     '<span class="snk">صافي أثر الزيارة على الخزينة</span><span class="snv pos2">' + ar(netCash) + ' د.ل</span></span></div>'
+    + '</div></div>';
+  var result = '<div class="stitle" style="margin-bottom:11px"><h3 style="font-size:20px">نتيجة الزيارة</h3>'
+    + '<span class="req2">إلزامي</span></div>'
+    + '<div class="resgrid">' + OUTCOMES.map(function(o, i){
+        var sel = V.outcome === o, dis = outcomeConflict(o, V);
+        var cls = OUT_ICON[o] === 'ban' || OUT_ICON[o] === 'lock' ? 'warn2'
+                : OUT_ICON[o] === 'xc' || OUT_ICON[o] === 'warn' ? 'neg2' : '';
+        var full = (i === OUTCOMES.length - 1 && OUTCOMES.length % 2 === 1) ? ' full' : '';
+        return '<button class="rcard ' + (sel ? 'sel3 ' : '') + cls + full + '" type="button" data-out="' + esc(o) + '"'
+          + (dis ? ' disabled' : '') + ' aria-pressed="' + sel + '">'
+          + '<span class="rico">' + svg(OUT_ICON[o] || 'okc') + '</span>'
+          + '<span class="rtx">' + esc(o) + '</span><span class="rrad"></span></button>';
+      }).join('') + '</div>';
+  return summary + result + '<div class="vpad"></div>'
+    + sbar('vPrev', 'السابق', 'finNext', 'متابعة الإنهاء', !V.outcome, V.outcome ? '' : 'حدّد نتيجة الزيارة أولًا');
+}
+function vs5Returns(c, V){
+  var myRet = (S.returns || []).filter(function(r){ return r.cnm === c.nm; });
+  var retSec = '<div class="sec2"><div class="sh2"><h3 style="font-size:20px">المرتجعات</h3>'
+    + '<span class="optb">اختياري</span></div><div class="sb2">'
+    + '<div class="bigempty" style="padding-top:8px"><span class="bei bl2">' + svg('retbox') + '</span>'
+    +   '<b>لا يوجد مرتجع مسجل في هذه الزيارة</b>'
+    +   '<p>يُربط المرتجع بالفاتورة الأصلية والتشغيلة وتاريخ الصلاحية والسبب وحالة المنتج.</p></div>'
+    + '<button class="btn wide" id="addRet" type="button" style="margin-top:6px">' + svg('retbox') + 'إضافة مرتجع</button>'
+    + (myRet.length ? '<div class="subhead">مرتجع سابق في هذه الزيارة</div>'
+        + myRet.map(function(r){
+            return '<div class="retitem" data-goret="1"><span class="rii">' + svg('retbox') + '</span>'
+              + '<span class="rit"><b>مرتجع ' + esc(r.no) + '</b>'
+              + '<span>' + ai(r.qty || 1) + ' صنف · ' + ar(r.amt) + ' د.ل</span></span>'
+              + '<span class="rst"><i></i>مكتمل</span></div>'; }).join('') : '')
+    + '</div></div>';
+  var folSec = '<div class="sec2"><div class="sh2"><h3 style="font-size:20px">مهمة متابعة</h3>'
+    + '<span class="optb">اختياري</span></div><div class="sb2">'
+    + (V.follow
+        ? '<div class="fgrid">'
+          + '<div class="fld2"><label>الموعد</label><select id="fWhen">'
+          +   ['بعد ٣ أيام','بعد ٧ أيام','الزيارة القادمة','بعد شهر'].map(function(w){
+                return '<option' + (V.follow.when === w ? ' selected' : '') + '>' + w + '</option>'; }).join('')
+          + '</select></div>'
+          + '<div class="fld2"><label>الملاحظة</label><input id="fNote" placeholder="مثال: متابعة عرض الرف"'
+          +   ' value="' + esc(V.follow.note || '') + '"></div></div>'
+          + '<button class="btn g" id="tgFollow" type="button" style="width:100%;margin-top:11px;min-height:48px">'
+          +   svg('trash') + 'إلغاء مهمة المتابعة</button>'
+        : '<div class="bigempty" style="padding-top:8px"><span class="bei bl2">' + svg('cliptime') + '</span>'
+          + '<b>لا توجد مهمة متابعة</b><p>إنشاء مهمة متابعة على هذا العميل بعد الزيارة.</p></div>'
+          + '<button class="btn g" id="tgFollow" type="button" style="width:100%;margin-top:6px;min-height:52px">'
+          +   svg('cliptime') + 'إنشاء مهمة</button>')
+    + '</div></div>';
+  var noteSec = '<div class="pnote">' + svg('pen')
+    + '<input id="finNote" placeholder="ملاحظات الإنهاء (اختياري)" value="' + esc(V.finNote || '') + '"'
+    + ' maxlength="250" aria-label="ملاحظات الإنهاء"></div>';
+  return '<div class="stitle"><h3>المرتجعات والمتابعة</h3></div>'
+    + '<div class="stitle" style="margin-top:-8px"><span class="sub4">أضف البيانات عند الحاجة قبل إنهاء الزيارة</span></div>'
+    + retSec + folSec + noteSec + '<div class="vpad"></div>'
+    + sbar('finBack', 'السابق', 'finSign', 'التالي: التوقيع', false, '');
+}
+function reqItems(c, V){
+  var g = visitGate(), ff = vFieldsDone(), st = tasksStat(c);
+  return [
+    {t:'تسجيل الوصول عند العميل', ok:V.arrived, step:1},
+    {t:'التقاط صورة رف واحدة على الأقل', ok:st.ok, step:2, sub:'tasks'},
+    {t:'الإجابة على الأسئلة المتبقية', ok:g.allQ, step:2, sub:'data'},
+    {t:'استكمال الحقول الإلزامية في فحص الرف', ok:ff.d >= ff.t, step:2, sub:'data'},
+    {t:'تحديد نتيجة الزيارة', ok:!!V.outcome, step:5, fin:'summary'}
+  ];
+}
+function vs5Sign(c, V){
+  var items = reqItems(c, V), allOk = items.every(function(x){ return x.ok; });
+  var sig = '<div class="sec2 sigcard2"><div class="sh2"><span class="tico" style="width:38px;height:38px;'
+    + 'border-radius:11px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center">'
+    + svg('penbox') + '</span><h3 style="font-size:19px;flex:1">توقيع العميل</h3>'
+    + '<span class="optb">عند الطلب</span></div><div class="sb2">' + sigHtml(V) + '</div></div>';
+  var reqs = '<div class="sec2 reqcard"><div class="sh2"><span class="tico" style="width:38px;height:38px;'
+    + 'border-radius:11px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center">'
+    + svg('clip2') + '</span><h3 style="font-size:19px;flex:1">متطلبات الإنهاء</h3></div><div class="sb2">'
+    + '<div class="reqlist">' + items.map(function(x){
+        return '<button class="reqitem ' + (x.ok ? 'dn3' : 'no4') + '" type="button" data-req="'
+          + x.step + '|' + (x.sub || x.fin || '') + '">'
+          + '<span class="rqi">' + svg(x.ok ? 'chk' : 'warn') + '</span>'
+          + '<span class="rqt">' + esc(x.t) + '</span>'
+          + (x.ok ? '' : '<span class="rqc">' + svg('arrow') + '</span>') + '</button>';
+      }).join('') + '</div>'
+    + '<div class="reqnote ' + (allOk ? 'done5' : '') + '">' + svg(allOk ? 'okc' : 'info2')
+    +   (allOk ? 'اكتملت جميع المتطلبات — يمكن حفظ الزيارة وإنهاؤها.'
+              : 'أكمل المتطلبات المتبقية لتفعيل الحفظ.') + '</div>'
+    + '</div>';
+  return '<div class="stitle"><h3>التوقيع وإنهاء الزيارة</h3></div>'
+    + '<div class="stitle" style="margin-top:-8px"><span class="sub4">راجع المتطلبات ثم احفظ الزيارة</span></div>'
+    + sig + reqs
+    + '<div class="finhint">' + svg('lock') + 'لن يتم تفعيل الحفظ إلا بعد اكتمال جميع المتطلبات</div>'
+    + '<div class="vpad"></div>'
+    + sbar('finBack2', 'السابق', 'endV', 'حفظ وإنهاء الزيارة', !allOk, allOk ? '' : 'أكمل المتطلبات المتبقية');
+}
+function vs5(c, V){
+  if (!V.fin) V.fin = 'summary';
+  return V.fin === 'returns' ? vs5Returns(c, V) : V.fin === 'sign' ? vs5Sign(c, V) : vs5Summary(c, V);
+}
+
+/* ================= renderSell موحّد ================= */
+function renderSell(){
+  var V = vinit(), app = document.querySelector('.app');
+  if (!V){
+    if (app) app.classList.remove('invisit');
+    var n = nextCust();
+    $('sellBody').innerHTML = '<div class="card"><div class="emp">'
+      + '<span class="ic2">' + svg('cart') + '</span><b>لا توجد زيارة مفتوحة</b>'
+      + '<span>' + (S.closed ? 'أُقفل اليوم — لا تُقبل زيارات جديدة.'
+                  : !S.started ? 'ابدأ يوم العمل أولًا من الشاشة الرئيسية، ثم افتح أول زيارة.'
+                  : n ? 'العميل التالي في المسار: ' + n.nm + ' — على بُعد ' + ar(n.km,1) + ' كم.'
+                      : 'تمت زيارة كل عملاء المسار. انتقل إلى التسوية اليومية.') + '</span>'
+      + '<div style="margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">'
+      + (!S.started ? '<button class="btn" type="button" id="vStart">ابدأ يوم العمل</button>'
+         : n ? '<button class="btn" type="button" id="vNext">ابدأ زيارة ' + esc(n.nm) + '</button>' : '')
+      + '<button class="btn g" type="button" data-go="route">عرض خط السير</button></div></div></div>';
+    var a = $('vStart'); if (a) a.onclick = function(){ startDay(); };
+    var b2 = $('vNext'); if (b2) b2.onclick = function(){ if (n) openVisit(n.id); };
+    document.querySelectorAll('#sellBody [data-go]').forEach(function(x){ x.onclick = function(){ go(x.dataset.go); }; });
+    return;
+  }
+  if (app) app.classList.add('invisit');
+  if (V.sub === undefined) V.sub = 'tasks';
+  var c = cust(V.cid);
+  var body = V.step === 1 ? vs1(c, V) : V.step === 2 ? vs2(c, V) : V.step === 3 ? vs3(c, V)
+           : V.step === 4 ? vs4(c, V) : vs5(c, V);
+  $('sellBody').innerHTML =
+      '<div class="vtop">' + vctxHtml(c, V) + '</div>'
+    + '<div class="vsheet">' + vstepsHtml(V) + body + '</div>';
+  bindVisit(c, V);
+  bindV4(c, V);
+  bindV5(c, V);
+}
+
+/* ================= الربط ================= */
+function bindV5(c, V){
+  var b;
+  /* البيع */
+  var pq = $('pQ');
+  if (pq) pq.oninput = function(){ var p = pq.selectionStart; V.pq = pq.value; renderSell();
+    var nn = $('pQ'); if (nn){ nn.focus(); try{ nn.setSelectionRange(p,p); }catch(e){} } };
+  b = $('pQX'); if (b) b.onclick = function(){ V.pq = ''; renderSell(); };
+  document.querySelectorAll('#sellBody [data-p]').forEach(function(x){
+    x.onclick = function(){ setQty(x.dataset.p, 1); }; });
+  document.querySelectorAll('#sellBody [data-m]').forEach(function(x){
+    x.onclick = function(){ setQty(x.dataset.m, -1); }; });
+  b = $('scanB'); if (b) b.onclick = function(){ toast('ماسح الباركود يفتح الكاميرا ويضيف الصنف مباشرة إلى السلة'); };
+  b = $('qTop'); if (b) b.onclick = function(){
+    var added = 0;
+    topProducts(2).forEach(function(p){ if (S.stock[p.id] > 0 && !V.cart[p.id]){ setQtyQuiet(p.id, 1); added++; } });
+    toast(added ? 'أُضيف الأكثر شراءً لهذا العميل — عدّل الكميات كما تريد' : 'الأصناف الأكثر شراءً مضافة بالفعل');
+    renderSell();
+  };
+  b = $('qLast'); if (b) b.onclick = function(){
+    var added = 0;
+    topProducts(3).forEach(function(p){ if (S.stock[p.id] > 1 && !V.cart[p.id]){ setQtyQuiet(p.id, 2); added++; } });
+    toast(added ? 'كُرّر آخر طلب لهذا العميل' : 'أصناف آخر طلب مضافة بالفعل');
+    renderSell();
+  };
+  b = $('payCash');   if (b) b.onclick = function(){ postSale('cash'); };
+  b = $('payCredit'); if (b) b.onclick = function(){ postSale('credit'); };
+  b = $('prnInv');    if (b) b.onclick = function(){ toast('أُرسلت الفاتورة إلى الطابعة المحمولة عبر البلوتوث'); };
+
+  /* التحصيل */
+  b = $('doCol');   if (b) b.onclick = postCollect;
+  b = $('colAll');  if (b) b.onclick = function(){ var i = $('colAmt'); if (i){ i.value = c.bal; toast('حُدّد كامل الرصيد ' + ar(c.bal) + ' د.ل'); } };
+  b = $('colHalf'); if (b) b.onclick = function(){ var i = $('colAmt'); if (i){ i.value = Math.round(c.bal / 2 * 100) / 100; toast('حُدّد نصف الرصيد'); } };
+  b = $('prnCol');  if (b) b.onclick = function(){ toast('طُبع إيصال التحصيل — نسخة للعميل ونسخة للمندوب'); };
+  b = $('colNote'); if (b) b.oninput = function(){ V.colNote = b.value; saveSoon(); };
+
+  /* الملخص والنتيجة */
+  document.querySelectorAll('#sellBody [data-out]').forEach(function(x){
+    x.onclick = function(){
+      if (x.disabled) return;
+      if (outcomeConflict(x.dataset.out, V)){ toast('هذه النتيجة لا تتوافق مع العمليات المسجّلة في الزيارة'); return; }
+      setOutcome(x.dataset.out);
+    };
+  });
+  b = $('finNext'); if (b) b.onclick = function(){
+    if (!V.outcome){ toast('حدّد نتيجة الزيارة أولًا'); return; }
+    V.fin = 'returns'; renderSell(); window.scrollTo({top:0, behavior:'instant'});
+  };
+
+  /* المرتجعات والمتابعة */
+  b = $('addRet');  if (b) b.onclick = function(){ toast('يفتح نموذج المرتجع المرتبط بالفاتورة الأصلية'); go('rets'); };
+  document.querySelectorAll('[data-goret]').forEach(function(x){
+    x.onclick = function(){ go('rets'); }; });
+  b = $('tgFollow'); if (b) b.onclick = function(){ toggleFollow(); };
+  b = $('fWhen'); if (b) b.onchange = function(){ if (V.follow) V.follow.when = b.value; saveSoon(); };
+  b = $('fNote'); if (b) b.oninput = function(){ if (V.follow) V.follow.note = b.value; saveSoon(); };
+  b = $('finNote'); if (b) b.oninput = function(){ V.finNote = b.value; saveSoon(); };
+  b = $('finBack'); if (b) b.onclick = function(){ V.fin = 'summary'; renderSell(); window.scrollTo({top:0}); };
+  b = $('finSign'); if (b) b.onclick = function(){ V.fin = 'sign'; renderSell(); window.scrollTo({top:0, behavior:'instant'}); };
+
+  /* التوقيع والمتطلبات */
+  b = $('finBack2'); if (b) b.onclick = function(){ V.fin = 'returns'; renderSell(); window.scrollTo({top:0}); };
+  document.querySelectorAll('[data-req]').forEach(function(x){
+    x.onclick = function(){
+      var parts = x.dataset.req.split('|'), step = +parts[0], sub = parts[1];
+      if (step === 5){ V.fin = 'summary'; vgo(5); }
+      else { if (step === 2 && sub) V.sub = sub; vgo(step); }
+    };
+  });
+  var bn = $('vNextS');
+  if (bn) bn.onclick = function(){ if (V.step === 4) V.fin = 'summary'; V.sub = 'tasks'; vgo(V.step + 1); };
+  bindSig();
+}
+
+/* إضافة كمية دون إعادة رسم (للإضافة الجماعية) */
+function setQtyQuiet(pid, delta){
+  var V = S.visit; if (!V || V.invoice) return;
+  var have = S.stock[pid], cur = V.cart[pid] || 0, next = cur + delta;
+  if (next < 0) next = 0; if (next > have) next = have;
+  if (next === 0) delete V.cart[pid]; else V.cart[pid] = next;
+}
 
 bindShell();
 renderShell('day');
