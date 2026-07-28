@@ -2,7 +2,7 @@
    يجلب من الشبكة أولًا دائمًا (فتصل آخر نسخة فورًا)،
    ويرجع للنسخة المحفوظة فقط عند غياب الاتصال أو بطئه الشديد.
    وعند تفعيل نسخة جديدة يعيد تحميل كل التبويبات المفتوحة تلقائيًا. */
-const CACHE = 'homy-net-v5';
+const CACHE = 'homy-net-v6';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
@@ -32,9 +32,13 @@ self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET') return;
 
+  /* للصفحة والسكربتات: تجاوز كاش المتصفح (HTTP) وأحضر من الشبكة مباشرة */
+  const fresh = (req.mode === 'navigate' || req.destination === 'script' || req.destination === 'document')
+    ? fetch(req, { cache: 'no-store' }) : fetch(req);
+
   e.respondWith(
     Promise.race([
-      fetch(req).then(r => {
+      fresh.then(r => {
         if (r && r.ok && (r.type === 'basic' || req.mode === 'navigate')) {
           const cp = r.clone();
           const key = req.mode === 'navigate' ? './index.html' : req;
@@ -42,7 +46,7 @@ self.addEventListener('fetch', e => {
         }
         return r;
       }),
-      new Promise(res => setTimeout(() => res(null), 2500))
+      new Promise(res => setTimeout(() => res(null), 3000))
     ])
       .then(r => r || caches.match(req).then(h => h || caches.match('./index.html')))
       .catch(() => caches.match(req).then(h => h || caches.match('./index.html')))
