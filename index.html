@@ -6418,27 +6418,8 @@ __boot();
     try{ caches.keys().then(function(ks){ ks.forEach(function(k){ try{ caches.delete(k); }catch(e){} }); }).catch(function(){}); }catch(e){}
   }
 
-  /* دعوة التثبيت */
-  var dp = null;
-  window.addEventListener('beforeinstallprompt', function(e){
-    e.preventDefault(); dp = e; showInstall();
-  });
-  function showInstall(){
-    if (document.getElementById('instBar')) return;
-    var d = document.createElement('div');
-    d.id = 'instBar'; d.className = 'inst';
-    d.innerHTML = '<span><b>ثبّت التطبيق على هاتفك</b>يعمل كتطبيق مستقل بدون متصفح وبدون إنترنت.</span>'
-      + '<button class="btn sm" id="instYes">تثبيت</button>'
-      + '<button class="ix" id="instNo" aria-label="إخفاء">×</button>';
-    document.querySelector('.app').appendChild(d);
-    requestAnimationFrame(function(){ d.classList.add('show'); });
-    document.getElementById('instYes').onclick = function(){
-      d.classList.remove('show');
-      if (dp){ dp.prompt(); dp = null; }
-    };
-    document.getElementById('instNo').onclick = function(){ d.classList.remove('show'); };
-  }
-
+  /* أُزيلت دعوة تثبيت PWA — التطبيق يعمل من المتصفح مباشرة */
+  (function(){ var b=document.getElementById('instBar'); if(b&&b.parentNode) b.parentNode.removeChild(b); })();
   /* الشبكة الحقيقية تقود حالة التطبيق */
   function net(on){
     if (typeof S === 'undefined' || S.online === on) return;
