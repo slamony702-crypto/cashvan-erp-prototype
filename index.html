@@ -2384,7 +2384,7 @@ table{font-size:13.5px}
       <button id="accHelp"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .9-1 1.7"/><path d="M12 17h.01"/></svg>دليل الاستخدام<span class="ar">5 خطوات</span></button>
       <button class="dg" id="accOut"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>إنهاء يوم العمل</button>
     </div>
-    <div style="text-align:center;font-size:12px;color:#6E8297;font-weight:700;padding:10px 0 16px">إصدار التطبيق: 12 — 2025/07/28 (Network-first)</div>
+    <div style="text-align:center;font-size:12px;color:#6E8297;font-weight:700;padding:10px 0 16px">إصدار التطبيق: 13 — 2025/07/29 (Light Premium)</div>
   </div>
 
   <div class="toast" id="toast"><i></i><span id="toastMsg"></span></div>
@@ -5023,7 +5023,7 @@ function __boot(){
     var ts = $('accThemeS'); if (ts) ts.textContent = S.theme==='dark'?'ليلي':S.theme==='light'?'نهاري':'تلقائي';
     var mins = Math.round((Date.now() - (d.at||Date.now())) / 60000);
     if (d.screen && document.getElementById(d.screen)) go(d.screen); else go('day');
-    if (S.started) toast('عادت حالة اليوم كما تركتها' + (mins > 0 ? ' — منذ ' + ai(mins) + ' دقيقة' : ''));
+    if (S.started) toast('تمت استعادة حالة يوم العمل' + (mins > 0 ? ' — منذ ' + ai(mins) + ' دقيقة' : ''));
   } else { go('day'); }
   S.online = navigator.onLine !== false;
   qBuild(); renderSync();
@@ -6401,6 +6401,97 @@ function setQtyQuiet(pid, delta){
   if (next === 0) delete V.cart[pid]; else V.cart[pid] = next;
 }
 
+/* ================================================================
+   HOMY UI v6 — Light Premium: بطاقة اليوم الفاتحة + مؤشرات بشريط تقدّم
+   ================================================================ */
+IC.tag2 = '<path d="M20.6 13.4 13 21a1.8 1.8 0 0 1-2.5 0L3 13.5V4.5A1.5 1.5 0 0 1 4.5 3h9L21 10.6a1.9 1.9 0 0 1-.4 2.8Z"/><circle cx="8" cy="8" r="1.3"/>';
+
+/* رسم مسار خفيف داخل بطاقة اليوم */
+var DAY_ROUTE_SVG =
+  '<svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
++ '<g fill="none" stroke="#C3DDF3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">'
++ '<path d="M78 92h20v26H62v-14"/><path d="M84 100h6M84 108h6"/>'
++ '<path d="M20 84c8 0 8-6 8-6"/>'
++ '</g>'
++ '<path d="M40 30a12 12 0 0 0-12 12c0 9 12 20 12 20s12-11 12-20a12 12 0 0 0-12-12Z" fill="#2878C7" opacity=".9"/>'
++ '<circle cx="40" cy="42" r="4.4" fill="#fff"/>'
++ '<path d="M84 94a9 9 0 0 0-9 9c0 6.6 9 15 9 15s9-8.4 9-15a9 9 0 0 0-9-9Z" fill="#3D91DF" opacity=".85"/>'
++ '<circle cx="84" cy="103" r="3.2" fill="#fff"/>'
++ '<path d="M40 62 C 40 82, 96 78, 84 94" fill="none" stroke="#3D91DF" stroke-width="2.6" '
++ 'stroke-linecap="round" stroke-dasharray="1 8"/>'
++ '</svg>';
+
+function dayCard(){
+  var ph = dayPhase(), n = nextCust(), vc = visitCount(), tot = CUSTOMERS.length;
+  var pct = tot ? Math.round(vc / tot * 100) : 0;
+  var badge, label, title, rows, cta, act, showIll = false;
+
+  if (ph === 'idle'){
+    badge = 'اليوم'; label = 'بداية اليوم'; title = 'يوم العمل لم يبدأ بعد';
+    rows = '<div class="drow2">' + svg('info2') + '<span>سجّل الحضور وافحص السيارة واستلم عهدة المخزون قبل أول زيارة.</span></div>';
+    cta = 'ابدأ يوم العمل'; act = 'start';
+  } else if (ph === 'visit'){
+    var cv = cust(S.visit.cid);
+    badge = 'جارٍ'; label = 'زيارة جارية'; title = cv.nm; showIll = true;
+    rows = '<div class="drow2">' + svg('warn') + '<span>أكمل صورة الرف والأسئلة الإلزامية ونتيجة الزيارة.</span></div>';
+    cta = 'استكمل الزيارة'; act = 'visit';
+  } else if (ph === 'run'){
+    var m = meta(n.id); badge = 'اليوم'; label = 'الزيارة التالية'; title = n.nm; showIll = true;
+    rows = '<div class="drow2">' + svg('pin') + '<span>يبعد <b>' + ar(n.km,1) + ' كم</b> · الوصول المتوقع <b>' + m.eta + '</b></span></div>'
+         + '<div class="drow2">' + svg('tag2') + '<span>' + esc(m.type) + '</span></div>';
+    cta = 'ابدأ الزيارة التالية'; act = 'next';
+  } else if (ph === 'settle'){
+    badge = 'اليوم'; label = 'التسوية اليومية'; title = 'جاهز لإقفال اليوم';
+    rows = '<div class="drow2">' + svg('okc') + '<span>تمت زيارة كل عملاء المسار — عُدّ النقدية وأرسل التسوية.</span></div>';
+    cta = 'تنفيذ التسوية وإنهاء اليوم'; act = 'close';
+  } else {
+    badge = 'مقفل'; label = 'انتهى اليوم'; title = 'أُقفل يوم العمل';
+    rows = '<div class="drow2">' + svg('okc') + '<span>رُحّلت التسوية — لا تُقبل زيارات جديدة على هذا اليوم.</span></div>';
+    cta = 'عرض ملخص التسوية'; act = 'close';
+  }
+
+  return '<div class="dayc2 ' + ph + '">'
+    + '<div class="dhead"><span class="daybadge">' + svg('cal2') + badge + '</span></div>'
+    + (showIll ? '<div class="dill">' + DAY_ROUTE_SVG + '</div>' : '')
+    + '<div class="dinfo"><span class="dlabel">' + esc(label) + '</span>'
+    +   '<h3>' + esc(title) + '</h3>' + rows + '</div>'
+    + (S.started ? '<div class="dprog"><i style="width:' + pct + '%"></i></div>' : '')
+    + '<button class="cta2" id="dayCta" type="button" data-act="' + act + '">' + esc(cta)
+    +   '<span class="carw">' + svg('arrow') + '</span></button>'
+    + '</div>';
+}
+
+function kpiHtml(){
+  var s = salesTotal(), c = colTotal(), v = visitCount(), r = retTotal(), tot = CUSTOMERS.length;
+  var sp = TGT.sales ? Math.min(100, Math.round(s / TGT.sales * 100)) : 0;
+  var cp = TGT.collect ? Math.min(100, Math.round(c / TGT.collect * 100)) : 0;
+  var vp = tot ? Math.round(v / tot * 100) : 0;
+  var due = 0; CUSTOMERS.forEach(function(x){ if (x.bal > 0) due++; });
+  function k(cls, target, ic, label, val, unit, foot, pct){
+    return '<button class="kc2 ' + cls + '" data-go="' + target + '" type="button">'
+      + '<div class="kh"><span class="kic">' + svg(ic) + '</span><span class="kl">' + label + '</span></div>'
+      + '<div class="kv2">' + val + (unit ? '<u>' + unit + '</u>' : '') + '</div>'
+      + '<div class="kf">' + foot + '</div>'
+      + '<div class="kbar"><i style="width:' + (pct || 0) + '%"></i></div></button>';
+  }
+  return '<div class="k4">'
+    + k('',  'gl',    'cart',   'المبيعات',  ai(s), ' د.ل', ai(sp) + '٪ من هدف ' + ai(TGT.sales), sp)
+    + k('',  'close', 'wallet', 'التحصيل',   ai(c), ' د.ل', ai(cp) + '٪ من هدف ' + ai(TGT.collect), cp)
+    + k('',  'route', 'pin',    'الزيارات',  ai(v) + ' / ' + ai(tot), '', 'متبقٍ ' + ai(tot - v) + ' زيارة', vp)
+    + k('v', 'rets',  'box2',   'المرتجعات', ai(r), ' د.ل', due ? ai(due) + ' عميل عليه مديونية' : 'لا مديونية', r > 0 ? 100 : 0)
+    + '</div>';
+}
+
+/* الشاشة الرئيسية: بطاقة اليوم + المؤشرات + مراحل اليوم + معاينة المسار (بلا تكرار بطاقة العميل) */
+function renderDay(){
+  $('dayBody').innerHTML = dayCard() + kpiHtml()
+    + '<div class="card" style="margin-bottom:14px"><header><h2>مراحل اليوم</h2>'
+    +   '<span class="meta">' + (S.closed ? 'مكتمل' : S.started ? 'جارٍ' : 'لم يبدأ') + '</span></header>'
+    +   '<div class="pad" style="padding:12px 10px 14px">' + stagesHtml() + '</div></div>'
+    + routePreview();
+  bindDay();
+}
+
 bindShell();
 renderShell('day');
 __boot();
@@ -6502,7 +6593,131 @@ __boot();
 
 <style>#toast{position:fixed!important;left:50%!important;right:auto!important;top:calc(env(safe-area-inset-top,0px) + 12px)!important;bottom:auto!important;transform:translate(-50%,-220%)!important;z-index:100000!important;background:#12365D!important;border:1px solid rgba(145,201,243,.45)!important;box-shadow:0 12px 34px rgba(0,0,0,.42)!important;max-width:calc(100vw - 24px)!important}#toast.show{transform:translate(-50%,0)!important}</style>
 <style>.bs:not(.open){transform:translate(-50%,calc(100% + 160px))!important;pointer-events:none!important}@media(max-width:899px){.bs:not(.open){transform:translate(0,calc(100% + 160px))!important}}</style>
-<style>#splash{position:fixed;inset:0;z-index:200001;background:radial-gradient(120% 90% at 50% 40%,#12365D 0%,#0B2545 55%,#071B33 100%);display:grid;place-items:center;animation:spOut .6s ease 2s forwards;will-change:opacity}#splash .spbox{width:min(60vw,240px);aspect-ratio:1;border-radius:28px;background:#fff;display:grid;place-items:center;padding:24px;box-sizing:border-box;box-shadow:0 18px 50px rgba(0,0,0,.35);animation:spIn .6s cubic-bezier(.2,.85,.25,1) both,spPulse 1s ease-in-out .6s 2 alternate;will-change:transform,box-shadow}#splash .spbox img{width:100%;height:auto;display:block}@keyframes spIn{from{opacity:0;transform:scale(.78)}to{opacity:1;transform:scale(1)}}@keyframes spPulse{from{transform:scale(1);box-shadow:0 18px 50px rgba(0,0,0,.35),0 0 0 0 rgba(145,201,243,0)}to{transform:scale(1.05);box-shadow:0 18px 50px rgba(0,0,0,.35),0 0 70px 16px rgba(145,201,243,.6)}}@keyframes spOut{to{opacity:0;visibility:hidden;pointer-events:none}}@media (prefers-reduced-motion:reduce){#splash{animation:spOut .4s ease 1.2s forwards}#splash .spbox{animation:spIn .4s ease both}}</style>
+<style>#splash{position:fixed;inset:0;z-index:200001;background:radial-gradient(120% 90% at 50% 40%,#12365D 0%,#0B2545 55%,#071B33 100%);display:grid;place-items:center;animation:spOut .6s ease 2s forwards;will-change:opacity}#splash .spbox{width:min(60vw,240px);aspect-ratio:1;border-radius:28px;background:#fff;display:grid;place-items:center;padding:24px;box-sizing:border-box;box-shadow:0 18px 50px rgba(0,0,0,.35);animation:spIn .6s cubic-bezier(.2,.85,.25,1) both,spPulse 1s ease-in-out .6s 2 alternate;will-change:transform,box-shadow}#splash .spbox img{width:100%;height:auto;display:block}@keyframes spIn{from{opacity:0;transform:scale(.78)}to{opacity:1;transform:scale(1)}}@keyframes spPulse{from{transform:scale(1);box-shadow:0 18px 50px rgba(0,0,0,.35),0 0 0 0 rgba(145,201,243,0)}to{transform:scale(1.05);box-shadow:0 18px 50px rgba(0,0,0,.35),0 0 70px 16px rgba(145,201,243,.6)}}@keyframes spOut{to{opacity:0;visibility:hidden;pointer-events:none}}@media (prefers-reduced-motion:reduce){#splash{animation:spOut .4s ease 1.2s forwards}#splash .spbox{animation:spIn .4s ease both}}/* ================================================================
+   HOMY UI v6 — Light Premium: تخفيف الكحلي وجعل الشاشة فاتحة
+   ================================================================ */
+:root{ --bg:#F6FAFD; --ice:#EAF4FC; }
+:root[data-theme="light"]{ --bg:#F6FAFD; --ice:#EAF4FC; }
+.app{background:#F6FAFD}
+
+/* ---------- 1. الهيدر الفاتح المدمج ---------- */
+.bar1{background:#F6FAFD!important;background-image:none!important;
+  padding:10px 14px 4px!important;box-shadow:none!important;gap:11px}
+.bar1 .tx .gr2{color:#6E8297!important;font-size:12px}
+.bar1 .tx b{color:#10243B!important;text-shadow:none!important;font-size:18px}
+.bar1 .tx span{color:#6E8297!important;font-size:12px}
+.bar1 .ic{width:44px!important;height:44px!important;border-radius:13px!important;
+  background:#fff!important;border:1px solid #DCE9F3!important;color:#2878C7!important;
+  box-shadow:0 1px 3px rgba(11,37,69,.05)!important}
+.bar1 .ic:hover{background:var(--ice)!important}
+.bar1 .ic.dot::after{background:#E5484D!important;border-color:#F6FAFD!important}
+.avat{width:52px!important;height:52px!important;border-radius:50%!important;
+  background:linear-gradient(150deg,#3D91DF,#2878C7)!important;
+  box-shadow:0 4px 12px rgba(40,120,199,.35)!important;border:2px solid #fff!important;color:#fff!important}
+.avat::after{background:#1E9E63!important;border-color:#F6FAFD!important}
+
+/* ---------- 2. شريط المزامنة → Chip أخضر مدمج ---------- */
+.syncb{background:#F6FAFD!important;border-top:0!important;margin:0!important;
+  padding:2px 14px 8px!important;justify-content:center!important}
+.syncb span{order:1;background:#E4F6EE;color:#12794F;border-radius:99px;
+  padding:6px 14px;font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;gap:7px}
+.syncb span b{color:#0C5F3D!important}
+.syncb .dt{order:0;display:none!important}
+.syncb .q{order:2;display:none!important}
+.syncb span::before{content:"";width:15px;height:15px;border-radius:50%;background:#1E9E63;flex:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l4 4 10-11'/%3E%3C/svg%3E");
+  background-size:11px;background-position:center;background-repeat:no-repeat}
+.app.offl .syncb span{background:#FDF1DE;color:#8A5405}
+.app.offl .syncb span b{color:#6B3F04!important}
+.app.offl .syncb span::before{background:#F0A02A}
+
+/* ---------- 3-4. بطاقة اليوم الفاتحة ---------- */
+.dayc2{position:relative;background:#fff;border:1px solid #DCE9F3;border-radius:20px;
+  box-shadow:0 4px 18px rgba(11,37,69,.06);margin-bottom:14px;overflow:hidden;
+  padding:15px 16px 16px}
+.dayc2::before{content:"";position:absolute;inset-block:0;inset-inline-end:0;width:4px;background:#2878C7}
+.dayc2 .dhead{display:flex;margin-bottom:8px}
+.daybadge{display:inline-flex;align-items:center;gap:6px;background:var(--ice);color:#1F63A8;
+  border-radius:10px;padding:6px 12px;font-size:12.5px;font-weight:800;margin-inline-start:auto}
+.daybadge svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.1;
+  stroke-linecap:round;stroke-linejoin:round}
+.dayc2 .dill{position:absolute;inset-block-start:52px;inset-inline-start:14px;width:120px;height:140px;
+  opacity:.9;pointer-events:none;z-index:0}
+.dayc2 .dill svg{width:100%;height:100%}
+.dayc2 .dinfo{position:relative;z-index:1;text-align:start}
+.dayc2 .dlabel{display:block;font-size:15px;font-weight:800;color:#2878C7;letter-spacing:-.01em;margin-bottom:2px}
+.dayc2 h3{font-size:27px;font-weight:800;color:#10243B;letter-spacing:-.035em;line-height:1.2;margin:0 0 11px}
+.dayc2 .drow2{display:flex;align-items:center;gap:8px;font-size:14px;color:#6E8297;
+  font-weight:600;line-height:1.6;margin-bottom:5px}
+.dayc2 .drow2 svg{width:17px;height:17px;flex:none;stroke:#2878C7;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+.dayc2 .drow2 b{color:#10243B;font-weight:700}
+.dayc2 .dprog{height:5px;border-radius:99px;background:var(--ice);overflow:hidden;margin:12px 0 0;position:relative;z-index:1}
+.dayc2 .dprog i{display:block;height:100%;background:#2878C7;border-radius:99px;transition:width .5s}
+.dayc2 .cta2{box-sizing:border-box;cursor:pointer;font-family:inherit;border:0;outline:0;-webkit-appearance:none;appearance:none;position:relative;z-index:1;
+  display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:54px;
+  margin-top:14px;border-radius:14px;background:#2878C7;color:#fff;font-size:17px;font-weight:800;
+  box-shadow:0 6px 18px rgba(40,120,199,.35);transition:background .16s,transform .12s}
+.dayc2 .cta2:hover{background:#3D91DF}
+.dayc2 .cta2:active{transform:scale(.985)}
+.dayc2 .cta2 .carw{position:absolute;inset-inline-start:12px;width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,.2);display:grid;place-items:center}
+.dayc2 .cta2 .carw svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.4;
+  stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- 5. مؤشرات فاتحة بشريط تقدّم ---------- */
+.k4{gap:12px;margin-bottom:14px}
+.kc2{box-sizing:border-box;cursor:pointer;font-family:inherit;border:0;outline:0;-webkit-appearance:none;appearance:none;text-align:start;background:#fff;
+  border:1px solid #DCE9F3;border-radius:18px;box-shadow:0 2px 10px rgba(11,37,69,.04);
+  padding:14px 15px 13px;display:flex;flex-direction:column;transition:box-shadow .16s,border-color .16s}
+.kc2:hover{box-shadow:0 6px 20px rgba(11,37,69,.09);border-color:#C8DCEB}
+.kc2:active{transform:scale(.985)}
+.kc2 .kh{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.kc2 .kic{width:40px;height:40px;border-radius:50%;background:var(--ice);color:#2878C7;
+  display:grid;place-items:center;flex:none}
+.kc2 .kic svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+.kc2 .kl{flex:1;min-width:0;font-size:15px;font-weight:800;color:#10243B;letter-spacing:-.02em;text-align:start}
+.kc2 .kv2{font-size:26px;font-weight:800;color:#10243B;letter-spacing:-.045em;line-height:1.1;
+  font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:5px}
+.kc2 .kv2 u{text-decoration:none;font-size:13.5px;color:#6E8297;font-weight:700}
+.kc2 .kf{font-size:12.5px;color:#6E8297;font-weight:600;margin-top:5px;line-height:1.4}
+.kc2 .kbar{height:4px;border-radius:99px;background:#EEF4F9;overflow:hidden;margin-top:11px}
+.kc2 .kbar i{display:block;height:100%;border-radius:99px;background:#2878C7;transition:width .5s}
+.kc2.w .kbar i{background:#F0A02A}
+.kc2.v .kbar i{background:#12365D}
+
+/* ---------- 6. شريط تنقل أبيض ---------- */
+.cnav{background:#fff!important;border-top:1px solid #DCE9F3!important;
+  box-shadow:0 -3px 16px rgba(11,37,69,.06)!important}
+.cnav button,.cnav button[aria-current="false"],
+.cnav button[aria-current="false"] .lb,.cnav button[aria-current="false"] .ring svg{color:#6E8297!important;stroke:#6E8297!important}
+.cnav button[aria-current="true"] .ring{background:var(--ice);border-radius:14px;padding:5px 14px}
+.cnav button[aria-current="true"],
+.cnav button[aria-current="true"] .lb,
+.cnav button[aria-current="true"] .ring svg{color:#2878C7!important;stroke:#2878C7!important}
+.cnav button.mid .ring{background:linear-gradient(150deg,#3D91DF,#2878C7)!important;
+  border:4px solid #fff!important;box-shadow:0 6px 18px rgba(40,120,199,.4)!important}
+.cnav button.mid .ring svg{stroke:#fff!important;color:#fff!important}
+.cnav button.mid[aria-current="false"] .lb,.cnav button.mid[aria-current="true"] .lb{color:#2878C7!important}
+.cnav .nb{border-color:#fff!important}
+
+/* ---------- 7. لافتة عدم الاتصال أخف ---------- */
+.off{background:#FDF1DE!important;color:#8A5405!important;border-bottom:1px solid #F3E0BE!important}
+
+/* ---------- استجابة ---------- */
+@media(max-width:374px){
+  .dayc2 h3{font-size:23px}
+  .dayc2 .dill{width:96px}
+  .kc2 .kv2{font-size:22px}
+  .kc2 .kic{width:34px;height:34px}
+}
+@media(min-width:600px){ .k4{grid-template-columns:1fr 1fr} }
+@media(min-width:900px){
+  .cnav{background:#fff!important}
+}
+
+</style>
 <script>setTimeout(function(){var s=document.getElementById('splash');if(s&&s.parentNode)s.parentNode.removeChild(s);},2700);</script>
 </body>
 </html>
