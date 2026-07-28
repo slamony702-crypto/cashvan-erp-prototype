@@ -6434,7 +6434,7 @@ __boot();
 
   /* الشبكة الحقيقية تقود حالة التطبيق */
   function net(on){
-    if (typeof S === 'undefined') return;
+    if (typeof S === 'undefined' || S.online === on) return;
     S.online = on;
     if (typeof toast === 'function')
       toast(on ? 'عاد الاتصال — جارٍ مزامنة ما حُفظ محليًا'
@@ -6462,5 +6462,23 @@ __boot();
 
 </script>
 
+<style>.toast{pointer-events:auto;touch-action:pan-y;cursor:pointer;user-select:none;-webkit-user-select:none}</style>
+<script>
+(function(){
+  var t=document.getElementById('toast'); if(!t) return;
+  function reset(){ t.style.transition=''; t.style.transform=''; t.style.opacity=''; }
+  function hide(){ t.classList.remove('show'); reset(); }
+  var sx=0, sy=0, drag=false;
+  t.addEventListener('pointerdown', function(e){ sx=e.clientX; sy=e.clientY; drag=true; t.style.transition='none'; try{t.setPointerCapture(e.pointerId);}catch(_){} });
+  t.addEventListener('pointermove', function(e){ if(!drag) return; var dx=e.clientX-sx, dy=e.clientY-sy;
+    if(Math.abs(dx)>Math.abs(dy)){ t.style.transform='translate(calc(-50% + '+dx+'px), 0)'; t.style.opacity=String(Math.max(0,1-Math.abs(dx)/180)); } });
+  function end(e){ if(!drag) return; drag=false; var dx=(e.clientX||sx)-sx;
+    if(Math.abs(dx)>70){ t.style.transition='transform .18s ease, opacity .18s ease'; t.style.transform='translate(calc(-50% + '+(dx>0?500:-500)+'px), 0)'; t.style.opacity='0'; setTimeout(hide,180); }
+    else if(Math.abs(dx)<8){ hide(); }
+    else { t.style.transition=''; reset(); } }
+  t.addEventListener('pointerup', end);
+  t.addEventListener('pointercancel', function(){ drag=false; reset(); });
+})();
+</script>
 </body>
 </html>
