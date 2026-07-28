@@ -1,5 +1,5 @@
 /* هومي — Service Worker: يعمل التطبيق كاملًا دون إنترنت */
-const CACHE = 'homy-rep-v2';
+const CACHE = 'homy-rep-v3';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
@@ -18,7 +18,7 @@ self.addEventListener('activate', e => {
   );
 });
 
-/* الصفحة: من الشبكة أولًا مع رجوع إلى النسخة المحفوظة.
+/* الصفحة: من الشبكة أولًا (بمهلة قصيرة) مع رجوع إلى النسخة المحفوظة.
    بقية الملفات: من الذاكرة أولًا ثم الشبكة. */
 self.addEventListener('fetch', e => {
   const req = e.request;
@@ -26,8 +26,14 @@ self.addEventListener('fetch', e => {
 
   if (req.mode === 'navigate') {
     e.respondWith(
-      fetch(req)
-        .then(r => { const cp = r.clone(); caches.open(CACHE).then(c => c.put('./index.html', cp)); return r; })
+      Promise.race([
+        fetch(req).then(r => {
+          const cp = r.clone();
+          caches.open(CACHE).then(c => c.put('./index.html', cp));
+          return r;
+        }),
+        new Promise(res => setTimeout(() => res(null), 3500))
+      ]).then(r => r || caches.match('./index.html'))
         .catch(() => caches.match('./index.html'))
     );
     return;
@@ -42,4 +48,8 @@ self.addEventListener('fetch', e => {
       return r;
     }).catch(() => hit || caches.match('./index.html')))
   );
+});
+
+self.addEventListener('message', e => {
+  if (e.data === 'skipWaiting') self.skipWaiting();
 });

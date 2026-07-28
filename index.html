@@ -6407,7 +6407,16 @@ __boot();
 (function(){
   if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0){
     window.addEventListener('load', function(){
-      navigator.serviceWorker.register('./sw.js').catch(function(){});
+      navigator.serviceWorker.register('./sw.js').then(function(reg){
+        try{ reg.update(); }catch(e){}
+        setInterval(function(){ try{ reg.update(); }catch(e){} }, 60000);
+      }).catch(function(){});
+      if (!window.__swHook){
+        window.__swHook = true;
+        navigator.serviceWorker.addEventListener('controllerchange', function(){
+          if (window.__swReloaded) return; window.__swReloaded = true; location.reload();
+        });
+      }
     });
   }
 
