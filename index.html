@@ -6452,6 +6452,7 @@ __boot();
 <script>
 (function(){
   var t=document.getElementById('toast'); if(!t) return;
+  if(t.parentNode!==document.body){ document.body.appendChild(t); }
   function reset(){ t.style.transition=''; t.style.transform=''; t.style.opacity=''; }
   function hide(){ t.classList.remove('show'); reset(); }
   var sx=0, sy=0, dx=0, drag=false, horiz=false, moved=false;
@@ -6493,5 +6494,7 @@ __boot();
   });
 })();
 </script>
+
+<style>#toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important;z-index:9999!important}@media(min-width:900px){#toast{bottom:96px!important}}</style>
 </body>
 </html>
