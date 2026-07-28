@@ -6436,9 +6436,7 @@ __boot();
   function net(on){
     if (typeof S === 'undefined' || S.online === on) return;
     S.online = on;
-    if (typeof toast === 'function')
-      toast(on ? 'عاد الاتصال — جارٍ مزامنة ما حُفظ محليًا'
-               : 'انقطع الاتصال — التطبيق يواصل العمل ويحفظ كل شيء على الجهاز');
+    /* لا توست لأحداث الشبكة التلقائية — الشريط العلوي وشريط المزامنة يعرضان الحالة بشكل دائم */
     var s = document.getElementById('accNetS'); if (s) s.textContent = on ? 'متصل' : 'غير متصل';
     if (typeof render === 'function') render();
     if (typeof renderShell === 'function' && typeof curScreen === 'function') renderShell(curScreen());
