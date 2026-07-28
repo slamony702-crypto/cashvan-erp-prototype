@@ -6405,19 +6405,17 @@ __boot();
 })();
 /* ================= تطبيق مستقل (PWA) وحالات الشبكة ================= */
 (function(){
-  if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0){
-    window.addEventListener('load', function(){
-      navigator.serviceWorker.register('./sw.js').then(function(reg){
-        try{ reg.update(); }catch(e){}
-        setInterval(function(){ try{ reg.update(); }catch(e){} }, 60000);
+  /* إيقاف Service Worker القديم وتنظيف الكاش على كل جهاز تلقائيًا —
+     يضمن وصول أي تحديث للجميع فورًا دون أي مسح يدوي */
+  if ('serviceWorker' in navigator){
+    try{
+      navigator.serviceWorker.getRegistrations().then(function(rs){
+        rs.forEach(function(r){ try{ r.unregister(); }catch(e){} });
       }).catch(function(){});
-      if (!window.__swHook){
-        window.__swHook = true;
-        navigator.serviceWorker.addEventListener('controllerchange', function(){
-          if (window.__swReloaded) return; window.__swReloaded = true; location.reload();
-        });
-      }
-    });
+    }catch(e){}
+  }
+  if (window.caches && caches.keys){
+    try{ caches.keys().then(function(ks){ ks.forEach(function(k){ try{ caches.delete(k); }catch(e){} }); }).catch(function(){}); }catch(e){}
   }
 
   /* دعوة التثبيت */
