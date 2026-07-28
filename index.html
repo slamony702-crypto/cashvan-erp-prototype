@@ -1591,6 +1591,305 @@ table{font-size:13.5px}
 .cnav button.mid[aria-current="true"] .ring svg{stroke:#fff;color:#fff}
 .cnav button.mid[aria-current="false"] .lb{color:#FFFFFF;font-weight:800}
 .cnav button.mid[aria-current="true"] .lb{color:var(--brand-sky);font-weight:800}
+/* ================================================================
+   HOMY UI v4 — رأس المندوب · سياق الزيارة · الوصول · فحص الرف
+   ================================================================ */
+
+/* ---------- 1. رأس المندوب: ثلاثة أسطر ---------- */
+.bar1{align-items:center;gap:10px;padding:12px 14px 11px}
+.avat{order:1;width:52px;height:52px;font-size:21px;border-radius:50%}
+.avat::after{width:14px;height:14px;inset-block-end:0;inset-inline-end:0;background:var(--pos-hi);
+  border:2.5px solid var(--navy-deep)}
+.bar1 .bd{order:2;flex:1;min-width:0;margin:0;display:block}
+.bar1 .bd .lg{display:none}
+.bar1 .tx{text-align:start;min-width:0;line-height:1.32}
+.bar1 .tx .gr2{display:block;font-size:12.5px;font-weight:500;color:#8FB4D4;letter-spacing:0}
+.bar1 .tx b{display:block;font-size:19px;font-weight:800;color:#fff;letter-spacing:-.03em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:1px 0}
+.bar1 .tx span{display:block;font-size:12.5px;font-weight:500;color:#8FB4D4;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:1}
+#icSet{order:3}
+#icBell{order:4}
+.bar1 .ic{width:46px;height:46px;border-radius:15px;background:#12365D;border:1px solid #1B4A7A;
+  color:#C7DDEB;flex:none}
+.bar1 .ic:hover{background:#1B4A7A}
+.bar1 .ic svg{width:21px;height:21px}
+.bar1 .ic.dot::after{width:11px;height:11px;top:9px;inset-inline-end:9px;background:#FF4A2E;
+  border:2px solid #12365D}
+.syncb{border-top:1px solid rgba(145,201,243,.14);margin:0 14px;padding:9px 0 10px;
+  justify-content:flex-start;gap:8px}
+.syncb .dt{order:2}
+.syncb span{order:1}
+.syncb .q{order:3}
+
+/* ---------- 2. بطاقة سياق الزيارة ---------- */
+.app.invisit .wrap{padding:0!important;max-width:none}
+.vtop{background:var(--navy-deep);padding:2px 14px 16px}
+.vctx{background:#0C2A47;border:1px solid #17436E;border-radius:20px;padding:15px 16px 14px;
+  box-shadow:0 6px 18px rgba(3,12,24,.35)}
+.vctx .r1{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.vctx .tt{flex:1;min-width:0;text-align:start}
+.vctx h2{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.03em;margin:0;line-height:1.3;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vctx .mm3{font-size:13.5px;color:#93B6D4;font-weight:500;margin-top:3px;line-height:1.5}
+.vctx .bk2{all:unset;cursor:pointer;width:48px;height:48px;border-radius:15px;flex:none;
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13);
+  display:grid;place-items:center;color:#fff;transition:var(--tr)}
+.vctx .bk2:hover{background:rgba(255,255,255,.18)}
+.vctx .bk2 svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2.3;
+  stroke-linecap:round;stroke-linejoin:round}
+.vbadges{display:flex;flex-wrap:wrap;gap:8px}
+.vbg{display:inline-flex;align-items:center;gap:7px;border-radius:12px;padding:8px 12px;
+  font-size:12.5px;font-weight:700;line-height:1.3;min-height:38px;box-sizing:border-box}
+.vbg svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.1;flex:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.vbg i{width:8px;height:8px;border-radius:50%;background:currentColor;flex:none;opacity:.75}
+.vbg.ok2{background:rgba(30,158,99,.16);border:1px solid rgba(30,158,99,.45);color:#5FE3A6}
+.vbg.no2{background:rgba(224,82,82,.15);border:1px solid rgba(224,82,82,.42);color:#FFA8A8}
+.vbg.wt{background:rgba(240,160,42,.15);border:1px solid rgba(240,160,42,.42);color:#FFC97A}
+.vbg.nu{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);color:#B4CCE2}
+.vbg.bl{background:rgba(40,120,199,.22);border:1px solid rgba(61,145,223,.45);color:#A9D4F7}
+.vbg.sv{background:rgba(18,121,79,.18);border:1px solid rgba(30,158,99,.36);color:#8DE0BC}
+
+/* ---------- 3. مؤشر خطوات الزيارة ---------- */
+.vsheet{background:var(--bg);padding:16px 13px 0;border-radius:24px 24px 0 0;
+  margin-top:-2px;position:relative;z-index:1;min-height:60vh}
+.vsteps{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;margin-bottom:16px;padding:0 2px}
+.vsteps .sp{position:relative;text-align:center;padding:0 1px}
+.vsteps .sp::before{content:"";position:absolute;top:17px;inset-inline-start:50%;width:100%;height:2px;
+  background:var(--line);z-index:0}
+.vsteps .sp:last-child::before{display:none}
+.vsteps .sp.dn::before{background:var(--brand-sky)}
+.vsteps button{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;
+  padding:2px 0 3px;border-radius:10px}
+.vsteps button:focus-visible{outline:3px solid var(--brand-hi);outline-offset:1px}
+.vsteps .cc{position:relative;z-index:1;width:34px;height:34px;border-radius:50%;margin:0 auto 7px;
+  display:grid;place-items:center;background:var(--panel);border:2px solid var(--line);
+  color:var(--ink-4);font-size:14px;font-weight:800;transition:var(--tr)}
+.vsteps .sp.dn .cc{background:var(--panel);border-color:var(--brand-sky);color:var(--brand-txt)}
+.vsteps .sp.on2 .cc{background:var(--brand);border-color:var(--brand);color:#fff;
+  box-shadow:0 0 0 4px var(--brand-soft)}
+.vsteps .cc svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:3;
+  stroke-linecap:round;stroke-linejoin:round}
+.vsteps .lb2{font-size:12.5px;font-weight:700;color:var(--ink-3);line-height:1.3;display:block;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vsteps .sp.on2 .lb2{color:var(--brand-txt);font-weight:800}
+.vsteps .sp.dn .lb2{color:var(--ink-2)}
+
+/* ---------- 4. بطاقة القسم ---------- */
+.sec2{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--sh);margin-bottom:13px;overflow:hidden}
+.sec2>.sh2{display:flex;align-items:center;gap:10px;padding:15px 16px 12px}
+.sec2>.sh2 h3{font-size:19px;font-weight:800;color:var(--ink);letter-spacing:-.03em;margin:0;flex:1;min-width:0}
+.sec2>.sh2 .sub3{font-size:13px;color:var(--ink-3);font-weight:600;margin-top:3px;line-height:1.5}
+.req2{background:#FDE7E7;color:#AE2E2E;border-radius:10px;padding:5px 12px;font-size:12px;
+  font-weight:800;flex:none;line-height:1.3}
+.opt2{background:var(--panel-2);color:var(--ink-3);border-radius:10px;padding:5px 12px;
+  font-size:12px;font-weight:800;flex:none}
+.cnt3{background:var(--brand-soft);color:var(--brand-txt);border-radius:10px;padding:6px 13px;
+  font-size:13px;font-weight:800;flex:none;white-space:nowrap}
+.sec2>.sb2{padding:0 16px 16px}
+
+/* ---------- 5. معاينة الخريطة ---------- */
+.mapp{position:relative;border-radius:var(--rb);overflow:hidden;border:1px solid var(--line);
+  background:#EAF2FA;margin-bottom:12px}
+.mapp svg.mv{display:block;width:100%;height:auto}
+.mapp .goto{all:revert;position:absolute;inset-block-end:12px;inset-inline-start:12px;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 15px;
+  border-radius:12px;background:var(--panel);border:1.5px solid var(--brand);color:var(--brand-txt);
+  font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;
+  box-shadow:0 3px 10px rgba(11,37,69,.12);transition:var(--tr)}
+.mapp .goto:hover{background:var(--brand);color:#fff}
+.mapp .goto svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2.1;
+  stroke-linecap:round;stroke-linejoin:round}
+.mapp .load2{position:absolute;inset:0;display:grid;place-items:center;background:rgba(234,242,250,.86);
+  font-size:13.5px;font-weight:700;color:var(--ink-3);gap:9px}
+.mapp .spin2{width:26px;height:26px;border-radius:50%;border:3px solid var(--line);
+  border-top-color:var(--brand);animation:spin .8s linear infinite;margin:0 auto 8px}
+
+/* ---------- 6. صفوف المعلومات ---------- */
+.irows{border:1px solid var(--line);border-radius:var(--rb);overflow:hidden;margin-bottom:12px}
+.irow{display:flex;align-items:flex-start;gap:11px;padding:13px 14px;
+  border-bottom:1px solid var(--line-soft);min-height:56px;box-sizing:border-box}
+.irow:last-child{border-bottom:0}
+.irow .ib{width:36px;height:36px;border-radius:11px;background:var(--brand-soft);flex:none;
+  display:grid;place-items:center;color:var(--brand)}
+.irow .ib svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+.irow .ik{font-size:14px;font-weight:700;color:var(--ink-2);flex:none;padding-top:8px}
+.irow .iv{flex:1;min-width:0;font-size:14px;font-weight:700;color:var(--ink);
+  text-align:end;padding-top:8px;line-height:1.55;word-break:break-word}
+.irow .iv em{font-style:normal;color:var(--ink-3);font-weight:600}
+
+/* ---------- 7. حالة النطاق الجغرافي ---------- */
+.geo{display:flex;align-items:flex-start;gap:11px;border-radius:var(--rb);padding:13px 14px;
+  font-size:14px;font-weight:700;line-height:1.6;margin-bottom:14px;border:1px solid transparent}
+.geo .gi{width:32px;height:32px;border-radius:50%;flex:none;display:grid;place-items:center;color:#fff}
+.geo .gi svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.6;
+  stroke-linecap:round;stroke-linejoin:round}
+.geo.ok3{background:#E8F7EF;border-color:#B6E3CC;color:#0C5F3D}
+.geo.ok3 .gi{background:var(--pos-hi)}
+.geo.no3{background:var(--neg-soft);border-color:#F3C9C9;color:var(--neg)}
+.geo.no3 .gi{background:var(--neg-hi)}
+.geo.wr3{background:var(--warn-soft);border-color:#F2DDB8;color:var(--warn)}
+.geo.wr3 .gi{background:var(--warn-hi);color:#3B2400}
+.geo.lo3{background:var(--panel-2);border-color:var(--line);color:var(--ink-2)}
+.geo.lo3 .gi{background:var(--ink-4)}
+.geo .gt{flex:1;min-width:0}
+.geo .ga{margin-top:9px;display:flex;gap:8px;flex-wrap:wrap}
+
+/* ---------- 8. اختيار حالة المتجر ---------- */
+.fl2{font-size:15px;font-weight:800;color:var(--ink);margin:0 0 10px;display:flex;
+  align-items:center;gap:7px}
+.fl2 i{font-style:normal;color:var(--neg);font-weight:800}
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.ropt{display:flex;align-items:center;gap:10px;min-height:56px;padding:10px 13px;
+  border:1.5px solid var(--line);border-radius:var(--rb);background:var(--panel);
+  cursor:pointer;transition:var(--tr);position:relative}
+.ropt:hover{border-color:var(--brand-sky);background:var(--brand-soft)}
+.ropt input{position:absolute;opacity:0;width:0;height:0}
+.ropt .dot2{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);flex:none;
+  display:grid;place-items:center;transition:var(--tr)}
+.ropt .dot2::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--brand);
+  transform:scale(0);transition:var(--tr)}
+.ropt .rt2{font-size:14px;font-weight:700;color:var(--ink-2);line-height:1.4}
+.ropt.sel2{border-color:var(--brand);background:var(--brand-soft);box-shadow:0 0 0 3px rgba(40,120,199,.12)}
+.ropt.sel2 .dot2{border-color:var(--brand)}
+.ropt.sel2 .dot2::after{transform:scale(1)}
+.ropt.sel2 .rt2{color:var(--brand-txt);font-weight:800}
+.ropt input:focus-visible+.dot2{outline:3px solid var(--brand-hi);outline-offset:2px}
+
+/* ---------- 9. أدوات الزيارة ---------- */
+.vtools{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.vtools .st3{flex:1;min-width:150px;display:flex;align-items:center;gap:8px;
+  font-size:13.5px;font-weight:700;color:var(--pos);line-height:1.5}
+.vtools .st3.wr4{color:var(--warn)}
+.vtools .st3 svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;flex:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.vtools .tb{all:unset;box-sizing:border-box;cursor:pointer;font-family:inherit;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;
+  padding:0 15px;border-radius:var(--rb);border:1.5px solid var(--line);background:var(--panel);
+  color:var(--brand-txt);font-size:14px;font-weight:700;transition:var(--tr)}
+.vtools .tb:hover{background:var(--brand-soft);border-color:var(--brand-sky)}
+.vtools .tb svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- 10. بطاقة المهمة ومنطقة الصورة ---------- */
+.tcard{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--sh);margin-bottom:12px;overflow:hidden}
+.tcard.dn2{border-color:#B6E3CC}
+.tcard .th{display:flex;align-items:flex-start;gap:11px;padding:14px 15px 10px}
+.tcard .tico{width:44px;height:44px;border-radius:13px;background:var(--brand-soft);flex:none;
+  display:grid;place-items:center;color:var(--brand)}
+.tcard.dn2 .tico{background:#E8F7EF;color:var(--pos)}
+.tcard .tico svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.tcard .tt3{flex:1;min-width:0}
+.tcard .tt3 b{display:block;font-size:16.5px;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1.4}
+.tcard .tt3 span{display:block;font-size:13px;color:var(--ink-3);font-weight:600;margin-top:3px;line-height:1.55}
+.tcard .tb2{padding:0 15px 14px}
+.drop{border:2px dashed var(--brand-sky);border-radius:var(--rb);background:#F7FBFF;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
+  padding:26px 16px;cursor:pointer;transition:var(--tr);text-align:center;width:100%;
+  box-sizing:border-box;font-family:inherit}
+.drop:hover{background:var(--brand-soft);border-color:var(--brand)}
+.drop:active{transform:scale(.99)}
+.drop .cam2{width:66px;height:66px;border-radius:50%;background:var(--brand-soft);
+  display:grid;place-items:center;color:var(--brand)}
+.drop .cam2 svg{width:30px;height:30px;stroke:currentColor;fill:none;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.drop b{font-size:16px;font-weight:800;color:var(--brand-txt)}
+.drop span{font-size:13px;color:var(--ink-3);font-weight:600;line-height:1.5}
+.pstat{display:flex;align-items:center;gap:9px;padding:11px 2px 0;margin-top:11px;
+  border-top:1px solid var(--line-soft);font-size:13px;font-weight:700;color:var(--ink-3)}
+.pstat svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;flex:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.pstat.ok4{color:var(--pos)}
+.pstat.wr5{color:var(--warn)}
+.pstat.er{color:var(--neg)}
+.pv{position:relative;border-radius:var(--rb);overflow:hidden;border:1px solid var(--line);background:var(--navy)}
+.pv img{display:block;width:100%;height:auto;max-height:230px;object-fit:cover}
+.pv .stamp2{position:absolute;inset-block-end:0;inset-inline:0;background:rgba(7,27,51,.84);
+  color:#fff;font-size:11px;font-weight:700;padding:7px 10px;line-height:1.5}
+.pv .pb3{display:flex;gap:8px;padding:10px}
+.pv .pb3 .btn{flex:1;min-height:44px}
+.pnote{display:flex;align-items:center;gap:11px;background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--r);padding:4px 14px;box-shadow:var(--sh);margin-bottom:13px}
+.pnote>svg{width:20px;height:20px;stroke:var(--ink-4);fill:none;stroke-width:1.9;flex:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.pnote input{all:unset;flex:1;min-width:0;min-height:52px;font-family:inherit;font-size:15px;
+  font-weight:600;color:var(--ink)}
+.pnote input::placeholder{color:var(--ink-4);font-weight:500}
+.pnote:focus-within{border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
+.chk2{all:unset;box-sizing:border-box;cursor:pointer;font-family:inherit;width:100%;
+  display:flex;align-items:center;justify-content:center;gap:9px;min-height:52px;
+  border-radius:var(--rb);border:1.5px solid var(--line);background:var(--panel);
+  color:var(--ink-2);font-size:15px;font-weight:700;transition:var(--tr)}
+.chk2:hover{border-color:var(--brand-sky);background:var(--brand-soft);color:var(--brand-txt)}
+.chk2.on3{background:#E8F7EF;border-color:#B6E3CC;color:var(--pos);font-weight:800}
+.chk2 svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2.4;
+  stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- 11. شريط الإجراءات اللاصق ---------- */
+.sbar2{position:fixed;inset-block-end:0;inset-inline:0;z-index:52;background:var(--panel);
+  border-top:1px solid var(--line);display:flex;gap:10px;
+  padding:12px 14px calc(12px + env(safe-area-inset-bottom,0px));
+  box-shadow:0 -6px 22px rgba(11,37,69,.10)}
+.sbar2 .sa{all:unset;box-sizing:border-box;cursor:pointer;font-family:inherit;
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:56px;
+  border-radius:var(--rb);font-size:16.5px;font-weight:800;transition:var(--tr);position:relative}
+.sbar2 .sa.sec3{flex:1;border:1.5px solid var(--line);background:var(--panel);color:var(--ink-2)}
+.sbar2 .sa.sec3:hover{border-color:var(--neg-hi);color:var(--neg);background:var(--neg-soft)}
+.sbar2 .sa.pri3{flex:1.7;background:var(--brand);color:#fff;box-shadow:var(--sh-3)}
+.sbar2 .sa.pri3:hover{background:var(--brand-hi)}
+.sbar2 .sa.pri3[disabled]{background:#CBDCEB;color:#3E5670;box-shadow:none;cursor:not-allowed}
+.sbar2 .sa:active{transform:scale(.985)}
+.sbar2 .sa svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.3;
+  stroke-linecap:round;stroke-linejoin:round}
+.sbar2 .sa.ld2{color:transparent!important}
+.sbar2 .sa.ld2::after{content:"";position:absolute;width:22px;height:22px;border-radius:50%;
+  border:2.6px solid rgba(255,255,255,.35);border-top-color:#fff;animation:spin .7s linear infinite}
+.sbar2 .sa.sec3.ld2::after{border-color:var(--line);border-top-color:var(--brand)}
+.app.invisit .cnav{display:none!important}
+.vpad{height:96px}
+@media(min-width:900px){.sbar2{max-width:600px;margin:0 auto;border-radius:20px 20px 0 0;
+  border:1px solid var(--line);border-bottom:0}}
+
+/* ---------- 12. رسالة الخطأ والتحقق ---------- */
+.verr{display:flex;align-items:flex-start;gap:9px;background:var(--neg-soft);color:var(--neg);
+  border:1px solid #F3C9C9;border-radius:var(--rb);padding:12px 14px;font-size:13.5px;
+  font-weight:700;line-height:1.6;margin-bottom:12px}
+.verr svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;flex:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.vinfo{display:flex;align-items:flex-start;gap:9px;background:var(--brand-soft);color:var(--brand-txt);
+  border-radius:var(--rb);padding:12px 14px;font-size:13.5px;font-weight:700;line-height:1.6;margin-bottom:12px}
+.vinfo svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;flex:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.skb{height:14px;border-radius:7px;margin-bottom:9px}
+.skb.w60{width:60%}.skb.w40{width:40%}.skb.w80{width:80%}
+.skc{height:150px;border-radius:var(--rb);margin-bottom:12px}
+
+/* ---------- 13. استجابة ---------- */
+@media(max-width:389px){
+  .avat{width:46px;height:46px;font-size:19px}
+  .bar1 .tx b{font-size:17px}
+  .bar1 .ic{width:44px;height:44px;border-radius:13px}
+  .vctx h2{font-size:19.5px}
+  .vsteps .cc{width:30px;height:30px;font-size:12.5px}
+  .vsteps .lb2{font-size:10.5px}
+  .vsteps .sp::before{top:15px}
+  .sec2>.sh2 h3{font-size:17px}
+  .sbar2 .sa{font-size:15px;min-height:52px}
+  .rgrid{grid-template-columns:1fr}
+  .drop{padding:20px 12px}
+  .drop .cam2{width:58px;height:58px}
+}
+@media(max-width:359px){
+  .vsteps .lb2{font-size:9.5px}
+  .vsteps .cc{width:27px;height:27px;font-size:11.5px}
+  .vbg{font-size:11.5px;padding:7px 10px;min-height:36px}
+}
+
 </style>
 
 <div class="app">
@@ -1870,7 +2169,7 @@ var CUSTOMERS = [
    mob:'092-114-9902', addr:'شارع عمر المختار، وسط المدينة، طرابلس', added:'٠٨ فبراير ٢٠٢٣', addedN:20230208, last:'١٨ مايو', active:false},
   {id:'C7', nm:'بقالة الشط', code:'772', ch:'تجزئة', limit:0, bal:0, dist:15, km:3.3,
    mob:'091-447-2260', addr:'كورنيش الشط، طرابلس', added:'١٩ أبريل ٢٠٢٥', addedN:20250419, last:'—', active:true},
-  {id:'C8', nm:'ميني ماركت الرحاب', code:'318', ch:'تجزئة', limit:0, bal:340, dist:30, km:8.6,
+  {id:'C8', nm:'ميني ماركت الرحاب', code:'318', ch:'تجزئة', limit:0, bal:340, dist:186, km:8.6,
    mob:'094-902-1173', addr:'شارع الرحاب، عين زارة، طرابلس', added:'٣٠ نوفمبر ٢٠٢٢', addedN:20221130, last:'٠٩ مارس', active:false}
 ];
 
@@ -4993,6 +5292,477 @@ document.addEventListener('keydown', function(e){
   else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
 });
 
+
+/* ================================================================
+   HOMY UI v4 — رأس المندوب · سياق الزيارة · الوصول · فحص الرف
+   عرض فقط: القيم من الحالة الحيّة، والأزرار مربوطة بالدوال القائمة.
+   ================================================================ */
+IC.ruler = '<path d="M15.3 2.6 21.4 8.7a1.4 1.4 0 0 1 0 2L10.7 21.4a1.4 1.4 0 0 1-2 0L2.6 15.3a1.4 1.4 0 0 1 0-2L13.3 2.6a1.4 1.4 0 0 1 2 0Z"/><path d="M12.5 5.4 14.6 7.5M9.5 8.4l2.1 2.1M6.5 11.4l2.1 2.1"/>';
+IC.img   = '<rect x="3" y="3.5" width="18" height="17" rx="2.6"/><circle cx="8.6" cy="9.2" r="1.8"/><path d="M3.4 17.4 9 12l4 3.6 3-2.6 4.6 4.4"/>';
+IC.gear  = '<circle cx="12" cy="12" r="3.1"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>';
+IC.trash = '<path d="M3.5 6h17M8.5 6V4.4A1.4 1.4 0 0 1 9.9 3h4.2a1.4 1.4 0 0 1 1.4 1.4V6"/><path d="M5.6 6l.9 13.1A1.9 1.9 0 0 0 8.4 21h7.2a1.9 1.9 0 0 0 1.9-1.9L18.4 6"/>';
+
+/* ================= 1. رأس المندوب ================= */
+function greetTxt(){
+  var h = new Date().getHours();
+  return h < 12 ? 'صباح الخير' : h < 17 ? 'طاب يومك' : 'مساء الخير';
+}
+function renderShell(id){
+  var ap = document.querySelector('.app');
+  if (ap) ap.classList.toggle('invisit', !!(S.visit && id === 'sell'));
+  var ob = $('offBar');
+  if (ob){
+    ob.classList.toggle('show', !S.online);
+    ob.textContent = 'تم حفظ البيانات على الجهاز وستتم مزامنتها تلقائيًا عند عودة الاتصال — '
+      + ai(S.invoices.length) + ' فاتورة و' + ai(visitCount()) + ' زيارة.';
+  }
+  var fb = $('fabWrap'); if (fb) fb.classList.remove('open');
+  var dw = $('drw'); if (dw) dw.classList.remove('open');
+  var av = $('avat');
+  if (av){ av.textContent = REP.nm.charAt(0); av.setAttribute('title', REP.nm); }
+  var tx = document.querySelector('.bar1 .tx');
+  if (tx) tx.innerHTML =
+      '<span class="gr2">' + greetTxt() + '</span>'
+    + '<b title="' + esc(REP.nm) + '">' + esc(REP.nm) + '</b>'
+    + '<span>سيارة ' + esc(REP.van) + ' • مسار ' + esc(REP.route) + '</span>';
+  var bell = $('icBell');
+  if (bell) bell.classList.toggle('dot', buildAlerts().length > 0);
+  sheets();
+}
+
+/* ================= 2. بطاقة سياق الزيارة ================= */
+function vbg(cls, ic, txt){
+  return '<span class="vbg ' + cls + '">' + (ic ? svg(ic) : '<i></i>') + esc(txt) + '</span>';
+}
+function vctxHtml(c, V){
+  var g = geoState(V);
+  var geoTxt = g === 'ok'   ? 'داخل النطاق ' + ai(V.checkin.dist) + ' م'
+             : g === 'far'  ? 'خارج النطاق ' + ai(V.checkin.dist) + ' م'
+             : g === 'weak' ? 'دقة ضعيفة ' + ai(V.checkin.acc) + ' م'
+             : g === 'denied' ? 'إذن الموقع مرفوض'
+             : 'جارٍ تحديد الموقع';
+  var geoCls = g === 'ok' ? 'ok2' : g === 'far' || g === 'denied' ? 'no2' : g === 'weak' ? 'wt' : 'nu';
+  return '<div class="vctx">'
+    + '<div class="r1">'
+    +   '<button class="bk2" id="vBack" type="button" aria-label="رجوع إلى المسار">' + svg('arrow') + '</button>'
+    +   '<span class="tt"><h2>' + esc(c.nm) + '</h2>'
+    +     '<span class="mm3">' + esc(meta(c.id).type) + ' • ' + esc(c.code) + ' • '
+    +       (c.limit > 0 ? 'آجل — حد ' + ai(c.limit) + ' د.ل' : 'نقدي فقط') + '</span></span>'
+    + '</div>'
+    + '<div class="vbadges">'
+    +   vbg(geoCls, g === 'ok' ? 'okc' : g === 'locating' ? 'up' : 'pin', geoTxt)
+    +   vbg(V.arrived ? 'ok2' : 'nu', V.arrived ? 'okc' : '', V.arrived ? 'تم تسجيل الوصول ' + V.arrTime : 'لم يُسجَّل الوصول')
+    +   vbg(c.bal > 0 ? 'wt' : 'bl', 'wallet', c.bal > 0 ? 'مستحق ' + ar(c.bal) + ' د.ل' : 'لا مديونية')
+    +   vbg('sv', 'up', 'حفظ تلقائي')
+    + '</div></div>';
+}
+
+/* ================= 3. مؤشر خطوات الزيارة ================= */
+function vstepsHtml(V){
+  return '<div class="vsteps">' + VSTEPS.map(function(s){
+    var dn = s.k < V.step, on = s.k === V.step;
+    return '<div class="sp ' + (on ? 'on2' : (dn ? 'dn' : '')) + '">'
+      + '<button type="button" data-vs="' + s.k + '"'
+      +   ' aria-current="' + (on ? 'step' : 'false') + '"'
+      +   ' aria-label="الخطوة ' + ai(s.k) + ': ' + s.t + (dn ? ' — مكتملة' : on ? ' — الحالية' : '') + '">'
+      + '<span class="cc">' + (dn ? svg('chk') : ai(s.k)) + '</span>'
+      + '<span class="lb2">' + s.t + '</span></button></div>';
+  }).join('') + '</div>';
+}
+
+/* ================= 4. معاينة الخريطة ================= */
+function mapPreview(c){
+  var seed = 0; for (var i = 0; i < c.id.length; i++) seed += c.id.charCodeAt(i);
+  var ox = (seed % 7) * 9 - 24, oy = ((seed * 3) % 5) * 8 - 16;
+  var blocks = '';
+  for (var r = 0; r < 4; r++){
+    for (var q = 0; q < 5; q++){
+      var bx = 12 + q * 62 + ((r + seed) % 3) * 6, by = 10 + r * 46 + ((q + seed) % 3) * 5;
+      var bw = 34 + ((q * 7 + seed) % 18), bh = 22 + ((r * 5 + seed) % 12);
+      if (Math.abs(bx + bw / 2 - 160 - ox) < 46 && Math.abs(by + bh / 2 - 92 - oy) < 34) continue;
+      blocks += '<rect x="' + bx + '" y="' + by + '" width="' + bw + '" height="' + bh
+        + '" rx="3" fill="#DCE9F3" opacity=".85"/>';
+    }
+  }
+  return '<svg class="mv" viewBox="0 0 320 185" role="img" aria-label="معاينة موقع ' + esc(c.nm) + '">'
+    + '<rect width="320" height="185" fill="#EFF5FB"/>' + blocks
+    + '<g stroke="#FFFFFF" stroke-width="9" stroke-linecap="round">'
+    +   '<path d="M-10 ' + (60 + oy) + ' H330"/><path d="M-10 ' + (140 + oy) + ' H330"/>'
+    +   '<path d="M' + (95 + ox) + ' -10 V195"/><path d="M' + (225 + ox) + ' -10 V195"/>'
+    + '</g>'
+    + '<g stroke="#C9DEF0" stroke-width="1.4" stroke-dasharray="5 5">'
+    +   '<path d="M-10 ' + (60 + oy) + ' H330"/><path d="M' + (95 + ox) + ' -10 V195"/>'
+    + '</g>'
+    + '<circle cx="160" cy="92" r="26" fill="#2878C7" opacity=".14"/>'
+    + '<circle cx="160" cy="92" r="15" fill="#2878C7" opacity=".2"/>'
+    + '<path d="M160 74a10 10 0 0 0-10 10c0 7.4 10 18 10 18s10-10.6 10-18a10 10 0 0 0-10-10Z" fill="#2878C7"/>'
+    + '<circle cx="160" cy="84" r="3.7" fill="#fff"/>'
+    + '</svg>';
+}
+
+/* ================= 5. حالة النطاق الجغرافي ================= */
+function geoState(V){
+  if (S.locBusy) return 'locating';
+  if (V.geoDenied) return 'denied';
+  if (!V.checkin.ok) return 'far';
+  if (V.checkin.acc > 20) return 'weak';
+  return 'ok';
+}
+var GEOFENCE_M = 100;
+function geoBox(V){
+  var g = geoState(V), d = ai(V.checkin.dist), a = ai(V.checkin.acc);
+  var cls, ic, txt;
+  if (g === 'locating'){ cls='lo3'; ic='up';   txt='جارٍ تحديد موقعك الحالي — انتظر لحظة قبل تسجيل الوصول.'; }
+  else if (g === 'denied'){ cls='no3'; ic='lock'; txt='إذن الوصول إلى الموقع مرفوض. فعّل الإذن من إعدادات المتصفح أو الجهاز، ثم اضغط «تحديث الموقع».'; }
+  else if (g === 'far'){ cls='no3'; ic='warn'; txt='خارج النطاق الجغرافي المسموح (' + d + ' م من أصل ' + ai(GEOFENCE_M) + ' م) — يلزم سبب موثّق وصلاحية استثناء.'; }
+  else if (g === 'weak'){ cls='wr3'; ic='warn'; txt='دقة تحديد الموقع ضعيفة (' + a + ' م). اخرج إلى مكان مكشوف أو اضغط «تحديث الموقع» قبل تسجيل الوصول.'; }
+  else { cls='ok3'; ic='chk'; txt='داخل النطاق الجغرافي المسموح (' + d + ' م) — تسجيل الوصول متاح مباشرة.'; }
+  return '<div class="geo ' + cls + '" role="status" aria-live="polite">'
+    + '<span class="gi">' + svg(ic) + '</span>'
+    + '<span class="gt">' + esc(txt)
+    +   (!S.online ? '<br><span style="font-weight:600;opacity:.85">الجهاز غير متصل — يُستخدم آخر موقع معروف ويُحفظ الوصول محليًا.</span>' : '')
+    +   '<span class="ga"><button class="btn g sm" type="button" id="geoRe">' + svg('up') + 'تحديث الموقع</button></span>'
+    + '</span></div>';
+}
+
+/* ================= 6. حالة المتجر ================= */
+function storeRadios(V){
+  return '<div class="fl2">حالة المتجر <i>*</i></div>'
+    + '<div class="rgrid" role="radiogroup" aria-label="حالة المتجر">'
+    + STORE_ST.map(function(s, i){
+        var on = V.store === s;
+        return '<label class="ropt' + (on ? ' sel2' : '') + '">'
+          + '<input type="radio" name="storeSt" value="' + esc(s) + '" data-st2="' + esc(s) + '"'
+          +   (on ? ' checked' : '') + '>'
+          + '<span class="dot2"></span><span class="rt2">' + esc(s) + '</span></label>';
+      }).join('') + '</div>';
+}
+
+/* ================= 7. مهام فحص الرف — ديناميكية ================= */
+function shelfTasks(c){
+  var m = meta(c.id), out = [];
+  out.push({id:'shelf-before', t:'صورة الرف قبل الترتيب',
+    hint:'صوّر الرف كاملًا وبإضاءة واضحة', req:true, kind:'photo', ic:'cam'});
+  m.tasks.forEach(function(t, i){
+    var isPhoto = /تصوير|صورة/.test(t);
+    out.push({id:'task-' + i, t:t,
+      hint: isPhoto ? 'التقط صورة واضحة تُظهر كامل الرف والمنتجات'
+                    : 'نفّذ المهمة ثم أكّدها — تُسجَّل مع الزيارة',
+      req:true, kind: isPhoto ? 'photo' : 'check', ic: isPhoto ? 'shop' : 'okc'});
+  });
+  out.push({id:'shelf-after', t:'صورة الرف بعد الترتيب',
+    hint:'صورة اختيارية توثّق الرف بعد التنفيذ', req:false, kind:'photo', ic:'cam'});
+  return out;
+}
+function taskPhoto(t){
+  var V = S.visit; if (!V) return null;
+  for (var i = 0; i < V.photos.length; i++) if (V.photos[i].kind === t.t) return V.photos[i];
+  return null;
+}
+function taskDone(t){
+  var V = S.visit; if (!V) return false;
+  if (t.kind === 'photo') return !!taskPhoto(t);
+  return !!(V.checks && V.checks[t.id]);
+}
+function tasksStat(c){
+  var ts = shelfTasks(c), d = 0, rq = 0, rd = 0;
+  ts.forEach(function(t){ if (taskDone(t)) d++; if (t.req){ rq++; if (taskDone(t)) rd++; } });
+  return {list:ts, done:d, total:ts.length, reqTotal:rq, reqDone:rd, ok:rd === rq};
+}
+function taskCard(t){
+  var V = S.visit, done = taskDone(t), p = taskPhoto(t);
+  var body;
+  if (t.kind === 'check'){
+    body = '<button class="chk2' + (done ? ' on3' : '') + '" type="button" data-chk="' + t.id + '"'
+      + ' aria-pressed="' + done + '">' + svg(done ? 'okc' : 'chk')
+      + (done ? 'تم التنفيذ — اضغط للتراجع' : 'تأكيد تنفيذ المهمة') + '</button>';
+  } else if (p){
+    body = '<div class="pv"><img src="' + p.url + '" alt="' + esc(t.t) + '">'
+      + '<div class="stamp2">' + esc(p.t) + ' · ' + esc(p.geo)
+      +   (p.before ? ' · ' + kb(p.before) + ' ← ' + kb(p.after) : '') + '</div>'
+      + '<div class="pb3">'
+      +   '<button class="btn g" type="button" data-re="' + t.id + '">' + svg('cam') + 'إعادة التقاط</button>'
+      +   '<button class="btn g" type="button" data-del="' + t.id + '">' + svg('trash') + 'حذف</button>'
+      + '</div></div>'
+      + '<div class="pstat ' + (S.online ? 'ok4' : 'wr5') + '">' + svg(S.online ? 'okc' : 'dev')
+      +   (S.online ? 'الصورة محفوظة ومُدرجة في طابور الرفع' : 'محفوظة على الجهاز — تُرفع تلقائيًا عند عودة الاتصال') + '</div>';
+  } else {
+    body = '<button class="drop" type="button" data-cap="' + t.id + '" aria-label="التقاط صورة لـ' + esc(t.t) + '">'
+      + '<span class="cam2">' + svg('cam') + '</span>'
+      + '<b>التقاط صورة</b><span>' + esc(t.hint) + '</span></button>'
+      + '<div class="pstat">' + svg('img') + 'لم تُرفع صورة بعد</div>';
+  }
+  return '<div class="tcard' + (done ? ' dn2' : '') + '">'
+    + '<div class="th"><span class="tico">' + svg(done ? 'okc' : t.ic) + '</span>'
+    +   '<span class="tt3"><b>' + esc(t.t) + '</b><span>' + esc(t.hint) + '</span></span>'
+    +   (t.req ? '<span class="req2">إلزامي</span>' : '<span class="opt2">اختياري</span>') + '</div>'
+    + '<div class="tb2">' + body + '</div></div>';
+}
+
+/* ================= 8. شريط الإجراءات اللاصق ================= */
+function sbar(secId, secTxt, priId, priTxt, dis, why){
+  return '<div class="sbar2">'
+    + '<button class="sa sec3" type="button" id="' + secId + '">' + esc(secTxt) + '</button>'
+    + '<button class="sa pri3' + (S.busy ? ' ld2' : '') + '" type="button" id="' + priId + '"'
+    +   (dis || S.busy ? ' disabled' : '') + (why ? ' title="' + esc(why) + '"' : '')
+    +   ' aria-busy="' + !!S.busy + '">' + svg('arrow') + esc(priTxt) + '</button>'
+    + '</div>';
+}
+
+/* ================= 9. الخطوة ١ — الوصول ================= */
+function vs1(c, V){
+  var g = geoState(V);
+  var need = !V.store ? 'اختر حالة المتجر أولًا'
+           : (g === 'far' && !V.exReason.trim()) ? 'اكتب سبب التسجيل خارج النطاق'
+           : (g === 'locating') ? 'انتظر انتهاء تحديد الموقع' : '';
+  return '<div class="sec2">'
+    + '<div class="sh2"><h3>الموقع والوصول</h3><span class="req2">إلزامي</span></div>'
+    + '<div class="sb2">'
+    +   '<div class="mapp">' + mapPreview(c)
+    +     '<button class="goto" type="button" data-nav="' + c.id + '">' + svg('nav') + 'الانتقال للموقع</button>'
+    +     (g === 'locating' ? '<div class="load2"><div><div class="spin2"></div>جارٍ تحديد الموقع…</div></div>' : '')
+    +   '</div>'
+    +   '<div class="irows">'
+    +     '<div class="irow"><span class="ib">' + svg('pin') + '</span>'
+    +       '<span class="ik">العنوان</span><span class="iv">' + esc(c.addr) + '</span></div>'
+    +     '<div class="irow"><span class="ib">' + svg('ruler') + '</span>'
+    +       '<span class="ik">المسافة عن العميل</span>'
+    +       '<span class="iv">' + ai(V.checkin.dist) + ' متر <em>· دقة ' + ai(V.checkin.acc) + ' م</em></span></div>'
+    +   '</div>'
+    +   geoBox(V)
+    +   (g === 'far'
+        ? '<div class="fl2">سبب التسجيل خارج النطاق <i>*</i></div>'
+          + '<div class="pnote" style="margin-bottom:14px">' + svg('pen')
+          + '<input data-ex="1" placeholder="مثال: المحل انتقل إلى الرصيف المقابل" '
+          + 'value="' + esc(V.exReason) + '" aria-label="سبب التسجيل خارج النطاق"></div>'
+        : '')
+    +   storeRadios(V)
+    +   (V.arrErr ? '<div class="verr" style="margin-top:12px" role="alert">' + svg('warn') + esc(V.arrErr) + '</div>' : '')
+    + '</div></div>'
+    + '<div class="vpad"></div>'
+    + sbar('vCx', 'إلغاء', 'vGo1', V.arrived ? 'التالي: فحص الرف' : 'تسجيل الوصول والمتابعة', !!need, need);
+}
+
+/* ================= 10. الخطوة ٢أ — فحص الرف (المهام) ================= */
+function vs2(c, V){
+  if (V.sub === 'data') return vs2b(c, V);
+  var st = tasksStat(c), g = geoState(V);
+  return '<div class="sec2"><div class="sh2">'
+    + '<span style="flex:1;min-width:0"><h3>فحص الرف</h3>'
+    +   '<span class="sub3">أكمل المهام المطلوبة قبل الانتقال للبيع</span></span>'
+    + '<span class="cnt3">' + ai(st.done) + ' من ' + ai(st.total) + ' مهام</span></div></div>'
+    + '<div class="sec2"><div class="sh2" style="padding-bottom:0"><h3 style="font-size:16px">أدوات الزيارة</h3></div>'
+    +   '<div class="sb2" style="padding-top:11px"><div class="vtools">'
+    +     '<span class="st3' + (g === 'ok' ? '' : ' wr4') + '">' + svg(g === 'ok' ? 'okc' : 'warn')
+    +       (g === 'ok' ? 'أنت داخل نطاق الموقع' : 'الموقع خارج النطاق — سُجّل بسبب موثّق') + '</span>'
+    +     '<button class="tb" type="button" data-tel="' + c.id + '">' + svg('tel') + 'اتصال</button>'
+    +     '<button class="tb" type="button" data-nav="' + c.id + '">' + svg('nav') + 'الاتجاهات</button>'
+    +   '</div></div></div>'
+    + (st.list.length ? st.list.map(taskCard).join('')
+        : '<div class="sec2"><div class="emp"><span class="ic2">' + svg('okc') + '</span>'
+          + '<b>لا توجد مهام مطلوبة</b><span>لم تُسنِد الإدارة أي مهمة لهذا العميل — تابع لتسجيل بيانات الرف.</span></div></div>')
+    + '<div class="pnote">' + svg('pen')
+    +   '<input id="tNote" placeholder="إضافة ملاحظة (اختياري)" value="' + esc(V.f.note || '') + '"'
+    +   ' aria-label="ملاحظة على فحص الرف"></div>'
+    + '<input type="file" id="phIn" accept="image/*" capture="environment" hidden>'
+    + '<div class="vpad"></div>'
+    + sbar('vCx', 'إلغاء', 'vGo2', 'التالي: تسجيل بيانات الرف', !st.ok,
+        st.ok ? '' : 'أكمل المهام الإلزامية أولًا: ' + st.list.filter(function(t){ return t.req && !taskDone(t); })
+          .map(function(t){ return t.t; }).join(' · '));
+}
+
+/* ================= 11. الخطوة ٢ب — تسجيل بيانات الرف ================= */
+function vs2b(c, V){
+  var gq = visitGate(), ff = vFieldsDone(), gg = vgate2();
+  return '<div class="sec2"><div class="sh2">'
+    + '<span style="flex:1;min-width:0"><h3>تسجيل بيانات الرف</h3>'
+    +   '<span class="sub3">قياسات الرف وأسئلة الزيارة الإلزامية</span></span>'
+    + '<span class="cnt3">' + ai(gg.done) + ' من ' + ai(gg.total) + '</span></div></div>'
+    + '<div class="sec2"><div class="sh2"><h3 style="font-size:17px">قياسات الرف</h3>'
+    +   (ff.d >= ff.t ? '<span class="opt2" style="background:#E8F7EF;color:#12794F">مكتملة</span>'
+                      : '<span class="req2">' + ai(ff.d) + '/' + ai(ff.t) + '</span>') + '</div>'
+    +   '<div class="sb2"><div class="fgrid">' + VFIELDS.map(fldHtml).join('') + '</div></div></div>'
+    + '<div class="sec2"><div class="sh2"><h3 style="font-size:17px">أسئلة الزيارة</h3>'
+    +   '<span class="' + (gq.allQ ? 'opt2' : 'req2') + '"'
+    +   (gq.allQ ? ' style="background:#E8F7EF;color:#12794F"' : '') + '>'
+    +   ai(gq.qDone) + '/' + ai(QUESTIONS.length) + '</span></div>'
+    +   '<div class="sb2">' + QUESTIONS.map(function(q){
+          return '<div class="qq"><div class="qt2">' + esc(q.t) + ' <i>*</i></div><div class="opt">'
+            + q.o.map(function(o){ return '<button type="button" data-q="' + q.id + '" data-v="' + esc(o) + '" class="'
+                + (V.answers[q.id] === o ? 'sel' : '') + '">' + esc(o) + '</button>'; }).join('')
+            + '</div></div>'; }).join('') + '</div></div>'
+    + '<div class="vpad"></div>'
+    + sbar('vBack2', 'رجوع للمهام', 'vGo2b', 'التالي: البيع',
+        !(gq.allQ && ff.d >= ff.t),
+        (gq.allQ && ff.d >= ff.t) ? '' : 'أكمل القياسات والأسئلة الإلزامية أولًا');
+}
+
+/* ================= 12. تركيب شاشة الزيارة ================= */
+function renderSell(){
+  var V = vinit(), app = document.querySelector('.app');
+  if (!V){
+    if (app) app.classList.remove('invisit');
+    var n = nextCust();
+    $('sellBody').innerHTML = '<div class="card"><div class="emp">'
+      + '<span class="ic2">' + svg('cart') + '</span><b>لا توجد زيارة مفتوحة</b>'
+      + '<span>' + (S.closed ? 'أُقفل اليوم — لا تُقبل زيارات جديدة.'
+                  : !S.started ? 'ابدأ يوم العمل أولًا من الشاشة الرئيسية، ثم افتح أول زيارة.'
+                  : n ? 'العميل التالي في المسار: ' + n.nm + ' — على بُعد ' + ar(n.km,1) + ' كم.'
+                      : 'تمت زيارة كل عملاء المسار. انتقل إلى التسوية اليومية.') + '</span>'
+      + '<div style="margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">'
+      + (!S.started ? '<button class="btn" type="button" id="vStart">ابدأ يوم العمل</button>'
+         : n ? '<button class="btn" type="button" id="vNext">ابدأ زيارة ' + esc(n.nm) + '</button>' : '')
+      + '<button class="btn g" type="button" data-go="route">عرض خط السير</button></div></div></div>';
+    var a = $('vStart'); if (a) a.onclick = function(){ startDay(); };
+    var b2 = $('vNext'); if (b2) b2.onclick = function(){ if (n) openVisit(n.id); };
+    document.querySelectorAll('#sellBody [data-go]').forEach(function(x){
+      x.onclick = function(){ go(x.dataset.go); }; });
+    return;
+  }
+  if (app) app.classList.add('invisit');
+  if (V.sub === undefined) V.sub = 'tasks';
+  var c = cust(V.cid);
+  var body = V.step === 1 ? vs1(c, V) : V.step === 2 ? vs2(c, V) : V.step === 3 ? vs3(c, V)
+           : V.step === 4 ? vs4(c, V) : vs5(c, V);
+  var tail = (V.step >= 3)
+    ? '<div class="vpad"></div>' + sbar('vPrev', 'السابق',
+        V.step === 5 ? 'endV' : 'vNextS',
+        V.step === 5 ? 'حفظ وإنهاء الزيارة' : 'التالي: ' + VSTEPS[V.step].t,
+        V.step === 5 ? !vgate2().ok : false,
+        V.step === 5 && !vgate2().ok ? vgate2().miss[0] : '')
+    : '';
+
+  $('sellBody').innerHTML =
+      '<div class="vtop">' + vctxHtml(c, V) + '</div>'
+    + '<div class="vsheet">' + vstepsHtml(V) + body + tail + '</div>';
+
+  bindVisit(c, V);
+  bindV4(c, V);
+}
+
+/* ================= 13. الربط ================= */
+function bindV4(c, V){
+  var b;
+  b = $('vBack'); if (b) b.onclick = function(){ go(S.started ? 'route' : 'day'); };
+  document.querySelectorAll('.vsteps [data-vs]').forEach(function(x){
+    x.onclick = function(){
+      var k = +x.dataset.vs;
+      if (k > 1 && !V.arrived){ toast('سجّل الوصول أولًا — يُوثَّق الوقت والموقع'); return; }
+      V.sub = 'tasks'; vgo(k);
+    };
+  });
+  b = $('vCx'); if (b) b.onclick = cancelVisit;
+
+  /* الموقع */
+  b = $('geoRe'); if (b) b.onclick = function(){
+    if (S.locBusy) return;
+    S.locBusy = true; renderSell();
+    var done = function(denied, acc){
+      S.locBusy = false;
+      if (denied) V.geoDenied = true;
+      else { V.geoDenied = false; if (acc) V.checkin.acc = Math.max(4, Math.round(acc)); }
+      toast(denied ? 'تعذّر الوصول إلى الموقع — فعّل الإذن من إعدادات الجهاز'
+                   : 'حُدّث الموقع — دقة ' + ai(V.checkin.acc) + ' م');
+      saveNow(); renderSell();
+    };
+    if (navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(
+        function(p){ done(false, p.coords && p.coords.accuracy); },
+        function(){ done(true); },
+        {enableHighAccuracy:true, timeout:6000, maximumAge:0});
+    } else setTimeout(function(){ done(true); }, 700);
+  };
+
+  /* حالة المتجر */
+  document.querySelectorAll('input[data-st2]').forEach(function(x){
+    x.onchange = function(){ V.store = x.dataset.st2; saveSoon(); renderSell(); }; });
+  var ex = document.querySelector('[data-ex]');
+  if (ex) ex.oninput = function(){
+    V.exReason = ex.value; saveSoon();
+    var g2 = $('vGo1'); if (!g2) return;
+    var ready = !!V.store && (V.checkin.ok || ex.value.trim().length > 0);
+    g2.disabled = !ready || !!S.busy;
+    g2.title = ready ? '' : (!V.store ? 'اختر حالة المتجر أولًا' : 'اكتب سبب التسجيل خارج النطاق');
+  };
+
+  /* الخطوة ١ — تسجيل الوصول ثم المتابعة */
+  b = $('vGo1'); if (b) b.onclick = function(){
+    if (S.busy) return;
+    if (!V.store){ V.arrErr = 'اختر حالة المتجر قبل تسجيل الوصول.'; renderSell(); return; }
+    if (!V.checkin.ok && !V.exReason.trim()){
+      V.arrErr = 'التسجيل خارج النطاق يتطلب سببًا موثقًا.'; renderSell(); return; }
+    V.arrErr = null;
+    if (V.arrived){ V.sub = 'tasks'; vgo(2); return; }
+    S.busy = true; renderSell();
+    setTimeout(function(){
+      S.busy = false;
+      V.arrived = true;
+      V.arrTime = new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'});
+      toast('سُجّل الوصول ' + V.arrTime + ' — الموقع والوقت موثّقان ولا يمكن تعديلهما');
+      saveNow(); V.sub = 'tasks'; vgo(2);
+    }, 520);
+  };
+
+  /* الخطوة ٢أ — المهام والصور */
+  var pi = $('phIn');
+  if (pi) pi.onchange = function(){
+    if (pi.files && pi.files[0] && S.capTask) addPhoto(pi.files[0], S.capTask);
+    pi.value = ''; S.capTask = null;
+  };
+  function fire(taskTitle){ S.capTask = taskTitle; var i = $('phIn'); if (i) i.click(); }
+  var TS = shelfTasks(c);
+  function tById(id){ for (var i=0;i<TS.length;i++) if (TS[i].id===id) return TS[i]; return null; }
+  document.querySelectorAll('[data-cap]').forEach(function(x){
+    x.onclick = function(){ var t = tById(x.dataset.cap); if (t) fire(t.t); }; });
+  document.querySelectorAll('[data-re]').forEach(function(x){
+    x.onclick = function(){ var t = tById(x.dataset.re); if (!t) return;
+      V.photos = V.photos.filter(function(p){ return p.kind !== t.t; }); fire(t.t); }; });
+  document.querySelectorAll('[data-del]').forEach(function(x){
+    x.onclick = function(){ var t = tById(x.dataset.del); if (!t) return;
+      V.photos = V.photos.filter(function(p){ return p.kind !== t.t; });
+      toast('حُذفت صورة «' + t.t + '»'); saveNow(); renderSell(); }; });
+  document.querySelectorAll('[data-chk]').forEach(function(x){
+    x.onclick = function(){ V.checks = V.checks || {};
+      V.checks[x.dataset.chk] = !V.checks[x.dataset.chk];
+      toast(V.checks[x.dataset.chk] ? 'أُكّدت المهمة' : 'أُلغي تأكيد المهمة'); saveNow(); renderSell(); }; });
+  var tn = $('tNote');
+  if (tn) tn.oninput = function(){ V.f.note = tn.value; saveSoon(); };
+  b = $('vGo2'); if (b) b.onclick = function(){
+    var st = tasksStat(c);
+    if (!st.ok){ toast('أكمل المهام الإلزامية أولًا'); return; }
+    V.sub = 'data'; renderSell(); window.scrollTo({top:0, behavior:'instant'});
+  };
+  b = $('vBack2'); if (b) b.onclick = function(){ V.sub = 'tasks'; renderSell(); window.scrollTo({top:0}); };
+  b = $('vGo2b'); if (b) b.onclick = function(){
+    var gq = visitGate(), ff = vFieldsDone();
+    if (!(gq.allQ && ff.d >= ff.t)){ toast('أكمل القياسات والأسئلة الإلزامية أولًا'); return; }
+    V.sub = 'tasks'; vgo(3);
+  };
+  b = $('vNextS'); if (b) b.onclick = function(){ V.sub = 'tasks'; vgo(V.step + 1); };
+  b = $('vPrev');  if (b) b.onclick = function(){ V.sub = 'tasks'; vgo(V.step - 1); };
+  b = $('endV');   if (b) b.onclick = function(){
+    if (S.busy) return;
+    if (!vgate2().ok){ toast('لا يمكن إنهاء الزيارة — ' + vgate2().miss[0]); return; }
+    S.busy = true; renderSell();
+    setTimeout(function(){ S.busy = false; closeVisit(); }, 380);
+  };
+}
+
+/* بوابة الزيارة تشمل المهام الإلزامية — تشديد لا تخفيف */
+var _vgate2 = vgate2;
+vgate2 = function(){
+  var g = _vgate2();
+  var V = S.visit; if (!V) return g;
+  var st = tasksStat(cust(V.cid));
+  if (!st.ok){
+    var left = st.list.filter(function(t){ return t.req && !taskDone(t); })
+      .map(function(t){ return t.t; });
+    g.miss = g.miss.filter(function(m){ return m.indexOf('صورة رف') < 0; });
+    g.miss.unshift('استكمال المهام الإلزامية: ' + left.join(' · '));
+    g.ok = false;
+  }
+  return g;
+};
 
 bindShell();
 renderShell('day');
