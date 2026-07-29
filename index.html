@@ -2384,7 +2384,7 @@ table{font-size:13.5px}
       <button id="accHelp"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .9-1 1.7"/><path d="M12 17h.01"/></svg>دليل الاستخدام<span class="ar">5 خطوات</span></button>
       <button class="dg" id="accOut"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>إنهاء يوم العمل</button>
     </div>
-    <div style="text-align:center;font-size:12px;color:#6E8297;font-weight:700;padding:10px 0 16px">إصدار التطبيق: 17 — 2026/07/29 (ضبط القائمة + نوافذ متوسّطة)</div>
+    <div style="text-align:center;font-size:12px;color:#6E8297;font-weight:700;padding:10px 0 16px">إصدار التطبيق: 18 — 2026/07/29 (توحيد تباعد القائمة الجانبية)</div>
   </div>
 
   <div class="toast" id="toast"><i></i><span id="toastMsg"></span></div>
@@ -6751,8 +6751,8 @@ svg{width:1.15rem;height:1.15rem}
     width:var(--side)!important;max-width:var(--side)!important;min-width:0!important;height:100dvh!important;margin:0!important;
     transition:width .22s ease,padding .22s ease!important;
     display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;
-    gap:4px!important;padding:20px 14px calc(20px + env(safe-area-inset-bottom,0px))!important;
-    overflow-y:auto!important;overflow-x:hidden!important;
+    gap:6px!important;padding:18px 14px calc(20px + env(safe-area-inset-bottom,0px))!important;
+    padding-block-start:18px!important;overflow-y:auto!important;overflow-x:hidden!important;
     background:#fff!important;border:0!important;border-inline-end:1px solid #DCE9F3!important;
     box-shadow:-6px 0 22px rgba(11,37,69,.05)!important;border-radius:0!important}
   .cnav::before{content:"هومي";display:block;font-size:21px;font-weight:800;color:#0B2545;
@@ -6773,12 +6773,12 @@ svg{width:1.15rem;height:1.15rem}
   .cnav button[aria-current="true"] .ring{background:transparent!important}
   .cnav button[aria-current="true"] .lb{color:#2878C7!important}
   .cnav button[aria-current="true"] .ring svg{stroke:#2878C7!important}
-  /* البيع: أيقونة بحبّة زرقاء فاتحة بنفس المقاس لمحاذاة متّسقة */
+  /* البيع: عنصر متسق تمامًا مع البقية (إلغاء الرفع والتمييز الخاص بوضع الموبايل) */
+  .cnav button.mid{margin:0!important;transform:none!important}
   .cnav button.mid .ring{width:36px!important;height:36px!important;border-radius:10px!important;
-    background:#EAF4FC!important;border:0!important;box-shadow:none!important}
-  .cnav button.mid .ring svg{stroke:#2878C7!important;width:21px!important;height:21px!important}
-  .cnav button.mid:hover .ring{background:#DCEBFA!important}
-  .cnav button.mid .lb{color:#10243B!important}
+    background:transparent!important;border:0!important;box-shadow:none!important}
+  .cnav button.mid .ring svg{stroke:currentColor!important;width:22px!important;height:22px!important}
+  .cnav button.mid .lb{color:inherit!important}
   /* أبقِ القائمة ظاهرة أثناء الزيارة على سطح المكتب */
   .app.invisit .cnav{display:flex!important}
 
