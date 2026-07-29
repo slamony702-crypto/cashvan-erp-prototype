@@ -2384,7 +2384,7 @@ table{font-size:13.5px}
       <button id="accHelp"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .9-1 1.7"/><path d="M12 17h.01"/></svg>دليل الاستخدام<span class="ar">5 خطوات</span></button>
       <button class="dg" id="accOut"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>إنهاء يوم العمل</button>
     </div>
-    <div style="text-align:center;font-size:12px;color:#6E8297;font-weight:700;padding:10px 0 16px">إصدار التطبيق: 14 — 2026/07/29 (اتساق الديسكتوب)</div>
+    <div style="text-align:center;font-size:12px;color:#6E8297;font-weight:700;padding:10px 0 16px">إصدار التطبيق: 15 — 2026/07/29 (سطح مكتب بقائمة جانبية)</div>
   </div>
 
   <div class="toast" id="toast"><i></i><span id="toastMsg"></span></div>
@@ -6734,27 +6734,71 @@ svg{width:1.15rem;height:1.15rem}
 .rl .stg svg,.rl .mm2 .stg svg,.rl .bdy2 .stg svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2;flex:none}
 .drw .lst button svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;flex:none}
 
-/* (ب) عمود التطبيق على الشاشات الأعرض — بمرجعية تطبيق الموبايل */
-@media(min-width:560px){
-  html,body{background:#0A2036}
+/* (ب) تخطيط سطح المكتب — قائمة جانبية ثابتة + محتوى عريض (RTL: القائمة يمين) */
+@media(min-width:760px){
+  html,body{background:#EDF3F9}
   body{min-height:100dvh}
-  .app{
-    max-width:480px!important;margin-inline:auto!important;position:relative;
-    min-height:100dvh;background:#F6FAFD;
-    box-shadow:0 0 0 1px rgba(7,27,51,.40),0 26px 80px rgba(3,12,24,.60)!important;
-  }
-  /* المحتوى يملأ العمود بدل التمدد إلى لوحة عريضة */
-  .wrap{max-width:none!important}
-  /* المؤشرات عمودان كما في الموبايل (إلغاء 4 أعمدة) */
-  .k4{grid-template-columns:1fr 1fr!important}
-  /* الشريط السفلي بعرض العمود وملاصق للأسفل (شكل تطبيق حقيقي) */
-  .cnav{max-width:480px!important;margin-inline:auto!important;inset-inline:0!important;
-    border-radius:0!important;border:0!important}
-  /* الأوراق السفلية بعرض العمود وملاصقة للأسفل */
-  .bs{max-width:480px!important;inset-inline-start:50%!important;inset-inline-end:auto!important;
-    inset-block-end:0!important;border-radius:26px 26px 0 0!important}
-  /* التوست ضمن عرض العمود */
-  #toast{max-width:calc(480px - 32px)!important}
+  .app{max-width:none!important;margin:0!important;box-shadow:none!important;
+    padding-inline-start:250px!important;min-height:100dvh;background:#F6FAFD;position:relative}
+
+  /* الشريط السفلي → قائمة جانبية عمودية */
+  .cnav{position:fixed!important;inset-block:0!important;inset-inline-start:0!important;inset-inline-end:auto!important;
+    width:250px!important;max-width:250px!important;min-width:0!important;height:100dvh!important;margin:0!important;
+    display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;
+    gap:4px!important;padding:20px 14px calc(20px + env(safe-area-inset-bottom,0px))!important;
+    overflow-y:auto!important;overflow-x:hidden!important;
+    background:#fff!important;border:0!important;border-inline-end:1px solid #DCE9F3!important;
+    box-shadow:-6px 0 22px rgba(11,37,69,.05)!important;border-radius:0!important}
+  .cnav::before{content:"هومي";display:block;font-size:21px;font-weight:800;color:#0B2545;
+    letter-spacing:-.02em;padding:4px 12px 18px;margin-bottom:2px}
+  .cnav button{flex:none!important;flex-direction:row!important;justify-content:flex-start!important;align-items:center!important;
+    gap:13px!important;width:100%!important;min-height:48px!important;padding:0 12px!important;border-radius:13px!important;
+    color:#6E8297!important}
+  .cnav button:hover{background:#F3F8FC!important}
+  .cnav button[aria-current="true"]{background:#EAF4FC!important}
+  .cnav button .ring{width:26px!important;height:26px!important;padding:0!important;margin:0!important;
+    background:transparent!important;border:0!important;box-shadow:none!important;display:grid!important;place-items:center!important;flex:none!important}
+  .cnav button[aria-current="true"] .ring{background:transparent!important}
+  .cnav button .ring svg{width:22px!important;height:22px!important}
+  .cnav button .lb{font-size:14.5px!important;font-weight:700!important;margin:0!important;white-space:nowrap!important}
+  .cnav button[aria-current="true"] .lb{color:#2878C7!important}
+  .cnav button[aria-current="true"] .ring svg{stroke:#2878C7!important}
+  /* زر البيع الأوسط: أيقونة بخلفية زرقاء صغيرة بدل الشكل العائم */
+  .cnav button.mid .ring{width:30px!important;height:30px!important;border-radius:9px!important;
+    background:linear-gradient(150deg,#3D91DF,#2878C7)!important;border:0!important;box-shadow:0 4px 10px rgba(40,120,199,.3)!important}
+  .cnav button.mid .ring svg{stroke:#fff!important;width:19px!important;height:19px!important}
+  .cnav button.mid .lb{color:#10243B!important}
+  /* أبقِ القائمة ظاهرة أثناء الزيارة على سطح المكتب */
+  .app.invisit .cnav{display:flex!important}
+
+  /* منطقة المحتوى: توسيط بعرض مريح */
+  .wrap{max-width:1120px!important;margin-inline:auto!important;padding:26px 32px 52px!important}
+
+  /* المؤشرات صفٌّ واحد */
+  .k4{grid-template-columns:1fr 1fr!important;gap:14px!important}
+
+  /* الأوراق السفلية والتوست: متوسّطة داخل منطقة المحتوى (يسار القائمة) */
+  .bs{inset-inline:auto!important;left:calc((100vw - 250px)/2)!important;right:auto!important;
+    width:min(560px,calc(100vw - 320px))!important;max-width:560px!important;
+    inset-block-end:0!important;border-radius:24px 24px 0 0!important}
+  .bs:not(.open){transform:translate(-50%,140%)!important}
+  .bs.open{transform:translate(-50%,0)!important}
+  #toast{left:calc((100vw - 250px)/2)!important}
+
+  /* حصر شاشات الزيارة بعرض مريح للقراءة */
+  .vwrap{max-width:860px!important;margin-inline:auto!important}
+}
+
+/* لوحة معلومات أوسع على الشاشات الكبيرة */
+@media(min-width:1120px){
+  .k4{grid-template-columns:repeat(4,1fr)!important}
+  /* شاشة اليوم: بطاقة اليوم والمؤشرات بعرض كامل، ثم المراحل والمعاينة عمودين */
+  #dayBody{display:grid!important;grid-template-columns:1fr 1fr!important;gap:18px!important;align-items:start!important}
+  #dayBody>*{margin-bottom:0!important}
+  #dayBody>.dayc2,#dayBody>.k4{grid-column:1 / -1!important}
+  /* قائمة الزيارات عمودان */
+  #routeBody .rl{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important;align-items:start!important}
+  #routeBody .rl li{margin:0!important}
 }
 </style>
 <script>setTimeout(function(){var s=document.getElementById('splash');if(s&&s.parentNode)s.parentNode.removeChild(s);},2700);</script>
