@@ -2384,7 +2384,7 @@ table{font-size:13.5px}
       <button id="accHelp"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .9-1 1.7"/><path d="M12 17h.01"/></svg>دليل الاستخدام<span class="ar">5 خطوات</span></button>
       <button class="dg" id="accOut"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>إنهاء يوم العمل</button>
     </div>
-    <div style="text-align:center;font-size:12px;color:#6E8297;font-weight:700;padding:10px 0 16px">إصدار التطبيق: 18 — 2026/07/29 (توحيد تباعد القائمة الجانبية)</div>
+    <div style="text-align:center;font-size:12px;color:#6E8297;font-weight:700;padding:10px 0 16px">إصدار التطبيق: 19 — 2026/07/29 (دمج المزيد في القائمة الجانبية)</div>
   </div>
 
   <div class="toast" id="toast"><i></i><span id="toastMsg"></span></div>
@@ -6726,8 +6726,9 @@ __boot();
 
 /* (أ) حارس أحجام الأيقونات: أي SVG بلا قاعدة حجم لا يتمدد لملء حاويته */
 svg{width:1.15rem;height:1.15rem}
-/* زر طيّ القائمة مخفيّ افتراضيًا (يظهر فقط في تخطيط سطح المكتب) */
+/* زر طيّ القائمة وعناصر «المزيد» المدمجة مخفية افتراضيًا (تظهر فقط في تخطيط سطح المكتب) */
 #navToggle{display:none}
+.cnav .side-more-item,.cnav .side-grp-lbl,.cnav .side-sep{display:none!important}
 /* استعادة الرسوم التوضيحية والخرائط لملء الحاوية (تتفوّق على الحارس) */
 .mapw svg{width:100%!important;height:auto!important}
 .dill svg,.dayc2 .dill svg{width:100%!important;height:100%!important}
@@ -6781,6 +6782,15 @@ svg{width:1.15rem;height:1.15rem}
   .cnav button.mid .lb{color:inherit!important}
   /* أبقِ القائمة ظاهرة أثناء الزيارة على سطح المكتب */
   .app.invisit .cnav{display:flex!important}
+
+  /* عناصر «المزيد» مدمجة داخل القائمة الجانبية (بدل فتح نافذة) */
+  #cnav #navMore{display:none!important}
+  .cnav .side-more-item{display:flex!important}
+  .cnav .side-grp-lbl{display:block!important;font-size:11px;font-weight:800;color:#93A6B8;
+    letter-spacing:.03em;padding:8px 12px 2px;flex:none;white-space:nowrap}
+  .cnav .side-sep{display:block!important;height:1px;background:#E4EDF5;margin:10px 8px 4px;flex:none}
+  html.navcol .cnav .side-grp-lbl{display:none!important}
+  html.navcol .cnav .side-sep{margin:8px auto;width:30px}
 
   /* منطقة المحتوى: توسيط بعرض مريح */
   .wrap{max-width:1120px!important;margin-inline:auto!important;padding:26px 32px 52px!important}
@@ -6853,6 +6863,65 @@ svg{width:1.15rem;height:1.15rem}
     app.appendChild(b);
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',mk); else mk();
+})();</script>
+<script>(function(){
+  var mq=window.matchMedia('(min-width:760px)');
+  function label(btn){
+    var b=btn.querySelector('.tt2 b, b');
+    if(b) return b.textContent.trim();
+    var t='';[].forEach.call(btn.childNodes,function(n){ if(n.nodeType===3) t+=n.textContent; });
+    t=t.trim(); return t || btn.textContent.replace(/\s+/g,' ').trim();
+  }
+  function build(attempt){
+    var nav=document.getElementById('cnav'), bs=document.getElementById('bsMore');
+    if(!nav||!bs) return;
+    if(nav.querySelector('.side-more-item')) return;         // مرة واحدة
+    /* محتوى «المزيد» يُرسَّم عند الفتح — شغّله بصمت (فتح ثم إغلاق فوري بلا رسم) */
+    var wasOpen=bs.classList.contains('open');
+    if(!bs.querySelector('.sec')){
+      var mo=document.getElementById('navMore'); if(mo) mo.click();
+    }
+    if(!bs.querySelector('.sec')){                            // لم يجهز بعد — أعد المحاولة
+      if((attempt||0)<25) setTimeout(function(){ build((attempt||0)+1); }, 150);
+      return;
+    }
+    var groups=[];
+    bs.querySelectorAll('.sec').forEach(function(sec){
+      var title=sec.textContent.trim(), btns=[], n=sec.nextElementSibling;
+      while(n && !n.classList.contains('sec')){
+        n.querySelectorAll('button[data-jump]').forEach(function(b){ btns.push(b); });
+        n=n.nextElementSibling;
+      }
+      if(btns.length) groups.push({title:title, btns:btns});
+    });
+    if(groups.length){
+      var frag=document.createDocumentFragment();
+      var sep=document.createElement('div'); sep.className='side-sep'; frag.appendChild(sep);
+      groups.forEach(function(g){
+        var lbl=document.createElement('div'); lbl.className='side-grp-lbl'; lbl.textContent=g.title; frag.appendChild(lbl);
+        g.btns.forEach(function(orig){
+          var b=document.createElement('button'); b.type='button'; b.className='side-more-item';
+          b.setAttribute('aria-label', label(orig));
+          var ring=document.createElement('span'); ring.className='ring';
+          var svg=orig.querySelector('svg'); if(svg) ring.appendChild(svg.cloneNode(true));
+          var lb=document.createElement('span'); lb.className='lb'; lb.textContent=label(orig);
+          b.appendChild(ring); b.appendChild(lb);
+          b.addEventListener('click', function(){ orig.click(); });
+          frag.appendChild(b);
+        });
+      });
+      nav.appendChild(frag);
+    }
+    /* أغلق ورقة «المزيد» إن فتحناها للرسم (بلا رسم لحالة الفتح) */
+    if(!wasOpen){
+      var x=document.getElementById('bsX');
+      if(x) x.click();
+      else { bs.classList.remove('open'); var s=document.getElementById('bsw'); if(s) s.classList.remove('open'); }
+    }
+  }
+  function tryBuild(){ if(mq.matches) build(0); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',tryBuild); else tryBuild();
+  if(mq.addEventListener) mq.addEventListener('change', tryBuild);
 })();</script>
 </body>
 </html>
