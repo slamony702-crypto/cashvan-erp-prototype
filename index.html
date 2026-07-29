@@ -2384,7 +2384,7 @@ table{font-size:13.5px}
       <button id="accHelp"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .9-1 1.7"/><path d="M12 17h.01"/></svg>دليل الاستخدام<span class="ar">5 خطوات</span></button>
       <button class="dg" id="accOut"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>إنهاء يوم العمل</button>
     </div>
-    <div style="text-align:center;font-size:12px;color:#6E8297;font-weight:700;padding:10px 0 16px">إصدار التطبيق: 16 — 2026/07/29 (قائمة جانبية قابلة للطيّ)</div>
+    <div style="text-align:center;font-size:12px;color:#6E8297;font-weight:700;padding:10px 0 16px">إصدار التطبيق: 17 — 2026/07/29 (ضبط القائمة + نوافذ متوسّطة)</div>
   </div>
 
   <div class="toast" id="toast"><i></i><span id="toastMsg"></span></div>
@@ -6757,22 +6757,27 @@ svg{width:1.15rem;height:1.15rem}
     box-shadow:-6px 0 22px rgba(11,37,69,.05)!important;border-radius:0!important}
   .cnav::before{content:"هومي";display:block;font-size:21px;font-weight:800;color:#0B2545;
     letter-spacing:-.02em;padding:4px 12px 18px;margin-bottom:2px}
+  /* إزالة شريط مؤشر النشاط الأفقي (خاص بوضع الموبايل) */
+  .cnav button::before,.cnav button::after{display:none!important}
   .cnav button{flex:none!important;flex-direction:row!important;justify-content:flex-start!important;align-items:center!important;
-    gap:13px!important;width:100%!important;min-height:48px!important;padding:0 12px!important;border-radius:13px!important;
-    color:#6E8297!important}
-  .cnav button:hover{background:#F3F8FC!important}
-  .cnav button[aria-current="true"]{background:#EAF4FC!important}
-  .cnav button .ring{width:26px!important;height:26px!important;padding:0!important;margin:0!important;
-    background:transparent!important;border:0!important;box-shadow:none!important;display:grid!important;place-items:center!important;flex:none!important}
+    gap:12px!important;width:100%!important;min-height:50px!important;padding:0 12px!important;border-radius:12px!important;
+    color:#5B7085!important;transition:background .14s ease,color .14s ease!important}
+  .cnav button:hover{background:#F3F8FC!important;color:#2878C7!important}
+  .cnav button[aria-current="true"]{background:#EAF4FC!important;color:#2878C7!important}
+  .cnav button .ring{width:36px!important;height:36px!important;padding:0!important;margin:0!important;
+    background:transparent!important;border:0!important;box-shadow:none!important;border-radius:10px!important;
+    display:grid!important;place-items:center!important;flex:none!important}
+  .cnav button .ring svg{width:22px!important;height:22px!important;stroke:currentColor!important}
+  .cnav button .lb{font-size:15px!important;font-weight:700!important;margin:0!important;white-space:nowrap!important;
+    flex:1!important;text-align:start!important;color:inherit!important}
   .cnav button[aria-current="true"] .ring{background:transparent!important}
-  .cnav button .ring svg{width:22px!important;height:22px!important}
-  .cnav button .lb{font-size:14.5px!important;font-weight:700!important;margin:0!important;white-space:nowrap!important}
   .cnav button[aria-current="true"] .lb{color:#2878C7!important}
   .cnav button[aria-current="true"] .ring svg{stroke:#2878C7!important}
-  /* زر البيع الأوسط: أيقونة بخلفية زرقاء صغيرة بدل الشكل العائم */
-  .cnav button.mid .ring{width:30px!important;height:30px!important;border-radius:9px!important;
-    background:linear-gradient(150deg,#3D91DF,#2878C7)!important;border:0!important;box-shadow:0 4px 10px rgba(40,120,199,.3)!important}
-  .cnav button.mid .ring svg{stroke:#fff!important;width:19px!important;height:19px!important}
+  /* البيع: أيقونة بحبّة زرقاء فاتحة بنفس المقاس لمحاذاة متّسقة */
+  .cnav button.mid .ring{width:36px!important;height:36px!important;border-radius:10px!important;
+    background:#EAF4FC!important;border:0!important;box-shadow:none!important}
+  .cnav button.mid .ring svg{stroke:#2878C7!important;width:21px!important;height:21px!important}
+  .cnav button.mid:hover .ring{background:#DCEBFA!important}
   .cnav button.mid .lb{color:#10243B!important}
   /* أبقِ القائمة ظاهرة أثناء الزيارة على سطح المكتب */
   .app.invisit .cnav{display:flex!important}
@@ -6783,12 +6788,19 @@ svg{width:1.15rem;height:1.15rem}
   /* المؤشرات صفٌّ واحد */
   .k4{grid-template-columns:1fr 1fr!important;gap:14px!important}
 
-  /* الأوراق السفلية والتوست: متوسّطة داخل منطقة المحتوى (يسار القائمة) */
-  .bs{inset-inline:auto!important;left:calc((100vw - var(--side))/2)!important;right:auto!important;
-    width:min(560px,calc(100vw - var(--side) - 70px))!important;max-width:560px!important;
-    inset-block-end:0!important;border-radius:24px 24px 0 0!important}
-  .bs:not(.open){transform:translate(-50%,140%)!important}
-  .bs.open{transform:translate(-50%,0)!important}
+  /* الأوراق → نافذة متوسّطة (modal) بتوسيط بلا transform (أكثر ثباتًا) */
+  .bs{position:fixed!important;inset-inline:unset!important;
+    left:0!important;right:var(--side)!important;top:0!important;bottom:0!important;
+    margin:auto!important;transform:none!important;
+    width:min(640px,calc(100vw - var(--side) - 80px))!important;max-width:640px!important;
+    height:max-content!important;max-height:86vh!important;
+    overflow-y:auto!important;overflow-x:hidden!important;
+    border-radius:22px!important;box-shadow:0 30px 80px rgba(3,12,24,.5)!important;
+    transition:opacity .2s ease!important}
+  .bs:not(.open){opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+  .bs.open{opacity:1!important;visibility:visible!important}
+  /* إخفاء مقبض السحب العلوي (خاص بالأوراق السفلية) */
+  .bs>.grab,.bs .grabber,.bs::after{display:none!important}
   #toast{left:calc((100vw - var(--side))/2)!important}
 
   /* حصر شاشات الزيارة بعرض مريح للقراءة */
