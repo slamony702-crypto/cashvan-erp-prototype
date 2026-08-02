@@ -2384,7 +2384,7 @@ table{font-size:13.5px}
       <button id="accHelp"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .9-1 1.7"/><path d="M12 17h.01"/></svg>دليل الاستخدام<span class="ar">5 خطوات</span></button>
       <button class="dg" id="accOut"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>إنهاء يوم العمل</button>
     </div>
-    <div style="text-align:center;font-size:12px;color:#6E8297;font-weight:700;padding:10px 0 16px">إصدار التطبيق: 22 — 2026/07/29 (قائمة النظام المتكامل)</div>
+    <div style="text-align:center;font-size:12px;color:#6E8297;font-weight:700;padding:10px 0 16px">إصدار التطبيق: 23 — 2026/07/29 (أكورديون + شاشات عرض + تدرّج)</div>
   </div>
 
   <div class="toast" id="toast"><i></i><span id="toastMsg"></span></div>
@@ -6793,6 +6793,23 @@ svg{width:1.15rem;height:1.15rem}
   html.navcol .cnav .side-grp-lbl{display:none!important}
   html.navcol .cnav .side-sep{margin:8px auto;width:30px}
 
+  /* ===== أكورديون: قوائم فرعية تحت كل مديول ===== */
+  .side-grp2{display:flex;flex-direction:column}
+  .side-acc .chev{width:16px;height:16px;flex:none;color:#9BB0C4;transition:transform .2s;display:grid;place-items:center}
+  .side-acc .chev svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .side-grp2.open > .side-acc{color:#1E6FC4!important;background:#F1F7FC!important}
+  .side-grp2.open > .side-acc .chev{transform:rotate(180deg);color:#2878C7}
+  .side-accbody{display:none;flex-direction:column;gap:1px;margin:1px 14px 6px;padding-inline-start:10px;
+    border-inline-start:1.5px solid #E7EFF6}
+  .side-grp2.open > .side-accbody{display:flex}
+  .side-sub2{display:flex;align-items:center;gap:9px;width:100%;min-height:35px;padding:0 10px;border:0;background:transparent;
+    cursor:pointer;font-family:inherit;color:#6E8297;font-size:12.8px;font-weight:600;text-align:start;border-radius:9px;transition:background .13s,color .13s}
+  .side-sub2:hover{background:#F1F7FC;color:#2878C7}
+  .side-sub2 .sdot{width:6px;height:6px;border-radius:50%;background:#C3D5E6;flex:none}
+  .side-sub2:hover .sdot{background:#2878C7}
+  .side-sub2 .stx{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  html.navcol .side-acc .chev,html.navcol .side-accbody{display:none!important}
+
   /* ---------- هوية الإدارة على الهيدر (بدل هوية المندوب) ---------- */
   .bar1 .tx .gr2{display:none!important}
   .bar1 .tx b{font-size:0!important;line-height:0!important}
@@ -6859,6 +6876,83 @@ svg{width:1.15rem;height:1.15rem}
   #routeBody .rl li{margin:0!important}
 }
 </style>
+<style>
+/* ================================================================
+   بطاقات «الزيارة التالية» — تدرّج أزرق فخم لامع (نفس الوظيفة في كل النظام)
+   ================================================================ */
+.dayc2{position:relative;overflow:hidden;color:#fff!important;border:1px solid rgba(255,255,255,.10)!important;
+  background:linear-gradient(140deg,#0A2A54 0%,#123E7E 42%,#1E63B8 78%,#2E86D6 100%)!important;
+  box-shadow:0 18px 44px rgba(12,48,104,.42)!important}
+.dayc2::before{display:none!important}                       /* شريط الحافة غير لازم على التدرّج */
+.dayc2::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(130% 92% at 88% -14%, rgba(255,255,255,.22), rgba(255,255,255,0) 56%)}
+.dayc2 .dhead,.dayc2 .dinfo,.dayc2 .dprog,.dayc2 .cta2{position:relative;z-index:1}
+.dayc2 .dill{display:none!important}
+.dayc2 .daybadge{background:rgba(255,255,255,.15)!important;color:#EAF4FC!important;border:1px solid rgba(255,255,255,.24)!important}
+.dayc2 .daybadge svg{stroke:#EAF4FC!important}
+.dayc2 .dlabel{color:#AFD6FF!important}
+.dayc2 h3{color:#fff!important;text-shadow:0 1px 12px rgba(0,0,0,.16)}
+.dayc2 .drow2{color:#D5E7F9!important}
+.dayc2 .drow2 b{color:#fff!important}
+.dayc2 .drow2 svg{stroke:#AFD6FF!important}
+.dayc2 .dprog{background:rgba(255,255,255,.20)!important}
+.dayc2 .dprog i{background:linear-gradient(90deg,#CFE6FF,#fff)!important}
+.dayc2 .cta2{background:#fff!important;color:#123E7E!important;box-shadow:0 10px 26px rgba(3,18,44,.30)!important}
+.dayc2 .cta2:hover{background:#EAF4FC!important;transform:none}
+.dayc2 .cta2 .carw{background:rgba(18,62,126,.12)!important}
+.dayc2 .cta2 .carw svg{stroke:#123E7E!important}
+
+/* بطاقة الزيارة التالية في خط السير — نفس المعالجة */
+.nextc{position:relative;overflow:hidden;color:#fff!important;border:0!important;
+  background:linear-gradient(140deg,#0A2A54 0%,#123E7E 42%,#1E63B8 78%,#2E86D6 100%)!important;
+  box-shadow:0 16px 40px rgba(12,48,104,.40)!important}
+.nextc::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(130% 92% at 88% -14%, rgba(255,255,255,.20), rgba(255,255,255,0) 56%)}
+.nextc>*{position:relative;z-index:1}
+.nextc .top{background:rgba(255,255,255,.13)!important;color:#EAF4FC!important;border-bottom:1px solid rgba(255,255,255,.14)!important}
+.nextc .top svg{stroke:#EAF4FC!important}
+.nextc .top .km{background:#fff!important;color:#123E7E!important}
+.nextc h3{color:#fff!important}
+.nextc .mt{color:#D5E7F9!important}
+.nextc .mt b{color:#fff!important}
+.nextc .fin div{background:rgba(255,255,255,.13)!important}
+.nextc .fin span{color:#CFE2F6!important}
+.nextc .fin b{color:#fff!important}
+.nextc .fin div.w b{color:#FFD79A!important}
+.nextc .go{background:#fff!important;color:#123E7E!important;box-shadow:0 10px 24px rgba(3,18,44,.28)!important}
+.nextc .go svg{stroke:#123E7E!important}
+
+/* ===== شاشة عرض المديول التجريبية ===== */
+#modScr .mod-hd{margin-bottom:18px}
+#modScr .mod-ey{font-size:12px;font-weight:800;color:#2878C7;letter-spacing:.02em}
+#modScr .mod-ti{font-size:24px;font-weight:800;color:#10243B;margin:4px 0 0;letter-spacing:-.02em}
+#modScr .mod-sub{font-size:13px;color:#6E8297;margin-top:3px}
+#modScr .mod-demo{display:inline-block;font-size:11px;font-weight:800;color:#8A5405;background:#FDF1DE;border-radius:99px;padding:3px 10px;margin-top:9px}
+#modScr .mod-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+#modScr .mod-stat{background:#fff;border:1px solid #DCE9F3;border-radius:16px;padding:15px 16px;box-shadow:0 2px 10px rgba(11,37,69,.04)}
+#modScr .mod-stat .l{font-size:12.5px;color:#6E8297;font-weight:700}
+#modScr .mod-stat .v{font-size:23px;font-weight:800;color:#10243B;margin-top:6px;letter-spacing:-.03em}
+#modScr .mod-stat .v u{font-size:12px;color:#93A6B8;text-decoration:none;font-weight:700}
+#modScr .mod-bar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+#modScr .mod-search{flex:1;min-width:220px;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #DCE9F3;border-radius:12px;padding:0 12px;min-height:44px;color:#93A6B8;font-size:13.5px;font-weight:600}
+#modScr .mod-search svg{width:17px;height:17px;stroke:#93A6B8;fill:none;stroke-width:1.9;stroke-linecap:round;flex:none}
+#modScr .mod-add{display:inline-flex;align-items:center;gap:6px;background:#2878C7;color:#fff;border:0;border-radius:12px;min-height:44px;padding:0 18px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit}
+#modScr .mod-add:hover{background:#1E6FC4}
+#modScr .mod-tbl{background:#fff;border:1px solid #DCE9F3;border-radius:16px;overflow-x:auto;box-shadow:0 2px 12px rgba(11,37,69,.05)}
+#modScr table{width:100%;border-collapse:collapse;font-size:13.5px}
+#modScr thead th{background:#F4F9FD;color:#5B7085;font-weight:800;text-align:start;padding:12px 14px;border-bottom:1px solid #E4EDF5;white-space:nowrap}
+#modScr tbody td{padding:12px 14px;border-bottom:1px solid #EEF4F9;color:#33475B;font-weight:600;white-space:nowrap}
+#modScr tbody tr:last-child td{border-bottom:0}
+#modScr tbody tr:hover{background:#F8FBFE}
+#modScr .stt{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;padding:4px 10px;border-radius:99px}
+#modScr .stt::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+#modScr .stt.ok{color:#12794F;background:#E4F6EE}
+#modScr .stt.wm{color:#8A5405;background:#FDF1DE}
+#modScr .stt.mt{color:#5B7085;background:#EEF3F8}
+#modScr .stt.bl{color:#1E6FC4;background:#EAF4FC}
+#modScr .stt.ng{color:#B4232A;background:#FBE7E8}
+@media(max-width:1120px){ #modScr .mod-stats{grid-template-columns:1fr 1fr} }
+</style>
 <script>setTimeout(function(){var s=document.getElementById('splash');if(s&&s.parentNode)s.parentNode.removeChild(s);},2700);</script>
 <script>(function(){
   var root=document.documentElement;
@@ -6912,31 +7006,44 @@ svg{width:1.15rem;height:1.15rem}
     info:'<circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/>'
   };
   function svg(k){ return '<svg viewBox="0 0 24 24" aria-hidden="true">'+(IC[k]||IC.info)+'</svg>'; }
-  /* كل مديولات النظام المتكامل — مقسّمة لأقسام (الموجود يفتح شاشته، والباقي مسميات) */
+  /* مديولات النظام — كل مديول رأس أكورديون بقائمة فرعية */
   var GROUPS=[
     {t:'المبيعات والتوزيع', items:[
-      {l:'المبيعات',i:'sales'},{l:'خطوط السير',i:'route'},{l:'الخطط الأسبوعية',i:'calendar'},{l:'المواقع',i:'map'}
+      {l:'الزيارات',i:'route', sub:[{l:'قائمة الزيارات',j:'@route'},{l:'إضافة موعد زيارة'}]},
+      {l:'المبيعات',i:'sales', sub:[{l:'الطلبات'},{l:'طلبات بونص'},{l:'المعاينات'},{l:'المرتجعات',j:'المرتجعات'},{l:'طلب التسعير'},{l:'العروض الترويجية'}]},
+      {l:'العملاء',i:'users', sub:[{l:'قائمة العملاء',j:'@custs'},{l:'العملاء المحتملون'},{l:'أنواع العملاء'},{l:'عناصر بروفايل العميل'}]},
+      {l:'المواقع',i:'map'},
+      {l:'الخطط الأسبوعية',i:'calendar'}
     ]},
     {t:'المخزون والمشتريات', items:[
-      {l:'المخازن',i:'warehouse'},{l:'مخزون السيارة',i:'truck',j:'مخزون السيارة'},{l:'الموردين',i:'supplier'}
+      {l:'المخازن',i:'warehouse', sub:[{l:'الأصناف'},{l:'مخزون السيارة',j:'مخزون السيارة'},{l:'الجرد'},{l:'حركة المخزون'}]},
+      {l:'الموردين',i:'supplier', sub:[{l:'قائمة الموردين'},{l:'أوامر الشراء'},{l:'فواتير الشراء'},{l:'التوريدات'}]}
     ]},
-    {t:'المحاسبة والمالية', items:[
-      {l:'الحسابات',i:'ledger'},{l:'الفواتير والقيود',i:'invoice',j:'الفواتير والقيود'},{l:'المصروفات',i:'card',j:'المصروفات'},{l:'المرتجعات',i:'ret',j:'المرتجعات'},{l:'التسوية اليومية',i:'check',j:'التسوية اليومية'}
+    {t:'الحسابات والمالية', items:[
+      {l:'الحسابات',i:'ledger', sub:[{l:'حافظة الشيكات'},{l:'التحويلات الداخلية'},{l:'محفظة العملاء'},{l:'محفظة الموردين'},{l:'رصيد الخزنة الرئيسية'},{l:'خزن الشركة الفرعية'},{l:'التوريدات'},{l:'التحصيلات'},{l:'المصروفات',j:'المصروفات'},{l:'التسويات',j:'التسوية اليومية'}]},
+      {l:'الفواتير والقيود',i:'invoice',j:'الفواتير والقيود'}
     ]},
     {t:'الموارد البشرية', items:[
-      {l:'فريق العمل',i:'users'},{l:'الأهداف والعمولة',i:'target',j:'الأهداف والعمولة'}
+      {l:'فريق العمل',i:'users', sub:[{l:'المناديب'},{l:'مصروفات المناديب'},{l:'تارجت',j:'الأهداف والعمولة'},{l:'ملاحظات المناديب'},{l:'الإجازات'},{l:'الحضور والإنصراف'},{l:'قيود المناديب'}]}
     ]},
-    {t:'التقارير والتحليلات', items:[
-      {l:'تقارير',i:'report'},{l:'لوحة التحكم',i:'dash',j:'لوحة التحكم'}
+    {t:'التقارير والمتابعة', items:[
+      {l:'تقارير',i:'report', sub:[{l:'تقارير المبيعات'},{l:'تقارير المخزون'},{l:'تقارير الحسابات'},{l:'أداء المناديب'}]},
+      {l:'لوحة التحكم',i:'dash',j:'لوحة التحكم'}
     ]},
     {t:'النظام والإعدادات', items:[
-      {l:'الفروع',i:'branch'},{l:'مستخدمي النظام',i:'usercog'},{l:'الإشعارات',i:'bell',j:'التنبيهات'},{l:'المزامنة والحفظ',i:'sync',j:'المزامنة والحفظ'},{l:'إعدادات النظام',i:'settings'},{l:'عن النظام',i:'info',j:'عن النظام'}
+      {l:'إعدادات النظام',i:'settings', sub:[{l:'إعدادات المنتجات'},{l:'إعدادات المستخدمين'},{l:'إعدادات الزيارات'},{l:'إعدادات الأصول'},{l:'إعدادات الفاتورة'},{l:'إعدادات المعاينة'},{l:'إعدادات الحسابات'},{l:'إعدادات الشركة'},{l:'التقسيم الجغرافي'},{l:'أقسام التعليمات'},{l:'التعليمات'},{l:'أقسام التوثيق'},{l:'إدارة الملفات'}]},
+      {l:'الفروع',i:'branch'},
+      {l:'مستخدمي النظام',i:'usercog'},
+      {l:'الإشعارات',i:'bell',j:'التنبيهات'},
+      {l:'المزامنة والحفظ',i:'sync',j:'المزامنة والحفظ'},
+      {l:'عن النظام',i:'info',j:'عن النظام'}
     ]}
   ];
-  function toast(msg){
-    var t=document.getElementById('toast'); if(!t) return;
-    t.textContent=msg; t.classList.add('show');
-    clearTimeout(t._st); t._st=setTimeout(function(){ t.classList.remove('show'); t.textContent=''; },2000);
+  var MAP={};
+  function wire(node){
+    if(node.j && node.j.charAt(0)==='@'){ var ds=node.j.slice(1); return function(){ var b=document.querySelector('#cnav > button[data-s="'+ds+'"]'); if(b) b.click(); }; }
+    if(node.j && MAP[node.j]){ var orig=MAP[node.j]; return function(){ orig.click(); }; }
+    var nm=node.l; return function(){ openModule(nm); };
   }
   function mkItem(text, svgHtml, onClick){
     var b=document.createElement('button'); b.type='button'; b.className='side-more-item'; b.setAttribute('aria-label',text);
@@ -6945,23 +7052,34 @@ svg{width:1.15rem;height:1.15rem}
     b.appendChild(ring); b.appendChild(lb); b.addEventListener('click', onClick);
     return b;
   }
+  var CHEV='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  function mkAcc(it){
+    var grp=document.createElement('div'); grp.className='side-grp2';
+    var head=document.createElement('button'); head.type='button'; head.className='side-more-item side-acc'; head.setAttribute('aria-label',it.l);
+    head.innerHTML='<span class="ring">'+svg(it.i)+'</span><span class="lb">'+it.l+'</span><span class="chev">'+CHEV+'</span>';
+    var body=document.createElement('div'); body.className='side-accbody';
+    it.sub.forEach(function(s){
+      var sb=document.createElement('button'); sb.type='button'; sb.className='side-sub2'; sb.setAttribute('aria-label',s.l);
+      sb.innerHTML='<span class="sdot"></span><span class="stx">'+s.l+'</span>';
+      sb.addEventListener('click', wire(s));
+      body.appendChild(sb);
+    });
+    head.addEventListener('click', function(){ grp.classList.toggle('open'); });
+    grp.appendChild(head); grp.appendChild(body);
+    return grp;
+  }
   function build(attempt){
     if(!mq.matches) return;
     var nav=document.getElementById('cnav'), bs=document.getElementById('bsMore');
     if(!nav||!bs) return;
-    if(nav.querySelector('.side-more-item')) return;          // مرة واحدة
-    /* اجلب الأزرار الوظيفية من ورقة «المزيد» (تُرسَّم عند الفتح) — فتح/إغلاق صامت */
+    if(nav.querySelector('.side-more-item')) return;
     var wasOpen=bs.classList.contains('open');
     if(!bs.querySelector('.sec')){ var mo=document.getElementById('navMore'); if(mo) mo.click(); }
-    if(!bs.querySelector('.sec')){
-      if((attempt||0)<25) setTimeout(function(){ build((attempt||0)+1); }, 150);
-      return;
-    }
-    var map={};
-    bs.querySelectorAll('button[data-jump]').forEach(function(b){ map[label(b)]=b; });
+    if(!bs.querySelector('.sec')){ if((attempt||0)<25) setTimeout(function(){ build((attempt||0)+1); }, 150); return; }
+    MAP={};
+    bs.querySelectorAll('button[data-jump]').forEach(function(b){ MAP[label(b)]=b; });
     if(!wasOpen){ var x=document.getElementById('bsX'); if(x) x.click();
       else { bs.classList.remove('open'); var s=document.getElementById('bsw'); if(s) s.classList.remove('open'); } }
-    /* ابنِ القائمة الكاملة المقسّمة */
     var frag=document.createDocumentFragment();
     var sep=document.createElement('div'); sep.className='side-sep'; frag.appendChild(sep);
     GROUPS.forEach(function(g,gi){
@@ -6969,13 +7087,80 @@ svg{width:1.15rem;height:1.15rem}
       if(gi>0) lbl.style.marginTop='10px';
       frag.appendChild(lbl);
       g.items.forEach(function(it){
-        var fn;
-        if(it.j && map[it.j]){ var orig=map[it.j]; fn=function(){ orig.click(); }; }
-        else { var nm=it.l; fn=function(){ toast('وحدة «'+nm+'» — ضمن النظام المتكامل (قريبًا)'); }; }
-        frag.appendChild(mkItem(it.l, svg(it.i), fn));
+        if(it.sub && it.sub.length){ frag.appendChild(mkAcc(it)); }
+        else { frag.appendChild(mkItem(it.l, svg(it.i), wire(it))); }
       });
     });
     nav.appendChild(frag);
+  }
+
+  /* ===== شاشة عرض تجريبية لكل مديول (محتوى واقعي للعرض) ===== */
+  function HSH(s){var n=5381;for(var i=0;i<s.length;i++)n=((n*33)^s.charCodeAt(i))>>>0;return n;}
+  function FMT(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
+  function catOf(n){
+    if(/إعداد|تعليم|توثيق|ملف|تقسيم|بروفايل/.test(n)) return 'set';
+    if(/حساب|خزن|خزنة|محفظة|مصروف|تحصيل|توريد|تسوي|شيك|فاتور|قيد|تسعير|تحويل/.test(n)) return 'money';
+    if(/مخزن|مخازن|صنف|جرد|مخزون|مستودع/.test(n)) return 'inv';
+    if(/مندوب|موظف|إجاز|حضور|تارجت|ملاحظ|فريق|رواتب|قيود المناديب/.test(n)) return 'hr';
+    if(/زيار|طلب|عرض|معاين|مرتجع|عميل|مورد|شراء|مبيع|موعد/.test(n)) return 'sales';
+    return 'gen';
+  }
+  function openModule(name){
+    var wrap=document.querySelector('.wrap'); if(!wrap) return;
+    var scr=document.getElementById('modScr');
+    if(!scr){ scr=document.createElement('section'); scr.className='scr'; scr.id='modScr'; scr.innerHTML='<div id="modBody"></div>'; wrap.appendChild(scr); }
+    document.getElementById('modBody').innerHTML=demoHTML(name);
+    document.querySelectorAll('.wrap > .scr').forEach(function(e){ e.classList.remove('on'); });
+    scr.classList.add('on');
+    try{ window.scrollTo(0,0); }catch(e){}
+  }
+  function demoHTML(name){
+    var cat=catOf(name), h=HSH(name);
+    var ents=['بقالة النجمة','سوبر ماركت الأمانة','مخبز الهنا','مطعم الشام','ثلاجة الوسام','بقالة البركة','ماركت المدينة','مؤسسة النور','شركة الرواد','متجر السلام','بقالة الأصدقاء','سوق الخير'];
+    var reps=['محمد مصطفى','محمود علي','محمد رفعت','عبدالله الواتي','طارق عمر','محمد نسيم','محمد شعبان','أحمد سالم'];
+    var goods=['زيت دوّار الشمس 1ل','معكرونة 400ج','أرز مصري 5ك','سكر ناعم 1ك','شاي أخضر 250ج','معلّبات فول','جبنة بيضاء 500ج','عصير مانجو 1ل'];
+    var codes=['SKU-1042','SKU-2071','SKU-3088','SKU-4519','SKU-5230','SKU-6644','SKU-7012','SKU-8890'];
+    var units=['كرتونة','علبة','كيس','حبة','شوال','عبوة'];
+    var dates=['2026/07/28','2026/07/26','2026/07/22','2026/07/19','2026/07/15','2026/07/11','2026/07/06','2026/07/02'];
+    var sts=[{t:'مكتمل',c:'ok'},{t:'قيد المعالجة',c:'wm'},{t:'معلّق',c:'mt'},{t:'مرحّل',c:'bl'},{t:'ملغى',c:'ng'}];
+    function pick(a,i){return a[(h+i*97)%a.length];}
+    function amt(i){return FMT(150+((h+i*613)%1400)*9);}
+    function st(i){var s=sts[(h+i*3)%sts.length];return '<span class="stt '+s.c+'">'+s.t+'</span>';}
+    var N=8, cols, rows=[], stats, sub;
+    if(cat==='money'){ sub='الحركات والأرصدة المالية خلال الفترة';
+      cols=['#','البيان','التاريخ','النوع','المبلغ (د.ل)','الحالة'];
+      var kinds=['قيد يومي','تحصيل','توريد','مصروف','تسوية','تحويل داخلي'];
+      for(var i=0;i<N;i++) rows.push(['#'+(1042+i), name+' — حركة '+(i+1), pick(dates,i), pick(kinds,i), amt(i), st(i)]);
+      stats=[['إجمالي الحركات',FMT(120+h%80),''],['هذا الشهر',FMT(20+h%25),''],['إجمالي مدين',FMT(45000+h%9000),' د.ل'],['إجمالي دائن',FMT(38000+h%7000),' د.ل']];
+    } else if(cat==='inv'){ sub='الأصناف والكميات وحركة المخزون';
+      cols=['#','الصنف','الكود','الكمية','الوحدة','الحالة'];
+      for(var i=0;i<N;i++) rows.push(['#'+(310+i), pick(goods,i), pick(codes,i), FMT(12+((h+i*53)%480)), pick(units,i), st(i)]);
+      stats=[['إجمالي الأصناف',FMT(240+h%120),''],['منخفض المخزون',FMT(4+h%14),''],['حركات اليوم',FMT(8+h%30),''],['قيمة المخزون',FMT(180000+h%60000),' د.ل']];
+    } else if(cat==='hr'){ sub='بيانات فريق العمل والحضور والمستحقات';
+      cols=['#','الاسم','الفرع','التاريخ','القيمة (د.ل)','الحالة'];
+      var brs=['الفرع الرئيسي','فرع سوق الجمعة','فرع المدينة','فرع الشمال'];
+      for(var i=0;i<N;i++) rows.push(['#'+(101+i), pick(reps,i), pick(brs,i), pick(dates,i), amt(i), st(i)]);
+      stats=[['إجمالي الأفراد',FMT(18+h%22),''],['حاضر اليوم',FMT(12+h%10),''],['في إجازة',FMT(1+h%4),''],['متأخرون',FMT(h%5),'']];
+    } else if(cat==='set'){ sub='ضبط وتهيئة عناصر النظام';
+      cols=['#','العنصر','المفتاح','القيمة','آخر تحديث','الحالة'];
+      var keys=['enabled','default','limit','format','policy','template'];
+      var vals=['نعم','افتراضي','30 يوم','تلقائي','مُفعّل','قياسي'];
+      for(var i=0;i<N;i++) rows.push(['#'+(1+i), name+' — عنصر '+(i+1), pick(keys,i), pick(vals,i), pick(dates,i), st(i)]);
+      stats=[['إجمالي الإعدادات',FMT(40+h%60),''],['مفعّلة',FMT(28+h%20),''],['معطّلة',FMT(2+h%8),''],['آخر تحديث',pick(dates,0),'']];
+    } else { sub='سجل العمليات والمستندات خلال الفترة';
+      cols=['#','الجهة','التاريخ','عدد البنود','الإجمالي (د.ل)','الحالة'];
+      for(var i=0;i<N;i++) rows.push(['#'+(5001+i), pick(ents,i), pick(dates,i), FMT(1+((h+i*7)%14)), amt(i), st(i)]);
+      stats=[['إجمالي السجلات',FMT(80+h%140),''],['هذا الشهر',FMT(14+h%26),''],['قيد المعالجة',FMT(2+h%12),''],['مكتمل',FMT(60+h%90),'']];
+    }
+    var sc=stats.map(function(s){return '<div class="mod-stat"><div class="l">'+s[0]+'</div><div class="v">'+s[1]+(s[2]?'<u>'+s[2]+'</u>':'')+'</div></div>';}).join('');
+    var th='<tr>'+cols.map(function(c){return '<th>'+c+'</th>';}).join('')+'</tr>';
+    var tb=rows.map(function(r){return '<tr>'+r.map(function(c){return '<td>'+c+'</td>';}).join('')+'</tr>';}).join('');
+    return '<div class="mod-hd"><div class="mod-ey">'+ 'وحدة النظام' +'</div><h1 class="mod-ti">'+name+'</h1>'
+      + '<div class="mod-sub">'+sub+'</div><span class="mod-demo">بيانات عرض تجريبية</span></div>'
+      + '<div class="mod-stats">'+sc+'</div>'
+      + '<div class="mod-bar"><div class="mod-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>بحث في '+name+'…</span></div>'
+      + '<button class="mod-add" type="button">+ إضافة</button></div>'
+      + '<div class="mod-tbl"><table><thead>'+th+'</thead><tbody>'+tb+'</tbody></table></div>';
   }
   function tryBuild(){ if(mq.matches) build(0); }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',tryBuild); else tryBuild();
