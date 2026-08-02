@@ -2384,7 +2384,7 @@ table{font-size:13.5px}
       <button id="accHelp"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .9-1 1.7"/><path d="M12 17h.01"/></svg>دليل الاستخدام<span class="ar">5 خطوات</span></button>
       <button class="dg" id="accOut"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>إنهاء يوم العمل</button>
     </div>
-    <div style="text-align:center;font-size:12px;color:#6E8297;font-weight:700;padding:10px 0 16px">إصدار التطبيق: 24 — 2026/07/29 (بحث الهيدر + لوحات التحكم)</div>
+    <div style="text-align:center;font-size:12px;color:#6E8297;font-weight:700;padding:10px 0 16px">إصدار التطبيق: 25 — 2026/07/29 (لوحة التحكم أعلى القائمة)</div>
   </div>
 
   <div class="toast" id="toast"><i></i><span id="toastMsg"></span></div>
@@ -6784,8 +6784,14 @@ svg{width:1.15rem;height:1.15rem}
   /* أبقِ القائمة ظاهرة أثناء الزيارة على سطح المكتب */
   .app.invisit .cnav{display:flex!important}
 
-  /* عناصر «المزيد» مدمجة داخل القائمة الجانبية (بدل فتح نافذة) */
-  #cnav #navMore{display:none!important}
+  /* إخفاء أزرار المندوب الثابتة على سطح المكتب (لوحة التحكم بديلها في الأعلى) */
+  #cnav > button[data-s],#cnav #navMore{display:none!important}
+  /* «لوحة التحكم» — العنصر الرئيسي أعلى القائمة */
+  .side-home{position:relative}
+  .side-home.active{background:#EAF4FC!important}
+  .side-home.active .lb{color:#1E6FC4!important}
+  .side-home.active .ring svg{stroke:#2878C7!important}
+  .side-home.active::before{content:"";position:absolute;inset-inline-start:0;top:9px;bottom:9px;width:3px;border-radius:99px;background:#2878C7}
   .cnav .side-more-item{display:flex!important}
   .cnav .side-grp-lbl{display:block!important;font-size:11px;font-weight:800;color:#93A6B8;
     letter-spacing:.03em;padding:8px 12px 2px;flex:none;white-space:nowrap}
@@ -7056,8 +7062,7 @@ svg{width:1.15rem;height:1.15rem}
       {l:'فريق العمل',i:'users', sub:[{l:'المناديب'},{l:'مصروفات المناديب'},{l:'تارجت',j:'الأهداف والعمولة'},{l:'ملاحظات المناديب'},{l:'الإجازات'},{l:'الحضور والإنصراف'},{l:'قيود المناديب'}]}
     ]},
     {t:'التقارير والمتابعة', items:[
-      {l:'تقارير',i:'report', sub:[{l:'تقارير المبيعات'},{l:'تقارير المخزون'},{l:'تقارير الحسابات'},{l:'أداء المناديب'}]},
-      {l:'لوحة التحكم',i:'dash',j:'لوحة التحكم'}
+      {l:'تقارير',i:'report', sub:[{l:'تقارير المبيعات'},{l:'تقارير المخزون'},{l:'تقارير الحسابات'},{l:'أداء المناديب'}]}
     ]},
     {t:'النظام والإعدادات', items:[
       {l:'إعدادات النظام',i:'settings', sub:[{l:'إعدادات المنتجات'},{l:'إعدادات المستخدمين'},{l:'إعدادات الزيارات'},{l:'إعدادات الأصول'},{l:'إعدادات الفاتورة'},{l:'إعدادات المعاينة'},{l:'إعدادات الحسابات'},{l:'إعدادات الشركة'},{l:'التقسيم الجغرافي'},{l:'أقسام التعليمات'},{l:'التعليمات'},{l:'أقسام التوثيق'},{l:'إدارة الملفات'}]},
@@ -7110,6 +7115,14 @@ svg{width:1.15rem;height:1.15rem}
     if(!wasOpen){ var x=document.getElementById('bsX'); if(x) x.click();
       else { bs.classList.remove('open'); var s=document.getElementById('bsw'); if(s) s.classList.remove('open'); } }
     var frag=document.createDocumentFragment();
+    /* «لوحة التحكم» أول عنصر أعلى القائمة (الرئيسية) */
+    var home=mkItem('لوحة التحكم', svg('dash'), function(){
+      var b=document.querySelector('#cnav > button[data-s="day"]'); if(b) b.click();
+      nav.querySelectorAll('.side-more-item.active').forEach(function(e){e.classList.remove('active');});
+      this.classList.add('active');
+    });
+    home.classList.add('side-home','active');
+    frag.appendChild(home);
     var sep=document.createElement('div'); sep.className='side-sep'; frag.appendChild(sep);
     GROUPS.forEach(function(g,gi){
       var lbl=document.createElement('div'); lbl.className='side-grp-lbl'; lbl.textContent=g.t;
