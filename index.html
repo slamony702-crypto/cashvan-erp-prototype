@@ -2384,7 +2384,7 @@ table{font-size:13.5px}
       <button id="accHelp"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .9-1 1.7"/><path d="M12 17h.01"/></svg>دليل الاستخدام<span class="ar">5 خطوات</span></button>
       <button class="dg" id="accOut"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>إنهاء يوم العمل</button>
     </div>
-    <div style="text-align:center;font-size:12px;color:#6E8297;font-weight:700;padding:10px 0 16px">إصدار التطبيق: 21 — 2026/07/29 (شعار هومي في القائمة الجانبية)</div>
+    <div style="text-align:center;font-size:12px;color:#6E8297;font-weight:700;padding:10px 0 16px">إصدار التطبيق: 22 — 2026/07/29 (قائمة النظام المتكامل)</div>
   </div>
 
   <div class="toast" id="toast"><i></i><span id="toastMsg"></span></div>
@@ -6886,52 +6886,96 @@ svg{width:1.15rem;height:1.15rem}
     var t='';[].forEach.call(btn.childNodes,function(n){ if(n.nodeType===3) t+=n.textContent; });
     t=t.trim(); return t || btn.textContent.replace(/\s+/g,' ').trim();
   }
+  /* مكتبة أيقونات خطّية موحّدة لمديولات النظام */
+  var IC={
+    sales:'<circle cx="9" cy="21" r="1.6"/><circle cx="18" cy="21" r="1.6"/><path d="M2.5 3H5l2.3 12.3a1.7 1.7 0 0 0 1.7 1.4h8.4a1.7 1.7 0 0 0 1.7-1.4L21 7H6"/>',
+    route:'<path d="M6.5 3a3.5 3.5 0 0 1 3.5 3.5C10 9 6.5 12 6.5 12S3 9 3 6.5A3.5 3.5 0 0 1 6.5 3Z"/><circle cx="6.5" cy="6.4" r="1.1"/><path d="M17.5 12a3.5 3.5 0 0 1 3.5 3.5c0 2.5-3.5 5.5-3.5 5.5s-3.5-3-3.5-5.5A3.5 3.5 0 0 1 17.5 12Z"/><path d="M9 8.5c3 .6 4.5 2.2 5 5"/>',
+    calendar:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>',
+    map:'<path d="M9 3 3 6v15l6-3 6 3 6-3V3l-6 3-6-3Z"/><path d="M9 3v15M15 6v15"/>',
+    warehouse:'<path d="M3 21V8l9-4 9 4v13"/><path d="M3 21h18M8 21v-6h8v6"/>',
+    truck:'<path d="M2 5h11v11H2z"/><path d="M13 8h4l4 4v4h-8z"/><circle cx="6" cy="18.5" r="1.6"/><circle cx="17.5" cy="18.5" r="1.6"/>',
+    supplier:'<rect x="2" y="6" width="14" height="11" rx="1.5"/><path d="M16 10h3l3 3v4h-6z"/><circle cx="7" cy="19" r="1.5"/><circle cx="18" cy="19" r="1.5"/>',
+    ledger:'<path d="M5 3h12a2 2 0 0 1 2 2v16H7a2 2 0 0 1-2-2z"/><path d="M9 7h7M9 11h7M9 15h4"/>',
+    invoice:'<path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/><path d="M9 13h7M9 17h5"/>',
+    card:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',
+    ret:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>',
+    check:'<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',
+    users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/>',
+    target:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/>',
+    report:'<path d="M4 3v18h16"/><path d="M8 15l3-4 3 2 4-6"/>',
+    dash:'<rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="5" rx="1.5"/><rect x="13" y="10" width="8" height="11" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/>',
+    branch:'<circle cx="6" cy="6" r="2.3"/><circle cx="18" cy="6" r="2.3"/><circle cx="12" cy="19" r="2.3"/><path d="M6 8.3v2.2a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8.3M12 12.5v4.2"/>',
+    usercog:'<circle cx="10" cy="8" r="3.3"/><path d="M3.5 20a6.5 6.5 0 0 1 9.5-5.8"/><circle cx="18" cy="17" r="2.1"/><path d="M18 13.7v1.2M18 19.1v1.2M20.9 17h-1.2M16.3 17H15.1"/>',
+    bell:'<path d="M18 8.5A6 6 0 0 0 6 8.5c0 7-3 8.7-3 8.7h18s-3-1.7-3-8.7"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>',
+    sync:'<path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/>',
+    settings:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1v.2a2 2 0 0 1-4 0v-.2a1.6 1.6 0 0 0-2.7-1.1l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 4.6 15H4.4a2 2 0 0 1 0-4h.2a1.6 1.6 0 0 0 1.1-2.7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 11 5.6h.2a2 2 0 0 1 4 0v.2a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-1.1 2.7v.2Z"/>',
+    info:'<circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/>'
+  };
+  function svg(k){ return '<svg viewBox="0 0 24 24" aria-hidden="true">'+(IC[k]||IC.info)+'</svg>'; }
+  /* كل مديولات النظام المتكامل — مقسّمة لأقسام (الموجود يفتح شاشته، والباقي مسميات) */
+  var GROUPS=[
+    {t:'المبيعات والتوزيع', items:[
+      {l:'المبيعات',i:'sales'},{l:'خطوط السير',i:'route'},{l:'الخطط الأسبوعية',i:'calendar'},{l:'المواقع',i:'map'}
+    ]},
+    {t:'المخزون والمشتريات', items:[
+      {l:'المخازن',i:'warehouse'},{l:'مخزون السيارة',i:'truck',j:'مخزون السيارة'},{l:'الموردين',i:'supplier'}
+    ]},
+    {t:'المحاسبة والمالية', items:[
+      {l:'الحسابات',i:'ledger'},{l:'الفواتير والقيود',i:'invoice',j:'الفواتير والقيود'},{l:'المصروفات',i:'card',j:'المصروفات'},{l:'المرتجعات',i:'ret',j:'المرتجعات'},{l:'التسوية اليومية',i:'check',j:'التسوية اليومية'}
+    ]},
+    {t:'الموارد البشرية', items:[
+      {l:'فريق العمل',i:'users'},{l:'الأهداف والعمولة',i:'target',j:'الأهداف والعمولة'}
+    ]},
+    {t:'التقارير والتحليلات', items:[
+      {l:'تقارير',i:'report'},{l:'لوحة التحكم',i:'dash',j:'لوحة التحكم'}
+    ]},
+    {t:'النظام والإعدادات', items:[
+      {l:'الفروع',i:'branch'},{l:'مستخدمي النظام',i:'usercog'},{l:'الإشعارات',i:'bell',j:'التنبيهات'},{l:'المزامنة والحفظ',i:'sync',j:'المزامنة والحفظ'},{l:'إعدادات النظام',i:'settings'},{l:'عن النظام',i:'info',j:'عن النظام'}
+    ]}
+  ];
+  function toast(msg){
+    var t=document.getElementById('toast'); if(!t) return;
+    t.textContent=msg; t.classList.add('show');
+    clearTimeout(t._st); t._st=setTimeout(function(){ t.classList.remove('show'); t.textContent=''; },2000);
+  }
+  function mkItem(text, svgHtml, onClick){
+    var b=document.createElement('button'); b.type='button'; b.className='side-more-item'; b.setAttribute('aria-label',text);
+    var ring=document.createElement('span'); ring.className='ring'; ring.innerHTML=svgHtml;
+    var lb=document.createElement('span'); lb.className='lb'; lb.textContent=text;
+    b.appendChild(ring); b.appendChild(lb); b.addEventListener('click', onClick);
+    return b;
+  }
   function build(attempt){
+    if(!mq.matches) return;
     var nav=document.getElementById('cnav'), bs=document.getElementById('bsMore');
     if(!nav||!bs) return;
-    if(nav.querySelector('.side-more-item')) return;         // مرة واحدة
-    /* محتوى «المزيد» يُرسَّم عند الفتح — شغّله بصمت (فتح ثم إغلاق فوري بلا رسم) */
+    if(nav.querySelector('.side-more-item')) return;          // مرة واحدة
+    /* اجلب الأزرار الوظيفية من ورقة «المزيد» (تُرسَّم عند الفتح) — فتح/إغلاق صامت */
     var wasOpen=bs.classList.contains('open');
+    if(!bs.querySelector('.sec')){ var mo=document.getElementById('navMore'); if(mo) mo.click(); }
     if(!bs.querySelector('.sec')){
-      var mo=document.getElementById('navMore'); if(mo) mo.click();
-    }
-    if(!bs.querySelector('.sec')){                            // لم يجهز بعد — أعد المحاولة
       if((attempt||0)<25) setTimeout(function(){ build((attempt||0)+1); }, 150);
       return;
     }
-    var groups=[];
-    bs.querySelectorAll('.sec').forEach(function(sec){
-      var title=sec.textContent.trim(), btns=[], n=sec.nextElementSibling;
-      while(n && !n.classList.contains('sec')){
-        n.querySelectorAll('button[data-jump]').forEach(function(b){ btns.push(b); });
-        n=n.nextElementSibling;
-      }
-      if(btns.length) groups.push({title:title, btns:btns});
-    });
-    if(groups.length){
-      var frag=document.createDocumentFragment();
-      var sep=document.createElement('div'); sep.className='side-sep'; frag.appendChild(sep);
-      groups.forEach(function(g){
-        var lbl=document.createElement('div'); lbl.className='side-grp-lbl'; lbl.textContent=g.title; frag.appendChild(lbl);
-        g.btns.forEach(function(orig){
-          var b=document.createElement('button'); b.type='button'; b.className='side-more-item';
-          b.setAttribute('aria-label', label(orig));
-          var ring=document.createElement('span'); ring.className='ring';
-          var svg=orig.querySelector('svg'); if(svg) ring.appendChild(svg.cloneNode(true));
-          var lb=document.createElement('span'); lb.className='lb'; lb.textContent=label(orig);
-          b.appendChild(ring); b.appendChild(lb);
-          b.addEventListener('click', function(){ orig.click(); });
-          frag.appendChild(b);
-        });
+    var map={};
+    bs.querySelectorAll('button[data-jump]').forEach(function(b){ map[label(b)]=b; });
+    if(!wasOpen){ var x=document.getElementById('bsX'); if(x) x.click();
+      else { bs.classList.remove('open'); var s=document.getElementById('bsw'); if(s) s.classList.remove('open'); } }
+    /* ابنِ القائمة الكاملة المقسّمة */
+    var frag=document.createDocumentFragment();
+    var sep=document.createElement('div'); sep.className='side-sep'; frag.appendChild(sep);
+    GROUPS.forEach(function(g,gi){
+      var lbl=document.createElement('div'); lbl.className='side-grp-lbl'; lbl.textContent=g.t;
+      if(gi>0) lbl.style.marginTop='10px';
+      frag.appendChild(lbl);
+      g.items.forEach(function(it){
+        var fn;
+        if(it.j && map[it.j]){ var orig=map[it.j]; fn=function(){ orig.click(); }; }
+        else { var nm=it.l; fn=function(){ toast('وحدة «'+nm+'» — ضمن النظام المتكامل (قريبًا)'); }; }
+        frag.appendChild(mkItem(it.l, svg(it.i), fn));
       });
-      nav.appendChild(frag);
-    }
-    /* أغلق ورقة «المزيد» إن فتحناها للرسم (بلا رسم لحالة الفتح) */
-    if(!wasOpen){
-      var x=document.getElementById('bsX');
-      if(x) x.click();
-      else { bs.classList.remove('open'); var s=document.getElementById('bsw'); if(s) s.classList.remove('open'); }
-    }
+    });
+    nav.appendChild(frag);
   }
   function tryBuild(){ if(mq.matches) build(0); }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',tryBuild); else tryBuild();
